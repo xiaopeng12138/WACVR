@@ -10,5 +10,10 @@ A plan of WACCA VR emulator
 ## Current issue
 - touch startup will fail. need to enter test mode to reconnect the touch panel
 
+## Quick guild
+- Port binding is same as my other repo MaiDXR
+- need to enter test mode to reconnect the touch panel
+- add "[touch] enable=0" to ini file
+
 ## Why this repo now?
-I don't have much time and enough skills to make this project by myself. I'm not familiar with Unreal Engine etc. So I want this project to be a community project. If someone has managed to make the game work, I will continue developing.
+I don't have much time and enough skills to make this project by myself. I'm not familiar with Unreal Engine etc. So I want this project to be a community project.
