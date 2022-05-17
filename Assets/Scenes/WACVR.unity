@@ -8135,6 +8135,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7918335002988649766, guid: fe556f8bee4726d418b982f1094ca7d3,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7918335002988649766, guid: fe556f8bee4726d418b982f1094ca7d3,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7918335002988649766, guid: fe556f8bee4726d418b982f1094ca7d3,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7918335002988649766, guid: fe556f8bee4726d418b982f1094ca7d3,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7918335002988649766, guid: fe556f8bee4726d418b982f1094ca7d3,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1ebb28175c99f574d895870a01e00d21, type: 2}
@@ -9296,7 +9316,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1908947385}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1908947387
+--- !u!114 &1908947391
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9310,11 +9330,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   searchTiming_: 0
   type_: 0
-  altTabWindow_: 0
+  altTabWindow_: 1
   createChildWindows_: 0
   childWindowPrefab: {fileID: 0}
   childWindowZDistance: 0.02
-  partialWindowTitle_: Mercury
+  partialWindowTitle_: 'Mercury (64-bit, PCD3D_SM5) '
   desktopIndex_: 0
   captureMode: 1
   capturePriority: 0
