@@ -1,5 +1,5 @@
 # WACVR
-A plan of WACCA VR emulator
+A VR arcade emulator
 
 ## Current stage:
 - Successfully started the game itself
