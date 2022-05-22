@@ -1,16 +1,33 @@
 using UnityEngine;
 using System.IO.Ports;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
 public class Serial : MonoBehaviour
 {
+
+    const byte CMD_GET_SYNC_BOARD_VER = 0xa0;
+    const byte CMD_NEXT_READ = 0x72;
+    const byte CMD_GET_UNIT_BOARD_VER = 0xa8;
+    const byte CMD_MYSTERY1 = 0xa2;
+    const byte CMD_MYSTERY2 = 0x94;
+    const byte CMD_START_AUTO_SCAN = 0xc9;
+    const byte CMD_BEGIN_WRITE = 0x77;
+    const byte CMD_NEXT_WRITE = 0x20;
+
     static SerialPort ComL = new SerialPort ("COM5", 115200);
     static SerialPort ComR = new SerialPort ("COM6", 115200);
     List<byte> inBytes;
     List<byte> Bytes;
     byte inByte;
+    string SYNC_BOARD_VER = "190523";
+    string UNIT_BOARD_VER = "190514";
+    string read1 = "    0    0    1    2    3    4    5   15   15   15   15   15   15   11   11   11";
+    string read2 = "   11   11   11  128  103  103  115  138  127  103  105  111  126  113   95  100";
+    string read3 = "  101  115   98   86   76   67   68   48  117    0   82  154    0    6   35    4";
+
     byte[] SettingData_160 = new byte[8];
     byte[] SettingData_114 = new byte[81];
     byte[] SettingData_168 = new byte[45];
@@ -27,7 +44,7 @@ public class Serial : MonoBehaviour
     {
         ComL.Open();
         ComR.Open();
-        Debug.Log("Touch Serial Started");
+        Debug.Log("Touch Serial Initializing..");
         SetSettingData_160();
         SetSettingData_201();
         SetSettingData_162();
@@ -39,8 +56,8 @@ public class Serial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ReadHead(ComL);
-        ReadHead(ComR);
+        ReadHead(ComL, 0);
+        ReadHead(ComR, 1);
         //SendTouch(ComL, TouchPackL);
         //SendTouch(ComR, TouchPackR);
         if (Input.GetKeyDown(KeyCode.M))
@@ -64,61 +81,103 @@ public class Serial : MonoBehaviour
         }
     }
 
-    void ReadHead(SerialPort Serial)
+    void ReadHead(SerialPort Serial, int side)
     {
-        while (Serial.BytesToRead > 0)
+        if(Serial.BytesToRead > 0)
         {
             inByte = Convert.ToByte(Serial.ReadByte());
-            if (inByte == 144 || inByte == 148 || inByte == 154 || inByte == 160  || inByte == 162 || inByte == 168 || inByte == 201)
-            {
-                SendResp(Serial);
-                break;
-            }
+            //Debug.Log("CMD: " + inByte);
+            var data = Serial.ReadExisting();
+            //Debug.Log("Data: " + data);
+            SendResp(Serial, side, data);
         }
+
     }
-    void SendResp(SerialPort Serial)
+    void SendResp(SerialPort Serial, int side, string data)
     {
         switch(inByte)
         {
-            case 160:
+            case CMD_GET_SYNC_BOARD_VER:
                 StartUp = false;
-                Serial.Write(SettingData_160, 0, SettingData_160.Length);
-                Debug.Log(SettingData_160.Length);
+                List<byte> syncbytes = new List<byte>();
+                syncbytes.Add(inByte);
+                syncbytes.AddRange(SettingData_160);//ByteHelper.ConvertStringToByteArray(SYNC_BOARD_VER));
+               // syncbytes.Add(ByteHelper.CalCheckSum(syncbytes.ToArray(), syncbytes.Count));
+                Serial.Write(syncbytes.ToArray(), 0, syncbytes.Count);
+                Debug.Log($"GET SYNC BOARD VER {side}");
                 //Bytes.Clear();
                 break;
-            case 114:
+            case CMD_NEXT_READ:
                 StartUp = false;
-                Debug.Log(114);
-                Serial.Write(SettingData_114, 0, 81);
+                Debug.Log($"Side {side} NEXT READ {Convert.ToByte(data[2])}");
+                switch (Convert.ToByte(data[2]))
+                {
+                    case 0x30:
+                        var bytes = ByteHelper.ConvertStringToByteArray(read1);
+                        bytes.Add(ByteHelper.CalCheckSum(bytes.ToArray(), bytes.Count));
+                        Debug.Log("Read 1");
+                        Serial.Write(bytes.ToArray(), 0, bytes.Count);
+                        break;
+                    case 0x31:
+                        var bytes2 = ByteHelper.ConvertStringToByteArray(read2);
+                        bytes2.Add(ByteHelper.CalCheckSum(bytes2.ToArray(), bytes2.Count));
+                        Debug.Log("Read 2");
+                        Serial.Write(bytes2.ToArray(), 0, bytes2.Count);
+                        break;
+                    case 0x33:
+                        var bytes3 = ByteHelper.ConvertStringToByteArray(read3);
+                        bytes3.Add(ByteHelper.CalCheckSum(bytes3.ToArray(), bytes3.Count));
+                        Debug.Log("Read 3");
+                        Serial.Write(bytes3.ToArray(), 0, bytes3.Count);
+                        break;
+                    default:
+                        Debug.Log("Extra Read");
+                        break;
+                }
+               // Serial.Write(SettingData_114, 0, 81);
                 //Bytes.Clear();
                 break;
-            case 168:
+            case CMD_GET_UNIT_BOARD_VER:
                 StartUp = false;
-                Serial.Write(SettingData_168, 0, 45);
-                Debug.Log(168);
+                List<byte> unitBytes = new List<byte>();
+                unitBytes.AddRange(SettingData_168);
+                unitBytes[7] = (side == 0 ? (byte)82 : (byte)76);
+                unitBytes[44] = (side == 0 ? (byte)118 : (byte)104);
+                //    for (int i = 0; i < 6; i++)
+                //        unitBytes.AddRange(ByteHelper.ConvertStringToByteArray(UNIT_BOARD_VER));
+                //    unitBytes.Add(0);
+                //     unitBytes[44] = ByteHelper.CalCheckSum(unitBytes.ToArray(), unitBytes.Count);
+                Serial.Write(unitBytes.ToArray(), 0, unitBytes.Count);
+                Debug.Log($"GET UNIT BOARD VER {side}");
+                Debug.Log($"UNIT BOARD VER {string.Join(" ", unitBytes)}");
                 //Bytes.Clear();
                 break;
-            case 162:
+            case CMD_MYSTERY1:
                 StartUp = false;
                 Serial.Write(SettingData_162, 0, 3);
-                Debug.Log(162);
-                Debug.Log(SettingData_162.Length);
+                Debug.Log("MYSTERY 1");
                 Debug.Log("RX: "+SettingData_162[0]+"-"+
                                     SettingData_162[1]+"-"+
                                     SettingData_162[2]);
                 //Bytes.Clear();
                 break;
-            case 148:
+            case CMD_MYSTERY2:
                 StartUp = false;
                 Serial.Write(SettingData_148, 0, 3);
-                Debug.Log(148);
+                Debug.Log("MYSTERY 2");
                 //Bytes.Clear();
                 break;
-            case 201:
+            case CMD_START_AUTO_SCAN:
                 Serial.Write(SettingData_201.ToArray(), 0, 3);
-                Debug.Log(201);
+                Debug.Log("START AUTO SCAN");
                 //Bytes.Clear();
                 StartUp = true;
+                break;
+            case CMD_BEGIN_WRITE:
+                Debug.Log($"Begin Write For Side {side}");
+                break;
+            case CMD_NEXT_WRITE:
+                Debug.Log($"Continue Write For Side {side}");
                 break;
             case 154:
                 StartUp = false;
@@ -206,10 +265,17 @@ public static class ByteHelper
             _CheckSumByte ^= _PacketData[i];
         return _CheckSumByte;
     }
+    public static List<byte> ConvertStringToByteArray(string data)
+    {
+        List<byte> tempList = new List<byte>(100);
+        for(int i = 0; i < data.Length; i++)
+            tempList.Add(Convert.ToByte(data[i]));
+        return tempList;
+    }
     public static byte[] ConvertTextToByteArray(TextAsset TextObj)
     {
         var splitedData = TextObj.text.Split(Convert.ToChar("\n"));
-        byte[] tempList = new byte[100];
+        byte[] tempList = new byte[splitedData.Length];
         for (int i = 0; i < splitedData.Length; i++)
             tempList[i] = Convert.ToByte(splitedData[i]);
         return tempList;
