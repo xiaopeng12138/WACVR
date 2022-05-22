@@ -50,8 +50,10 @@ public class Serial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ReadHead(ComL, 0);
-        ReadHead(ComR, 1);
+        if(ComL.IsOpen)
+            ReadHead(ComL, 0);
+        if (ComR.IsOpen)
+            ReadHead(ComR, 1);
         //SendTouch(ComL, TouchPackL);
         //SendTouch(ComR, TouchPackR);
         if (Input.GetKeyDown(KeyCode.M))
