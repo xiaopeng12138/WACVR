@@ -19,8 +19,7 @@ public class Serial : MonoBehaviour
 
     static SerialPort ComL = new SerialPort ("COM5", 115200);
     static SerialPort ComR = new SerialPort ("COM6", 115200);
-    List<byte> inBytes;
-    List<byte> Bytes;
+
     byte inByte;
     string SYNC_BOARD_VER = "190523";
     string UNIT_BOARD_VER = "190514";
@@ -29,16 +28,12 @@ public class Serial : MonoBehaviour
     string read3 = "  101  115   98   86   76   67   68   48  117    0   82  154    0    6   35    4";
 
     byte[] SettingData_160 = new byte[8];
-    byte[] SettingData_114 = new byte[81];
-    byte[] SettingData_168 = new byte[45];
     byte[] SettingData_162 = new byte[7];
     byte[] SettingData_148 = new byte[7];
     byte[] SettingData_201 = new byte[7];
     int TouchPackCounter = 0;
     static byte[] TouchPackL = new byte[36];
     static byte[] TouchPackR = new byte[36];
-    public TextAsset SettingData_114_Text;
-    public TextAsset SettingData_168_Text;
     bool StartUp = false;
     void Start()
     {
@@ -49,8 +44,7 @@ public class Serial : MonoBehaviour
         SetSettingData_201();
         SetSettingData_162();
         SetSettingData_148();
-        SettingData_114 = ByteHelper.ConvertTextToByteArray(SettingData_114_Text);
-        SettingData_168 = ByteHelper.ConvertTextToByteArray(SettingData_168_Text);
+       // SettingData_168 = ByteHelper.ConvertTextToByteArray(SettingData_168_Text);
     }
 
     // Update is called once per frame
@@ -86,9 +80,7 @@ public class Serial : MonoBehaviour
         if(Serial.BytesToRead > 0)
         {
             inByte = Convert.ToByte(Serial.ReadByte());
-            //Debug.Log("CMD: " + inByte);
             var data = Serial.ReadExisting();
-            //Debug.Log("Data: " + data);
             SendResp(Serial, side, data);
         }
 
@@ -98,16 +90,19 @@ public class Serial : MonoBehaviour
         switch(inByte)
         {
             case CMD_GET_SYNC_BOARD_VER:
+                //Response: cmd byte + sync board ver + checksum
                 StartUp = false;
                 List<byte> syncbytes = new List<byte>();
                 syncbytes.Add(inByte);
-                syncbytes.AddRange(SettingData_160);//ByteHelper.ConvertStringToByteArray(SYNC_BOARD_VER));
-               // syncbytes.Add(ByteHelper.CalCheckSum(syncbytes.ToArray(), syncbytes.Count));
+                syncbytes.AddRange(ByteHelper.ConvertStringToByteArray(SYNC_BOARD_VER));
+                byte syncCheckSum = (byte)44;
+                syncbytes.Add(syncCheckSum);
                 Serial.Write(syncbytes.ToArray(), 0, syncbytes.Count);
                 Debug.Log($"GET SYNC BOARD VER {side}");
                 //Bytes.Clear();
                 break;
             case CMD_NEXT_READ:
+                //Response: corresponding read bytes + checksum
                 StartUp = false;
                 Debug.Log($"Side {side} NEXT READ {Convert.ToByte(data[2])}");
                 switch (Convert.ToByte(data[2]))
@@ -138,46 +133,44 @@ public class Serial : MonoBehaviour
                 //Bytes.Clear();
                 break;
             case CMD_GET_UNIT_BOARD_VER:
+                //Response: cmd byte + sync board ver bytes + 'L'/'R' based on side + unit board ver bytes x6 + checksum
                 StartUp = false;
                 List<byte> unitBytes = new List<byte>();
-                unitBytes.AddRange(SettingData_168);
-                unitBytes[7] = (side == 0 ? (byte)82 : (byte)76);
-                unitBytes[44] = (side == 0 ? (byte)118 : (byte)104);
-                //    for (int i = 0; i < 6; i++)
-                //        unitBytes.AddRange(ByteHelper.ConvertStringToByteArray(UNIT_BOARD_VER));
-                //    unitBytes.Add(0);
-                //     unitBytes[44] = ByteHelper.CalCheckSum(unitBytes.ToArray(), unitBytes.Count);
+                byte sideByte = (side == 0 ? Convert.ToByte('R') : Convert.ToByte('L'));
+                byte unitCheckSum = (side == 0 ? (byte)118 : (byte)104);
+                unitBytes.Add(inByte);
+                unitBytes.AddRange(ByteHelper.ConvertStringToByteArray(SYNC_BOARD_VER));
+                unitBytes.Add(sideByte);
+                for (int i = 0; i < 6; i++)
+                        unitBytes.AddRange(ByteHelper.ConvertStringToByteArray(UNIT_BOARD_VER));
+                unitBytes.Add(unitCheckSum);
                 Serial.Write(unitBytes.ToArray(), 0, unitBytes.Count);
                 Debug.Log($"GET UNIT BOARD VER {side}");
-                Debug.Log($"UNIT BOARD VER {string.Join(" ", unitBytes)}");
                 //Bytes.Clear();
                 break;
             case CMD_MYSTERY1:
                 StartUp = false;
                 Serial.Write(SettingData_162, 0, 3);
-                Debug.Log("MYSTERY 1");
-                Debug.Log("RX: "+SettingData_162[0]+"-"+
-                                    SettingData_162[1]+"-"+
-                                    SettingData_162[2]);
+                Debug.Log($"MYSTERY 1 SIDE {side}");
                 //Bytes.Clear();
                 break;
             case CMD_MYSTERY2:
                 StartUp = false;
                 Serial.Write(SettingData_148, 0, 3);
-                Debug.Log("MYSTERY 2");
+                Debug.Log($"MYSTERY 2 SIDE {side}");
                 //Bytes.Clear();
                 break;
             case CMD_START_AUTO_SCAN:
                 Serial.Write(SettingData_201.ToArray(), 0, 3);
-                Debug.Log("START AUTO SCAN");
+                Debug.Log($"START AUTO SCAN SIDE {side}");
                 //Bytes.Clear();
                 StartUp = true;
                 break;
             case CMD_BEGIN_WRITE:
-                Debug.Log($"Begin Write For Side {side}");
+          //      Debug.Log($"Begin Write For Side {side}");
                 break;
             case CMD_NEXT_WRITE:
-                Debug.Log($"Continue Write For Side {side}");
+          //      Debug.Log($"Continue Write For Side {side}");
                 break;
             case 154:
                 StartUp = false;
