@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Collections;
 public class Serial : MonoBehaviour
 {
 
@@ -31,7 +30,6 @@ public class Serial : MonoBehaviour
     byte[] SettingData_162 = new byte[7];
     byte[] SettingData_148 = new byte[7];
     byte[] SettingData_201 = new byte[7];
-    int TouchPackCounter = 0;
     static byte[] TouchPackL = new byte[36];
     static byte[] TouchPackR = new byte[36];
     bool StartUp = false;
@@ -44,20 +42,16 @@ public class Serial : MonoBehaviour
         SetSettingData_201();
         SetSettingData_162();
         SetSettingData_148();
-       // SettingData_168 = ByteHelper.ConvertTextToByteArray(SettingData_168_Text);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(ComL.IsOpen)
             ReadHead(ComL, 0);
         if (ComR.IsOpen)
             ReadHead(ComR, 1);
-        //SendTouch(ComL, TouchPackL);
-        //SendTouch(ComR, TouchPackR);
-        if (Input.GetKeyDown(KeyCode.M))
-            StartCoroutine(Test(true));
+        if (Input.GetKeyDown(KeyCode.M)) //this is a touch test code
+            StartCoroutine(TouchTest(true));
     }
 
     private void FixedUpdate() {
@@ -65,7 +59,7 @@ public class Serial : MonoBehaviour
         SendTouch(ComR, TouchPackR);
     }
 
-    IEnumerator Test(bool State)
+    IEnumerator TouchTest(bool State) //this is a touch test code
     {
         for (int i = 0; i < 240; i++)
         {
@@ -77,7 +71,7 @@ public class Serial : MonoBehaviour
         }
     }
 
-    void ReadHead(SerialPort Serial, int side)
+    void ReadHead(SerialPort Serial, int side) //Read head byte
     {
         if(Serial.BytesToRead > 0)
         {
@@ -101,7 +95,6 @@ public class Serial : MonoBehaviour
                 syncbytes.Add(syncCheckSum);
                 Serial.Write(syncbytes.ToArray(), 0, syncbytes.Count);
                 Debug.Log($"GET SYNC BOARD VER {side}");
-                //Bytes.Clear();
                 break;
             case CMD_NEXT_READ:
                 //Response: corresponding read bytes + checksum
@@ -131,8 +124,6 @@ public class Serial : MonoBehaviour
                         Debug.Log("Extra Read");
                         break;
                 }
-               // Serial.Write(SettingData_114, 0, 81);
-                //Bytes.Clear();
                 break;
             case CMD_GET_UNIT_BOARD_VER:
                 //Response: cmd byte + sync board ver bytes + 'L'/'R' based on side + unit board ver bytes x6 + checksum
@@ -148,24 +139,20 @@ public class Serial : MonoBehaviour
                 unitBytes.Add(unitCheckSum);
                 Serial.Write(unitBytes.ToArray(), 0, unitBytes.Count);
                 Debug.Log($"GET UNIT BOARD VER {side}");
-                //Bytes.Clear();
                 break;
             case CMD_MYSTERY1:
                 StartUp = false;
                 Serial.Write(SettingData_162, 0, 3);
                 Debug.Log($"MYSTERY 1 SIDE {side}");
-                //Bytes.Clear();
                 break;
             case CMD_MYSTERY2:
                 StartUp = false;
                 Serial.Write(SettingData_148, 0, 3);
                 Debug.Log($"MYSTERY 2 SIDE {side}");
-                //Bytes.Clear();
                 break;
             case CMD_START_AUTO_SCAN:
                 Serial.Write(SettingData_201.ToArray(), 0, 3);
                 Debug.Log($"START AUTO SCAN SIDE {side}");
-                //Bytes.Clear();
                 StartUp = true;
                 break;
             case CMD_BEGIN_WRITE:
@@ -177,12 +164,11 @@ public class Serial : MonoBehaviour
             case 154:
                 StartUp = false;
                 Debug.Log("BAD");
-                //Bytes.Clear();
                 break;
         }
     }
 
-    byte[] GetTouchPack(byte[] Pack)
+    byte[] GetTouchPack(byte[] Pack) //convert touch to right format for game
     {
         Pack[0] = 129;
         Pack[34] = Pack[34]++;
@@ -192,12 +178,12 @@ public class Serial : MonoBehaviour
             Pack[34] = 0;
         return Pack;
     }
-    void SendTouch(SerialPort Serial, byte[] Pack)
+    void SendTouch(SerialPort Serial, byte[] Pack) //Send touch data
     {
         if (StartUp)
             Serial.Write(GetTouchPack(Pack), 0, 36);
     }
-    public static void SetTouch(int Area, bool State)
+    public static void SetTouch(int Area, bool State) //set touch data 0-239
     {
         Area +=1;
         if (Area < 121)
@@ -265,14 +251,6 @@ public static class ByteHelper
         List<byte> tempList = new List<byte>(100);
         for(int i = 0; i < data.Length; i++)
             tempList.Add(Convert.ToByte(data[i]));
-        return tempList;
-    }
-    public static byte[] ConvertTextToByteArray(TextAsset TextObj)
-    {
-        var splitedData = TextObj.text.Split(Convert.ToChar("\n"));
-        byte[] tempList = new byte[splitedData.Length];
-        for (int i = 0; i < splitedData.Length; i++)
-            tempList[i] = Convert.ToByte(splitedData[i]);
         return tempList;
     }
 }
