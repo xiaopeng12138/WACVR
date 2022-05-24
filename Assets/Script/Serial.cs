@@ -1,9 +1,9 @@
-using UnityEngine;
-using System.IO.Ports;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
+using UnityEngine;
 public class Serial : MonoBehaviour
 {
 
@@ -42,6 +42,10 @@ public class Serial : MonoBehaviour
         SetSettingData_201();
         SetSettingData_162();
         SetSettingData_148();
+        //Send touch update periodically to keep "read" alive
+        InvokeRepeating("SendTouchState", 0, 1);
+        //Send touch updates whenever actual state changes to achieve desired update frequency without overloading
+        ColliderToSerial.touchDidChange += SendTouchState;
     }
 
     void Update()
@@ -50,13 +54,22 @@ public class Serial : MonoBehaviour
             ReadHead(ComL, 0);
         if (ComR.IsOpen)
             ReadHead(ComR, 1);
-        if (Input.GetKeyDown(KeyCode.M)) //this is a touch test code
-            StartCoroutine(TouchTest(true));
+        //  if (Input.GetKeyDown(KeyCode.M)) //this is a touch test code
+        //      StartCoroutine(TouchTest(true));
+        if (Input.GetKeyDown(KeyCode.M) && StartUp)
+            SendTouchState();
     }
 
-    private void FixedUpdate() {
-        SendTouch(ComL, TouchPackL);
+    private void SendTouchState()
+    {
+        Debug.Log("Sending Touch State");
+        Debug.Log("Sending Left");
+         SendTouch(ComL, TouchPackL);
+        Debug.Log("Sending Right");
         SendTouch(ComR, TouchPackR);
+    }
+    private void FixedUpdate() {
+      //SendTouchState();
     }
 
     IEnumerator TouchTest(bool State) //this is a touch test code
@@ -181,7 +194,13 @@ public class Serial : MonoBehaviour
     void SendTouch(SerialPort Serial, byte[] Pack) //Send touch data
     {
         if (StartUp)
-            Serial.Write(GetTouchPack(Pack), 0, 36);
+        {
+      //      Debug.Log($"Pack {string.Join(" ", Pack)}");
+            var output = GetTouchPack(Pack);
+       //     Debug.Log($"Output {string.Join(" ", output)}");
+            Serial.Write(output, 0, 36);
+        }
+
     }
     public static void SetTouch(int Area, bool State) //set touch data 0-239
     {
