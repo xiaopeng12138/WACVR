@@ -21,7 +21,7 @@ public class PanelButton : MonoBehaviour
     private Renderer cr;
     public GameObject camera;
     private AudioSource audioSrc;
-    public static AudioClip btnSound;
+    private static AudioClip btnSound;
 
     void Start()
     {
