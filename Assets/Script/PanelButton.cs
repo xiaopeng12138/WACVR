@@ -34,8 +34,6 @@ public class PanelButton : MonoBehaviour
         audioSrc.playOnAwake = false;
         audioSrc.clip = btnSound;
 
-        Debug.Log(cr.material.color);
-
         if (isToggle)
         {
             // initialize toggle state
@@ -95,20 +93,5 @@ public class PanelButton : MonoBehaviour
         keybd_event(System.Convert.ToByte(key2), (byte)MapVirtualKey((uint)key2, 0), 2, UIntPtr.Zero);
         if (!isToggle)
             cr.material.color = Color.gray;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Home))
-        {
-            camera?.SetActive(true);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.End))
-        {
-            camera?.SetActive(false);
-        }
-
     }
 }
