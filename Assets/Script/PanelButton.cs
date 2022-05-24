@@ -45,9 +45,9 @@ public class PanelButton : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         _insideColliderCount += 1;
+        ButtonPress();
         if (doesBeep)
             audioSrc.Play();
-        ButtonPress();
     }
 
     private void OnTriggerExit(Collider other)
