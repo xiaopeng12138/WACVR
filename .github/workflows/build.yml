@@ -30,6 +30,7 @@ jobs:
         with:
             unity-username: ${{ secrets.UNITY_USERNAME }}
             unity-password: ${{ secrets.UNITY_PASSWORD }}
+            unity-authenticator-key: ${{ secrets.UNITY_AUTHENTICATOR_KEY }}
 
       - name: Build WACVR
         uses: kuler90/build-unity@v1.0.4
