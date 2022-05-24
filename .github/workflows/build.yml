@@ -2,9 +2,11 @@ name: Build WACVR
 
 on:
   push:
-    paths-ignore:
-      - '.github/**'
-      - '.vscode/**'
+    paths:
+      - 'Assets/**'
+      - 'Packages/**'
+      - 'ProjectSettings/**'
+      - 'UserSettings/**'
   workflow_dispatch:
 
 jobs:
