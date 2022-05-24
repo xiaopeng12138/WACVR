@@ -1,0 +1,46 @@
+name: Build WACVR
+
+on:
+  push:
+    paths:
+      - 'Assets/**'
+      - 'Packages/**'
+      - 'ProjectSettings/**'
+      - 'UserSettings/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Cache project
+        uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+
+      - name: Setup Unity
+        uses: kuler90/setup-unity@v1.0.8
+
+      - name: Activate Unity
+        uses: kuler90/activate-unity@v1.1.2
+        with:
+            unity-username: ${{ secrets.UNITY_USERNAME }}
+            unity-password: ${{ secrets.UNITY_PASSWORD }}
+            unity-authenticator-key: ${{ secrets.UNITY_AUTHENTICATOR_KEY }}
+
+      - name: Build WACVR
+        uses: kuler90/build-unity@v1.0.4
+        with:
+          build-target: StandaloneWindows64
+          build-path: ./build/WACVR.exe
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          path: ./build/

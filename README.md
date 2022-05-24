@@ -1,18 +1,17 @@
 # WACVR
 A VR arcade emulator
 
-## Current stage:
+## Current stage
 - Successfully started the game itself
-- Semi-successfully initialized touch
+- Successfully initialized touch
 - Successfully send touch signal
 - Successfully enabled Freeplay and tested the touch signal in game
 
 ## Current issue
-- touch startup will fail. need to enter test mode to reconnect the touch panel
+- None!
 
 ## Quick guide
 - Port binding is same as my other repo MaiDXR
-- need to enter test mode to reconnect the touch panel
 - add "[touch] enable=0" to ini file
 
 ## Why this repo now?
