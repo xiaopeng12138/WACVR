@@ -21,7 +21,7 @@ public class PanelLocker : MonoBehaviour
     [SerializeField]
     private AudioSource audioSrc;
     [SerializeField]
-    private List<PanelButton> panelButtons;
+    private List<GameObject> panelButtons;
 
     [Header("Assets")]
     [SerializeField]
@@ -67,11 +67,10 @@ public class PanelLocker : MonoBehaviour
 
                 timerRing.color = Color.cyan;
                 statusImg.texture = isLocked ? lockImg : unlockImg;
-
-                // set buttons' state
+                
                 foreach (var btn in panelButtons)
                 {
-                    btn.GetComponent<Collider>().enabled = !isLocked;
+                    btn.SetActive(!isLocked);
                 }
 
                 actionTaken = true;
