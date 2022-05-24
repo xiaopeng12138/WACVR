@@ -35,7 +35,7 @@ public class PanelLocker : MonoBehaviour
 
     private void Start()
     {
-        statusImg.texture = unlockImg;
+        statusImg.texture = isLocked ? lockImg : unlockImg;
         audioSrc.clip = lockSound;
     }
 
@@ -61,19 +61,18 @@ public class PanelLocker : MonoBehaviour
             if (ratio >= 1 && !actionTaken)
             {
                 isLocked = !isLocked;
-            
-                audioSrc.clip = isLocked ? lockSound : unlockSound;
-                audioSrc.Play();
-
-                timerRing.color = Color.cyan;
-                statusImg.texture = isLocked ? lockImg : unlockImg;
                 
                 foreach (var btn in panelButtons)
                 {
                     btn.SetActive(!isLocked);
                 }
-
                 actionTaken = true;
+
+                timerRing.color = Color.cyan;
+                statusImg.texture = isLocked ? lockImg : unlockImg;
+
+                audioSrc.clip = isLocked ? lockSound : unlockSound;
+                audioSrc.Play();
             }
         }
         else
