@@ -15,6 +15,8 @@ public class PanelButton : MonoBehaviour
     public VirtualKeyCode key2;
 
     public bool isToggle;
+    public bool doesBeep;
+
     public bool isOn;
     private int _insideColliderCount = 0;
 
@@ -30,24 +32,39 @@ public class PanelButton : MonoBehaviour
 
         audioSrc = GetComponent<AudioSource>();
         audioSrc.playOnAwake = false;
-        audioSrc.Stop();
         audioSrc.clip = btnSound;
 
         if (isToggle)
         {
             // initialize toggle state
-            OnTriggerEnter(new Collider());
-            OnTriggerExit(new Collider());
+            ButtonPress();
+            ButtonRelease();
         }
     }
     
     private void OnTriggerEnter(Collider other)
     {
         _insideColliderCount += 1;
-        audioSrc.Play();
+        if (doesBeep)
+            audioSrc.Play();
+        ButtonPress();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        _insideColliderCount = Mathf.Clamp(_insideColliderCount - 1, 0, _insideColliderCount);
+
+        if (_insideColliderCount == 0)
+        {
+            ButtonRelease();
+        }
+    }
+
+    private void ButtonPress()
+    {
         if (isToggle)
         {
-            if(!isOn)
+            if (!isOn)
             {
                 cr.material.color = Color.green;
                 keybd_event(System.Convert.ToByte(key2), (byte)MapVirtualKey((uint)key2, 0), 2, UIntPtr.Zero);
@@ -65,35 +82,16 @@ public class PanelButton : MonoBehaviour
         }
         else
         {
+            cr.material.color = Color.white;
             keybd_event(System.Convert.ToByte(key), (byte)MapVirtualKey((uint)key, 0), 0, UIntPtr.Zero);
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void ButtonRelease()
     {
-        _insideColliderCount = Mathf.Clamp(_insideColliderCount - 1, 0, _insideColliderCount);
-
-        if (_insideColliderCount == 0)
-        {
-            keybd_event(System.Convert.ToByte(key), (byte)MapVirtualKey((uint)key, 0), 2, UIntPtr.Zero);
-            keybd_event(System.Convert.ToByte(key2), (byte)MapVirtualKey((uint)key2, 0), 2, UIntPtr.Zero);
-        }
-    }
-
-    
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Home))
-        {
-            camera?.SetActive(true);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.End))
-        {
-            camera?.SetActive(false);
-        }
-
+        keybd_event(System.Convert.ToByte(key), (byte)MapVirtualKey((uint)key, 0), 2, UIntPtr.Zero);
+        keybd_event(System.Convert.ToByte(key2), (byte)MapVirtualKey((uint)key2, 0), 2, UIntPtr.Zero);
+        if (!isToggle)
+            cr.material.color = Color.gray;
     }
 }
