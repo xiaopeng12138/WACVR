@@ -9296,14 +9296,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skyboxes:
   - {fileID: 2100000, guid: 0ba3af3c38a13144aa37791cc1c0dca2, type: 2}
-  - {fileID: 2100000, guid: f531e09e2ad2fb440b4eed7605863143, type: 2}
-  - {fileID: 2100000, guid: efd1c33efd2d58340b88804268e6833f, type: 2}
-  - {fileID: 2100000, guid: c52c5d7968fa6c9499b0b5752f899bfb, type: 2}
-  - {fileID: 2100000, guid: 2039a0ad0a9d05549928b70362f54902, type: 2}
-  - {fileID: 2100000, guid: 16bc8a9d5451ca44d8f70575adbece3a, type: 2}
-  - {fileID: 2100000, guid: f15c336556dd74f40aaca655f7767970, type: 2}
-  - {fileID: 2100000, guid: 119ec07f1c7ed204db46bd8465fd5a50, type: 2}
-  - {fileID: 2100000, guid: 5d133deeaa66ed445853e946ff25e073, type: 2}
   currentSkyboxIndex: 0
   incrementBtn: {fileID: 120657184}
   decrementBtn: {fileID: 195317965}
