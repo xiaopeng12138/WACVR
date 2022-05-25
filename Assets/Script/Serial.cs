@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.IO.Ports;
 using System.Linq;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class Serial : MonoBehaviour
     const byte CMD_BEGIN_WRITE = 0x77;
     const byte CMD_NEXT_WRITE = 0x20;
 
+    private Thread _touchThread;
+    private Queue _touchQueue;
     static SerialPort ComL = new SerialPort ("COM5", 115200);
     static SerialPort ComR = new SerialPort ("COM6", 115200);
 
@@ -50,11 +53,29 @@ public class Serial : MonoBehaviour
         SetSettingData_162();
         SetSettingData_148();
         //Send touch update periodically to keep "read" alive
-        InvokeRepeating("SendTouchState", 0, 1);
+        _touchQueue = Queue.Synchronized(new Queue());
+        _touchThread = new Thread(TouchThreadLoop);
+        InvokeRepeating("PingTouchThread", 0, 1);
         //Send touch updates whenever actual state changes to achieve desired update frequency without overloading
-        ColliderToSerial.touchDidChange += SendTouchState;
+        ColliderToSerial.touchDidChange += PingTouchThread;
     }
 
+    private void PingTouchThread()
+    {
+        _touchQueue.Enqueue(1);
+    }
+
+    private void TouchThreadLoop()
+    {
+        while(true)
+        {
+            if(_touchQueue.Count > 0)
+            {
+                _touchQueue.Dequeue();
+                SendTouchState();
+            }
+        }
+    }
     private void OnDestroy()
     {
         ComL.Close();
@@ -182,6 +203,8 @@ public class Serial : MonoBehaviour
                 Serial.Write(SettingData_201.ToArray(), 0, 3);
                 Debug.Log($"START AUTO SCAN SIDE {side}");
                 StartUp = true;
+                if (!_touchThread.IsAlive)
+                    _touchThread.Start();
                 break;
             case CMD_BEGIN_WRITE:
           //      Debug.Log($"Begin Write For Side {side}");
