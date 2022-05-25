@@ -35,8 +35,15 @@ public class Serial : MonoBehaviour
     bool StartUp = false;
     void Start()
     {
-        ComL.Open();
-        ComR.Open();
+        try
+        {
+            ComL.Open();
+            ComR.Open();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failed to Open Serial Ports: {ex}");
+        }
         Debug.Log("Touch Serial Initializing..");
         SetSettingData_160();
         SetSettingData_201();
