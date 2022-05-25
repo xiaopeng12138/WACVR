@@ -10348,9 +10348,9 @@ MonoBehaviour:
   captureMode: 1
   capturePriority: 0
   captureRequestTiming: 0
-  captureFrameRate: 240
+  captureFrameRate: 60
   drawCursor: 0
-  updateTitle: 1
+  updateTitle: 0
   searchAnotherWindowWhenInvalid: 0
   scaleControlType: 3
   scalePer1000Pixel: 1
