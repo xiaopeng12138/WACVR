@@ -48,6 +48,11 @@ public class Serial : MonoBehaviour
         ColliderToSerial.touchDidChange += SendTouchState;
     }
 
+    private void OnDestroy()
+    {
+        ComL.Close();
+        ComR.Close();
+    }
     void Update()
     {
         if(ComL.IsOpen)
@@ -62,11 +67,14 @@ public class Serial : MonoBehaviour
 
     private void SendTouchState()
     {
-        Debug.Log("Sending Touch State");
-        Debug.Log("Sending Left");
-         SendTouch(ComL, TouchPackL);
-        Debug.Log("Sending Right");
-        SendTouch(ComR, TouchPackR);
+        if(StartUp)
+        {
+            Debug.Log("Sending Touch State");
+            // Debug.Log("Sending Left");
+            SendTouch(ComL, TouchPackL);
+            //  Debug.Log("Sending Right");
+            SendTouch(ComR, TouchPackR);
+        }
     }
     private void FixedUpdate() {
       //SendTouchState();
