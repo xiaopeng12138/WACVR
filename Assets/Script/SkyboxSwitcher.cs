@@ -42,6 +42,7 @@ public class SkyboxSwitcher : MonoBehaviour
     private void SetSkybox()
     {
         counterTxt.text = (currentSkyboxIndex + 1).ToString();
-        RenderSettings.skybox = skyboxes[currentSkyboxIndex];
+        if (skyboxes[currentSkyboxIndex] != null)
+            RenderSettings.skybox = skyboxes[currentSkyboxIndex];
     }
 }
