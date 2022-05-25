@@ -469,10 +469,10 @@
                 {
                     "name": "",
                     "id": "683a2256-f701-48fd-a51f-2b7583a9e77b",
-                    "path": "<XRController>{LeftHand}/primaryButton",
+                    "path": "<XRController>{LeftHand}/triggerButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": "Generic XR Controller;Noncontinuous Move;Continuous Move",
                     "action": "Locomotion Toggle Chord (Left)",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1007,10 +1007,10 @@
                 {
                     "name": "",
                     "id": "5c238ca1-684c-4082-a5d3-26cb54179038",
-                    "path": "<XRController>{RightHand}/primaryButton",
+                    "path": "<XRController>{RightHand}/triggerButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Generic XR Controller",
+                    "groups": "Generic XR Controller;Continuous Move;Noncontinuous Move",
                     "action": "Locomotion Toggle Chord (Right)",
                     "isComposite": false,
                     "isPartOfComposite": false

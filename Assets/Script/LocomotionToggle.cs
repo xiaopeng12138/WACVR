@@ -49,6 +49,9 @@ public class LocomotionToggle : MonoBehaviour
         soundOn = Resources.Load<AudioClip>("Audio/loco on");
         soundOff = Resources.Load<AudioClip>("Audio/loco off");
 
+        leftHandAction.action.Enable();
+        rightHandAction.action.Enable();
+
         leftHandAction.action.started +=
             (InputAction.CallbackContext _) => leftHeld = true;
         leftHandAction.action.canceled +=
