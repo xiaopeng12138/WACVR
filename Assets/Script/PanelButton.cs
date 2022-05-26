@@ -11,6 +11,9 @@ public class PanelButton : MonoBehaviour
     [DllImport("user32.dll")]
     static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
 
+    public event Action ButtonPressed;
+    public event Action ButtonReleased;
+
     public VirtualKeyCode key;
     public VirtualKeyCode key2;
 
@@ -62,6 +65,7 @@ public class PanelButton : MonoBehaviour
 
     private void ButtonPress()
     {
+        ButtonPressed?.Invoke();
         if (isToggle)
         {
             if (!isOn)
@@ -89,6 +93,7 @@ public class PanelButton : MonoBehaviour
 
     private void ButtonRelease()
     {
+        ButtonReleased?.Invoke();
         keybd_event(System.Convert.ToByte(key), (byte)MapVirtualKey((uint)key, 0), 2, UIntPtr.Zero);
         keybd_event(System.Convert.ToByte(key2), (byte)MapVirtualKey((uint)key2, 0), 2, UIntPtr.Zero);
         if (!isToggle)
