@@ -57,16 +57,13 @@ public class SkyboxSwitcher : MonoBehaviour
             yield return uwr.SendWebRequest();
             if (uwr.result == UnityWebRequest.Result.ConnectionError)
             {
-                Debug.Log($"Had trouble loading file {uwr.uri}.");
+                Debug.LogWarning($"Couldn't load skybox texture at {uwr.uri}.");
             }
             else
             {
                 var skyboxMat = new Material(Shader.Find("Skybox/Panoramic"));
                 skyboxMat.SetFloat("_Rotation", 45f);
                 var texture = DownloadHandlerTexture.GetContent(uwr);
-                Debug.Log(uwr.uri);
-                Debug.Log(texture);
-                Debug.Log("////////////");
                 if (texture != null)
                 {
                     skyboxMat.SetTexture("_MainTex", texture);
