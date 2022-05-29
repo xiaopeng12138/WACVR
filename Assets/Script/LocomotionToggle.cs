@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(AudioSource))]
 public class LocomotionToggle : MonoBehaviour
 {
     [System.Serializable]
