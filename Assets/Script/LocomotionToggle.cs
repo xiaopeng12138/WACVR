@@ -45,7 +45,6 @@ public class LocomotionToggle : MonoBehaviour
             locoEvent = new LocomotionToggleEvent();
 
         audioSrc = GetComponent<AudioSource>();
-        audioSrc.playOnAwake = false;
         soundOn = Resources.Load<AudioClip>("Audio/loco on");
         soundOff = Resources.Load<AudioClip>("Audio/loco off");
 
