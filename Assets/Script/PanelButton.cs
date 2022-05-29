@@ -3,7 +3,6 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using WindowsInput.Native;
 
-[RequireComponent(typeof(AudioSource))]
 public class PanelButton : MonoBehaviour
 {
     [DllImport("user32.dll")]
@@ -25,17 +24,11 @@ public class PanelButton : MonoBehaviour
 
     private Renderer cr;
     public GameObject camera;
-    private AudioSource audioSrc;
-    private static AudioClip btnSound;
+    public AudioSource audioSrc;
 
     void Start()
     {
-        btnSound = Resources.Load<AudioClip>("Audio/button press");
         cr = GetComponent<Renderer>();
-
-        audioSrc = GetComponent<AudioSource>();
-        audioSrc.playOnAwake = false;
-        audioSrc.clip = btnSound;
 
         if (isToggle)
         {
@@ -50,7 +43,7 @@ public class PanelButton : MonoBehaviour
         _insideColliderCount += 1;
         ButtonPress();
         if (doesBeep)
-            audioSrc.Play();
+            audioSrc?.Play();
     }
 
     private void OnTriggerExit(Collider other)

@@ -20,8 +20,6 @@ public class PanelHiderButton : MonoBehaviour
     [SerializeField]
     private Image timerRing;
     [SerializeField]
-    private AudioSource audioSrc;
-    [SerializeField]
     private List<GameObject> panelButtons;
 
     [Header("Assets")]
@@ -34,8 +32,10 @@ public class PanelHiderButton : MonoBehaviour
     [SerializeField]
     private AudioClip unlockSound;
 
+    private AudioSource audioSrc;
     private void Start()
     {
+        audioSrc = GetComponent<AudioSource>();
         r = GetComponent<Renderer>();
         statusImg.texture = isLocked ? lockImg : unlockImg;
         audioSrc.clip = lockSound;

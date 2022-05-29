@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(AudioSource))]
 public class LocomotionToggle : MonoBehaviour
 {
     [System.Serializable]
@@ -45,7 +44,6 @@ public class LocomotionToggle : MonoBehaviour
             locoEvent = new LocomotionToggleEvent();
 
         audioSrc = GetComponent<AudioSource>();
-        audioSrc.playOnAwake = false;
         soundOn = Resources.Load<AudioClip>("Audio/loco on");
         soundOff = Resources.Load<AudioClip>("Audio/loco off");
 
