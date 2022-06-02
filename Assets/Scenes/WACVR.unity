@@ -11557,7 +11557,7 @@ MonoBehaviour:
   childWindowZDistance: 0.02
   partialWindowTitle_: Mercury
   desktopIndex_: 0
-  captureMode: 1
+  captureMode: 3
   capturePriority: 0
   captureRequestTiming: 0
   captureFrameRate: 60
