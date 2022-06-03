@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.hecomi.uwindowcapture": {
+      "version": "https://github.com/hecomi/uWindowCapture.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "0412fe09e11d3720197707a935f8114cc2454639"
+    },
     "com.unity.burst": {
       "version": "1.6.5",
       "depth": 1,
