@@ -16,7 +16,7 @@ public class SkyboxSwitcher : MonoBehaviour
     [SerializeField]
     private List<Material> skyboxes;
     [SerializeField]
-    private int currentSkyboxIndex; // should start at 0
+    private int currentSkyboxIndex = 0;
 
     [Header("Components")]
     [SerializeField]
@@ -28,6 +28,9 @@ public class SkyboxSwitcher : MonoBehaviour
 
     void Start()
     {
+        if (JsonConfiguration.HasKey("Skybox")) currentSkyboxIndex = JsonConfiguration.GetInt("Skybox");
+        else SaveSkyboxIndex();
+
         incrementBtn.ButtonPressed += IncrementEvent;
         decrementBtn.ButtonPressed += DecrementEvent;
         
@@ -71,6 +74,8 @@ public class SkyboxSwitcher : MonoBehaviour
                 }
             }
         }
+
+        SetSkybox();
         //foreach (var file in hdrFiles) // HDR files -- no way to use by scripting?
         //{
         //    var uwr = UnityWebRequest.Get(file.ToString());
@@ -119,7 +124,13 @@ public class SkyboxSwitcher : MonoBehaviour
     private void SetSkybox()
     {
         counterTxt.text = (currentSkyboxIndex + 1).ToString();
-        if (skyboxes[currentSkyboxIndex] != null)
+        if (currentSkyboxIndex < skyboxes.Count && skyboxes[currentSkyboxIndex] != null)
             RenderSettings.skybox = skyboxes[currentSkyboxIndex];
+        SaveSkyboxIndex();
+    }
+
+    private void SaveSkyboxIndex()
+    {
+        JsonConfiguration.SetInt("Skybox", currentSkyboxIndex);
     }
 }
