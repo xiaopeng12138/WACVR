@@ -60,3 +60,9 @@ crashlytics-build.properties
 
 # WACVR-specific
 uWindowCapture.log
+
+# Visual Studio Code cache directory
+.vscode/
+
+# Game configuration file
+config.json

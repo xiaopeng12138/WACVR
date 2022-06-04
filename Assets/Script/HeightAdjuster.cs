@@ -37,7 +37,7 @@ public class HeightAdjuster : MonoBehaviour
 
     void Start()
     {
-        if (PlayerPrefs.HasKey("Height")) height = PlayerPrefs.GetFloat("Height");
+        if (JsonConfiguration.HasKey("Height")) height = JsonConfiguration.GetDouble("Height");
         else SaveHeight();
 
         incrementButton.ButtonPressed += StartIncrementing;
@@ -82,6 +82,6 @@ public class HeightAdjuster : MonoBehaviour
     }
 
     private void SaveHeight() {
-        PlayerPrefs.SetFloat("Height", (float) height);
+        JsonConfiguration.SetDouble("Height", height);
     }
 }

@@ -13,10 +13,10 @@ public class PanelThirdPersonButton : MonoBehaviour
 
     void Start()
     {
-
         cr = GetComponent<Renderer>();
 
-        SetTP(isTP);
+        if (JsonConfiguration.HasKey("ThirdPerson")) SetTP(JsonConfiguration.GetBoolean("ThirdPerson"));
+        else SetTP(isTP);
     }
     
     private void OnTriggerEnter(Collider other)
@@ -31,5 +31,7 @@ public class PanelThirdPersonButton : MonoBehaviour
         isTP = state;
         cr.material.color = state ? Color.green : Color.red;
         tpCamera?.SetActive(state);
+
+        JsonConfiguration.SetBoolean("ThirdPerson", state);
     }
 }
