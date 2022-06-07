@@ -2140,12 +2140,12 @@ MonoBehaviour:
   childWindowZDistance: 0.02
   partialWindowTitle_: Mercury
   desktopIndex_: 0
-  captureMode: 3
+  captureMode: 1
   capturePriority: 0
   captureRequestTiming: 0
-  captureFrameRate: 60
+  captureFrameRate: 120
   drawCursor: 0
-  updateTitle: 1
+  updateTitle: 0
   searchAnotherWindowWhenInvalid: 0
   scaleControlType: 3
   scalePer1000Pixel: 1

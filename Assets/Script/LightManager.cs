@@ -17,7 +17,6 @@ public class LightManager : MonoBehaviour
         Material mat = Lights[Area].GetComponent<Renderer>().material;
         if (State)
         {
-           
             mat.SetColor("_EmissionColor", new Color(1f, 1f, 1f, 1f));
         }
         else
