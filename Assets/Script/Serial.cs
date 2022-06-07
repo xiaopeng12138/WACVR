@@ -35,6 +35,7 @@ public class Serial : MonoBehaviour
     byte[] SettingData_201 = new byte[7];
     static byte[] TouchPackL = new byte[36];
     static byte[] TouchPackR = new byte[36];
+    public static bool[] TouchPackAll = new bool[240];
     bool StartUp = false;
     void Start()
     {
@@ -242,7 +243,7 @@ public class Serial : MonoBehaviour
     }
     public static void SetTouch(int Area, bool State) //set touch data 0-239
     {
-        Area +=1;
+        //Area +=1;
         if (Area < 121)
         {
             Area += (Area-1) / 5 * 3 + 7; 
@@ -254,6 +255,7 @@ public class Serial : MonoBehaviour
             Area += (Area-1) / 5 * 3 + 7; 
             ByteHelper.SetBit(TouchPackL, Area, State);
         }
+        TouchPackAll[Area] = State;
     }
 
     void SetSettingData_160()

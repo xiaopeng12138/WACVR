@@ -7,33 +7,33 @@ using System.Collections;
 
 public class ColliderToSerial : MonoBehaviour
 {
-    private Renderer cr;
+    public GameObject LightManager;
+    private LightManager lightManager;
     private int _insideColliderCount = 0;
     public static event Action touchDidChange;
-
-    private void Start()
+    private int Area;
+    private void Start() 
     {
-        cr = GetComponent<Renderer>();
+        Area = Convert.ToInt32(gameObject.name);
+        lightManager = LightManager.GetComponent<LightManager>();
     }
-
     private void OnTriggerEnter(Collider other)
     {
         _insideColliderCount += 1;
-        Serial.SetTouch(Convert.ToInt32(gameObject.name), true);
+        Serial.SetTouch(Area, true);
         touchDidChange?.Invoke();
-        cr.material.color = new Color(1f, 1f, 1f, 1f);
+        lightManager.UpdateLight(Area, true);
     }
 
     private void OnTriggerExit(Collider other)
     {
         _insideColliderCount -= 1;
         _insideColliderCount = Mathf.Max(0, _insideColliderCount);
-
         if (_insideColliderCount == 0)
         {
-            Serial.SetTouch(Convert.ToInt32(gameObject.name), false);
+            Serial.SetTouch(Area, false);
             touchDidChange?.Invoke();
-            cr.material.color = new Color(0f, 0f, 0f, 0f);
+            lightManager.UpdateLight(Area, false);
         }
     }
 }

@@ -1,9 +1,39 @@
 fileFormatVersion: 2
-guid: 5f5175809c2ca08428abf5771a2c3b3e
+guid: cf8684b3c4f47b94aa7cb23ce498caf3
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: 354bdb1d1775aad4aafe9046d0c26898, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light
+    second: {fileID: 2100000, guid: 6f8213504ffd53e4cb41d8cf7351a4ca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plate
+    second: {fileID: 2100000, guid: 5a3b7669e49b91047ad3d5be064faa6a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ring
+    second: {fileID: 2100000, guid: cc0e45acdac4d514cae3e2ec4c40c75e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ring Back
+    second: {fileID: 2100000, guid: bee9014e7d68f0d4c9afcc630fdc7f90, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screen
+    second: {fileID: 2100000, guid: 2a1aff4b38e92f741af38588f9492556, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
