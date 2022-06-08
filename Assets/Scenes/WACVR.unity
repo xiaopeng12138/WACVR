@@ -960,7 +960,6 @@ MonoBehaviour:
   isToggle: 0
   doesBeep: 1
   isOn: 0
-  camera: {fileID: 1740661838}
   audioSrc: {fileID: 25651916}
 --- !u!65 &61320021
 BoxCollider:
@@ -1874,7 +1873,6 @@ MonoBehaviour:
   isToggle: 0
   doesBeep: 0
   isOn: 0
-  camera: {fileID: 1740661838}
   audioSrc: {fileID: 25651916}
 --- !u!65 &113329742
 BoxCollider:
@@ -2087,7 +2085,6 @@ MonoBehaviour:
   isToggle: 0
   doesBeep: 1
   isOn: 0
-  camera: {fileID: 0}
   audioSrc: {fileID: 25651916}
 --- !u!114 &122803494
 MonoBehaviour:
@@ -2140,7 +2137,7 @@ MonoBehaviour:
   childWindowZDistance: 0.02
   partialWindowTitle_: Mercury
   desktopIndex_: 0
-  captureMode: 1
+  captureMode: 3
   capturePriority: 0
   captureRequestTiming: 0
   captureFrameRate: 60
@@ -2786,7 +2783,6 @@ MonoBehaviour:
   isToggle: 0
   doesBeep: 1
   isOn: 0
-  camera: {fileID: 0}
   audioSrc: {fileID: 25651916}
 --- !u!1 &197423513 stripped
 GameObject:
@@ -8985,7 +8981,6 @@ MonoBehaviour:
   isToggle: 0
   doesBeep: 1
   isOn: 0
-  camera: {fileID: 1740661838}
   audioSrc: {fileID: 25651916}
 --- !u!65 &801700137
 BoxCollider:
@@ -10156,7 +10151,6 @@ MonoBehaviour:
   isToggle: 0
   doesBeep: 1
   isOn: 0
-  camera: {fileID: 0}
   audioSrc: {fileID: 25651916}
 --- !u!65 &904545307
 BoxCollider:
@@ -13616,7 +13610,6 @@ MonoBehaviour:
   isToggle: 0
   doesBeep: 1
   isOn: 0
-  camera: {fileID: 0}
   audioSrc: {fileID: 25651916}
 --- !u!65 &1235613586
 BoxCollider:
@@ -28316,7 +28309,6 @@ MonoBehaviour:
   isToggle: 0
   doesBeep: 1
   isOn: 0
-  camera: {fileID: 0}
   audioSrc: {fileID: 25651916}
 --- !u!65 &1879586939
 BoxCollider:

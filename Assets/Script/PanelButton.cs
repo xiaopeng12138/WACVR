@@ -23,7 +23,7 @@ public class PanelButton : MonoBehaviour
     private int _insideColliderCount = 0;
 
     private Renderer cr;
-    public GameObject camera;
+    //public GameObject camera; // just generating warnings lmao
     public AudioSource audioSrc;
 
     void Start()
