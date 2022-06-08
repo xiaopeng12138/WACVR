@@ -26,5 +26,18 @@ public class UwcConfigurator : MonoBehaviour {
             uwcWindowTexture.captureFrameRate = JsonConfiguration.GetInt("CaptureFramerate");
         else 
             JsonConfiguration.SetInt("CaptureFramerate", uwcWindowTexture.captureFrameRate);
+
+        if (!JsonConfiguration.HasKey("CaptureDesktopNumber"))
+            JsonConfiguration.SetInt("CaptureDesktopNumber", 0);
+
+        if (JsonConfiguration.HasKey("CaptureDesktop") && JsonConfiguration.GetBoolean("CaptureDesktop")) 
+            SwitchToDesktopCapture();
+        else 
+            JsonConfiguration.SetBoolean("CaptureDesktop", false);
+    }
+
+    void SwitchToDesktopCapture() {
+        uwcWindowTexture.type = WindowTextureType.Desktop;
+        uwcWindowTexture.desktopIndex = JsonConfiguration.GetInt("CaptureDesktopNumber");
     }
 }

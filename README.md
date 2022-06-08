@@ -31,6 +31,8 @@ A ``config.json`` is automatically created in the WACVR root on startup
   - ``2``: Windows Graphics Capture
   - ``3``: Automatic (Recommended, Default)
 - ``CaptureFramerate``: the framerate to capture the game at (Default: 60)
+- ``CaptureDesktop``: whether to capture the specific window or a full monitor
+- ``CaptureDesktopNumber``: the monitor to capture if you're capturing a full monitor
 
 ## Why this repo now?
 
