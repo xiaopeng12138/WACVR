@@ -174,8 +174,7 @@ public class UwcManager : MonoBehaviour
     {
         Lib.Update(Time.deltaTime);
         UpdateWindowInfo();
-        if (!UwcWindowTexture.isWindowCaptured)
-            UpdateMessages();
+        UpdateMessages();
         UpdateWindowTitles();
     }
 
