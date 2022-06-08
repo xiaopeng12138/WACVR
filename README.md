@@ -10,8 +10,7 @@ A VR arcade emulator
 - Successfully enabled Freeplay and tested the touch signal in game
 
 ## Current issue
-
-- None!
+- capture display white screen issue (set game priority in taskmanager to real-time many solve)
 
 ## Quick guide
 
