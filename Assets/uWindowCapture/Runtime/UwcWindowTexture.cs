@@ -196,6 +196,7 @@ public class UwcWindowTexture : MonoBehaviour
             return window != null && window.isValid;
         }
     }
+    static public bool isWindowCaptured = false;
 
     Material material_;
     Renderer renderer_;
@@ -224,7 +225,8 @@ public class UwcWindowTexture : MonoBehaviour
     {
         UpdateSearchTiming();
         UpdateTargetWindow();
-
+        if (!isWindowCaptured)
+            isWindowCaptured = window != null && window.isValid;
         if (!isValid) {
             material_.mainTexture = null;
             return;

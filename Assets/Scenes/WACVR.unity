@@ -2138,7 +2138,7 @@ MonoBehaviour:
   createChildWindows_: 0
   childWindowPrefab: {fileID: 0}
   childWindowZDistance: 0.02
-  partialWindowTitle_: Mercury
+  partialWindowTitle_: 'Mercury  '
   desktopIndex_: 0
   captureMode: 1
   capturePriority: 0

@@ -174,7 +174,8 @@ public class UwcManager : MonoBehaviour
     {
         Lib.Update(Time.deltaTime);
         UpdateWindowInfo();
-        UpdateMessages();
+        if (!UwcWindowTexture.isWindowCaptured)
+            UpdateMessages();
         UpdateWindowTitles();
     }
 
@@ -210,6 +211,7 @@ public class UwcManager : MonoBehaviour
                 }
                 case MessageType.WindowRemoved: {
                     var window = Find(id);
+                    Debug.Log(id);
                     if (window != null) {
                         window.isAlive = false;
                         if (window.parentWindow != null) {
