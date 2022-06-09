@@ -13963,7 +13963,7 @@ MonoBehaviour:
   - {fileID: 802529247}
   - {fileID: 512944751}
   - {fileID: 215619937}
-  FadeDuration: 1
+  FadeDuration: 0.5
 --- !u!4 &1251312952
 Transform:
   m_ObjectHideFlags: 0
@@ -13972,7 +13972,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1251312950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.117066965, y: 0.4719062, z: 0.78982055}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21313,17 +21313,17 @@ PrefabInstance:
     - target: {fileID: 393777075064552474, guid: cf8684b3c4f47b94aa7cb23ce498caf3,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.05
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 393777075064552474, guid: cf8684b3c4f47b94aa7cb23ce498caf3,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.05
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 393777075064552474, guid: cf8684b3c4f47b94aa7cb23ce498caf3,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.05
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 395471909685690544, guid: cf8684b3c4f47b94aa7cb23ce498caf3,
         type: 3}
@@ -23394,6 +23394,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092193294776647912, guid: cf8684b3c4f47b94aa7cb23ce498caf3,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092193294776647912, guid: cf8684b3c4f47b94aa7cb23ce498caf3,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092193294776647912, guid: cf8684b3c4f47b94aa7cb23ce498caf3,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092193294776647912, guid: cf8684b3c4f47b94aa7cb23ce498caf3,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6163565363770131037, guid: cf8684b3c4f47b94aa7cb23ce498caf3,
         type: 3}
