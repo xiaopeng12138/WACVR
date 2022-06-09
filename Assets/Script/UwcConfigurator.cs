@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using System.Runtime.InteropServices;
-using System;
 using uWindowCapture;
 
 public class UwcConfigurator : MonoBehaviour {
@@ -11,7 +6,15 @@ public class UwcConfigurator : MonoBehaviour {
 
     void Start() {
         uwcWindowTexture = GetComponent<UwcWindowTexture>();
-        
+        UpdateConfigs();
+    }
+
+    void SwitchToDesktopCapture() {
+        uwcWindowTexture.type = WindowTextureType.Desktop;
+        uwcWindowTexture.desktopIndex = JsonConfiguration.GetInt("CaptureDesktopNumber");
+    }
+    public void UpdateConfigs()
+    {
         if (JsonConfiguration.HasKey("CaptureMode")) {
             int rawCaptureMode = JsonConfiguration.GetInt("CaptureMode");
 
@@ -34,10 +37,5 @@ public class UwcConfigurator : MonoBehaviour {
             SwitchToDesktopCapture();
         else 
             JsonConfiguration.SetBoolean("CaptureDesktop", false);
-    }
-
-    void SwitchToDesktopCapture() {
-        uwcWindowTexture.type = WindowTextureType.Desktop;
-        uwcWindowTexture.desktopIndex = JsonConfiguration.GetInt("CaptureDesktopNumber");
     }
 }

@@ -4,9 +4,10 @@ using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Linq;
 
 public static class JsonConfiguration {
-    private static bool hasInitialized = false;
+    public static bool hasInitialized = false;
     private static JObject config;
 
     private static void ensureInitialization() {
@@ -83,6 +84,13 @@ public static class JsonConfiguration {
 
         saveFile();
     }
+    public static void SetFloatArray(string key, float[] numbers) {
+        ensureInitialization();
+
+        config[key] = JArray.FromObject(numbers);
+
+        saveFile();
+    }
 
     public static bool GetBoolean(string key) {
         ensureInitialization();
@@ -104,4 +112,10 @@ public static class JsonConfiguration {
 
         return config.Value<double>(key);
     }
+    public static float[] GetFloatArray(string key) {
+        ensureInitialization();
+        //convert JArray to float[]
+        return config.Value<JArray>(key).ToObject<float[]>();
+    }
+
 }
