@@ -6,7 +6,7 @@ public class SettingsManager : MonoBehaviour
 {
     public double DefaultPhysicFPS = 90;
     public double DefaultHandSize = 7;
-    public float[] DefaultHandPosition = {2f, -2f, 7f};
+    public float[] DefaultHandPosition = {1f, 1f, -3f};
 
     private bool FocusChecked;
     public GameObject Display;

@@ -27661,11 +27661,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultPhysicFPS: 90
-  DefaultHandSize: 8
+  DefaultHandSize: 7
   DefaultHandPosition:
-  - 2
-  - -2
-  - 7
+  - 1
+  - 1
+  - -3
   Display: {fileID: 129013443}
   LHand: {fileID: 918186758}
   RHand: {fileID: 587127949}
