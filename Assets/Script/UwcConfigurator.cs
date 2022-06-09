@@ -6,7 +6,15 @@ public class UwcConfigurator : MonoBehaviour {
 
     void Start() {
         uwcWindowTexture = GetComponent<UwcWindowTexture>();
-        
+        UpdateConfigs();
+    }
+
+    void SwitchToDesktopCapture() {
+        uwcWindowTexture.type = WindowTextureType.Desktop;
+        uwcWindowTexture.desktopIndex = JsonConfiguration.GetInt("CaptureDesktopNumber");
+    }
+    public void UpdateConfigs()
+    {
         if (JsonConfiguration.HasKey("CaptureMode")) {
             int rawCaptureMode = JsonConfiguration.GetInt("CaptureMode");
 
@@ -29,10 +37,5 @@ public class UwcConfigurator : MonoBehaviour {
             SwitchToDesktopCapture();
         else 
             JsonConfiguration.SetBoolean("CaptureDesktop", false);
-    }
-
-    void SwitchToDesktopCapture() {
-        uwcWindowTexture.type = WindowTextureType.Desktop;
-        uwcWindowTexture.desktopIndex = JsonConfiguration.GetInt("CaptureDesktopNumber");
     }
 }

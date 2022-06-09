@@ -83,6 +83,13 @@ public static class JsonConfiguration {
 
         saveFile();
     }
+    public static void SetFloatArray(string key, float[] numbers) {
+        ensureInitialization();
+
+        config[key] = JArray.FromObject(numbers);
+
+        saveFile();
+    }
 
     public static bool GetBoolean(string key) {
         ensureInitialization();
@@ -103,5 +110,10 @@ public static class JsonConfiguration {
         ensureInitialization();
 
         return config.Value<double>(key);
+    }
+    public static float[] GetFloatArray(string key) {
+        ensureInitialization();
+        
+        return config.Value<float[]>(key);
     }
 }
