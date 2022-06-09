@@ -4,9 +4,10 @@ using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Linq;
 
 public static class JsonConfiguration {
-    private static bool hasInitialized = false;
+    public static bool hasInitialized = false;
     private static JObject config;
 
     private static void ensureInitialization() {
@@ -113,7 +114,8 @@ public static class JsonConfiguration {
     }
     public static float[] GetFloatArray(string key) {
         ensureInitialization();
-        
-        return config.Value<float[]>(key);
+        //convert JArray to float[]
+        return config.Value<JArray>(key).ToObject<float[]>();
     }
+
 }

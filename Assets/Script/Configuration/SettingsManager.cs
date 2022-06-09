@@ -34,9 +34,11 @@ public class SettingsManager : MonoBehaviour
     }
     void UpdateAllConfigs()
     {
+        JsonConfiguration.hasInitialized = false;
         UwcConfig.UpdateConfigs();
         UpdatePhysicFPS();
         UpdateHands();
+        Debug.Log("Configs Updated");
     }
 
     void UpdatePhysicFPS()
@@ -46,14 +48,17 @@ public class SettingsManager : MonoBehaviour
         Time.fixedDeltaTime = 1/(float)JsonConfiguration.GetDouble("PhysicFPS");
     }
 
+    static float HandSize;
+    static float[] HandPosition;
+
     void UpdateHands()
     {
         if (!JsonConfiguration.HasKey("HandSize")) 
             JsonConfiguration.SetDouble("HandSize", DefaultHandSize); 
         if (!JsonConfiguration.HasKey("HandPosition")) 
             JsonConfiguration.SetFloatArray("HandPosition", DefaultHandPosition); 
-        float HandSize = (float)JsonConfiguration.GetDouble("HandSize");
-        float[] HandPosition = JsonConfiguration.GetFloatArray("HandPosition");
+        HandSize = (float)JsonConfiguration.GetDouble("HandSize");
+        HandPosition = JsonConfiguration.GetFloatArray("HandPosition");
         LHand.transform.localScale = new Vector3(HandSize/100,HandSize/100,HandSize/100);
         RHand.transform.localScale = new Vector3(HandSize/100,HandSize/100,HandSize/100);
         LHand.transform.localPosition = new Vector3(HandPosition[0]/100,HandPosition[1]/100,HandPosition[2]/100);
