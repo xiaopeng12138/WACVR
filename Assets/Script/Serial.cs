@@ -29,10 +29,10 @@ public class Serial : MonoBehaviour
     string read2 = "   11   11   11  128  103  103  115  138  127  103  105  111  126  113   95  100";
     string read3 = "  101  115   98   86   76   67   68   48  117    0   82  154    0    6   35    4";
 
-    byte[] SettingData_160 = new byte[8];
-    byte[] SettingData_162 = new byte[7];
-    byte[] SettingData_148 = new byte[7];
-    byte[] SettingData_201 = new byte[7];
+    byte[] SettingData_160 = new byte[8] {160, 49, 57, 48, 53, 50, 51, 44};
+    byte[] SettingData_162 = new byte[3] {162, 63, 29};
+    byte[] SettingData_148 = new byte[3] {148, 0, 20};
+    byte[] SettingData_201 = new byte[3] {201, 0, 73};
     static byte[] TouchPackL = new byte[36];
     static byte[] TouchPackR = new byte[36];
     public static bool[] TouchPackAll = new bool[240];
@@ -49,10 +49,6 @@ public class Serial : MonoBehaviour
             Console.WriteLine($"Failed to Open Serial Ports: {ex}");
         }
         //Debug.Log("Touch Serial Initializing..");
-        SetSettingData_160();
-        SetSettingData_201();
-        SetSettingData_162();
-        SetSettingData_148();
         //Send touch update periodically to keep "read" alive
         _touchQueue = Queue.Synchronized(new Queue());
         _touchThread = new Thread(TouchThreadLoop);
@@ -104,9 +100,6 @@ public class Serial : MonoBehaviour
             //  Debug.Log("Sending Right");
             SendTouch(ComR, TouchPackR);
         }
-    }
-    private void FixedUpdate() {
-      //SendTouchState();
     }
 
     IEnumerator TouchTest(bool State) //this is a touch test code
@@ -233,13 +226,7 @@ public class Serial : MonoBehaviour
     void SendTouch(SerialPort Serial, byte[] Pack) //Send touch data
     {
         if (StartUp)
-        {
-      //      Debug.Log($"Pack {string.Join(" ", Pack)}");
-            var output = GetTouchPack(Pack);
-       //     Debug.Log($"Output {string.Join(" ", output)}");
-            Serial.Write(output, 0, 36);
-        }
-
+            Serial.Write(GetTouchPack(Pack), 0, 36);
     }
     public static void SetTouch(int Area, bool State) //set touch data 0-239
     {
@@ -256,36 +243,6 @@ public class Serial : MonoBehaviour
             ByteHelper.SetBit(TouchPackL, Area, State);
         }
         TouchPackAll[Area] = State;
-    }
-
-    void SetSettingData_160()
-    {
-        SettingData_160[0]=160;
-        SettingData_160[1]=49;
-        SettingData_160[2]=57;
-        SettingData_160[3]=48;
-        SettingData_160[4]=53;
-        SettingData_160[5]=50;
-        SettingData_160[6]=51;
-        SettingData_160[7]=44;
-    }
-    void SetSettingData_201()
-    {
-        SettingData_201[0]=201;
-        SettingData_201[1]=0;
-        SettingData_201[2]=73;
-    }
-    void SetSettingData_162()
-    {
-        SettingData_162[0]=162;
-        SettingData_162[1]=63;
-        SettingData_162[2]=29;
-    }
-    void SetSettingData_148()
-    {
-        SettingData_148[0]=148;
-        SettingData_148[1]=0;
-        SettingData_148[2]=20;
     }
 }
 

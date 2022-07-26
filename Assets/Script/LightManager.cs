@@ -5,25 +5,30 @@ using UnityEngine;
 public class LightManager : MonoBehaviour
 {
     public List<GameObject> Lights = new List<GameObject>();
+    public List<Material> Materials = new List<Material>();
     public float FadeDuration = 0.5f;
     private IEnumerator[] coroutines = new IEnumerator[240];
+    
     private void Start() 
     {
-
+        for (int i = 0; i < Lights.Count; i++)
+        {
+            Materials[i] = Lights[i].GetComponent<Renderer>().material;
+        }
     }
     public void UpdateLight(int Area, bool State)
     {
         Area -= 1;
-        Material mat = Lights[Area].GetComponent<Renderer>().material;
+        
         if (State)
         {
-            mat.SetColor("_EmissionColor", new Color(1f, 1f, 1f, 1f));
+            Materials[Area].SetColor("_EmissionColor", new Color(1f, 1f, 1f, 1f));
         }
         else
         {
             if (coroutines[Area] != null)
                 StopCoroutine(coroutines[Area]);
-            coroutines[Area] = FadeOut(Area, mat);
+            coroutines[Area] = FadeOut(Area, Materials[Area]);
             StartCoroutine(coroutines[Area]);
         }      
     }
