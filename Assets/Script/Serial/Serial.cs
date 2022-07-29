@@ -19,6 +19,7 @@ public class Serial : MonoBehaviour
 
     private Thread _touchThread;
     private Queue _touchQueue;
+
     static SerialPort ComL = new SerialPort ("COM5", 115200);
     static SerialPort ComR = new SerialPort ("COM6", 115200);
 
@@ -122,7 +123,6 @@ public class Serial : MonoBehaviour
             var data = Serial.ReadExisting();
             SendResp(Serial, side, data);
         }
-
     }
     void SendResp(SerialPort Serial, int side, string data)
     {
