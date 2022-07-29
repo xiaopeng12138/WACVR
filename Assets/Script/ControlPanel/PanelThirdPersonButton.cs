@@ -9,6 +9,7 @@ public class PanelThirdPersonButton : MonoBehaviour
 
     private Renderer cr;
     public GameObject tpCamera;
+    public GameObject fpsCamera;
     public AudioSource audioSrc;
 
     void Start()
@@ -31,6 +32,7 @@ public class PanelThirdPersonButton : MonoBehaviour
         isTP = state;
         cr.material.color = state ? Color.green : Color.red;
         tpCamera?.SetActive(state);
+        fpsCamera?.SetActive(!state);
 
         JsonConfiguration.SetBoolean("ThirdPerson", state);
     }
