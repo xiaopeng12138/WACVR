@@ -1,0 +1,11 @@
+LIBRARY mercuryio
+
+EXPORTS
+   mercury_io_get_api_version
+   mercury_io_init
+   mercury_io_poll
+   mercury_io_get_opbtns
+   mercury_io_get_gamebtns
+   mercury_io_touch_init
+   mercury_io_touch_start
+   mercury_io_touch_set_leds

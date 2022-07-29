@@ -12,6 +12,8 @@ public class SkyboxSwitcher : MonoBehaviour
     private string skyboxPath;
     public List<Texture2D> textures = new List<Texture2D>();
     public List<System.IntPtr> ptrs = new List<System.IntPtr>();
+    public static bool useSkybox = false;
+    public GameObject Room;
 
     [SerializeField]
     private List<Material> skyboxes;
@@ -28,9 +30,13 @@ public class SkyboxSwitcher : MonoBehaviour
 
     void Start()
     {
+        if (JsonConfiguration.HasKey("useSkybox")) useSkybox = JsonConfiguration.GetBoolean("useSkybox");
+        else SaveSkyboxState();
+        Room.SetActive(!useSkybox);
+
         if (JsonConfiguration.HasKey("Skybox")) currentSkyboxIndex = JsonConfiguration.GetInt("Skybox");
         else SaveSkyboxIndex();
-
+        
         incrementBtn.ButtonPressed += IncrementEvent;
         decrementBtn.ButtonPressed += DecrementEvent;
         
@@ -132,5 +138,9 @@ public class SkyboxSwitcher : MonoBehaviour
     private void SaveSkyboxIndex()
     {
         JsonConfiguration.SetInt("Skybox", currentSkyboxIndex);
+    }
+    private void SaveSkyboxState()
+    {
+        JsonConfiguration.SetBoolean("useSkybox", useSkybox);
     }
 }

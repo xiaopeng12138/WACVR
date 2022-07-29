@@ -27,6 +27,7 @@ public class SettingsManager : MonoBehaviour
             {
                 FocusChecked=true;
                 UpdateAllConfigs();
+                Debug.Log("Configs Updated");
             }  
         }
         if (!Application.isFocused)
@@ -38,7 +39,7 @@ public class SettingsManager : MonoBehaviour
         UwcConfig.UpdateConfigs();
         UpdatePhysicFPS();
         UpdateHands();
-        Debug.Log("Configs Updated");
+        
     }
 
     void UpdatePhysicFPS()

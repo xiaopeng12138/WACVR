@@ -1,0 +1,16 @@
+{
+    "name": "LightManager",
+    "rootNamespace": "",
+    "references": [
+        "GUID:80de51a1f88203a4cb129a5922de311f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

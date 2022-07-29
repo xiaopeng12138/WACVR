@@ -22,7 +22,7 @@ public class ColliderToSerial : MonoBehaviour
         _insideColliderCount += 1;
         Serial.SetTouch(Area, true);
         touchDidChange?.Invoke();
-        lightManager.UpdateLight(Area, true);
+        lightManager.UpdateLightFade(Area, true);
     }
 
     private void OnTriggerExit(Collider other)
@@ -33,7 +33,7 @@ public class ColliderToSerial : MonoBehaviour
         {
             Serial.SetTouch(Area, false);
             touchDidChange?.Invoke();
-            lightManager.UpdateLight(Area, false);
+            lightManager.UpdateLightFade(Area, false);
         }
     }
 }
