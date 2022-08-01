@@ -38,7 +38,7 @@ public class LightManager : MonoBehaviour
     }
     private void Update() 
     {
-        if (!useIPC_Config)
+        if (useIPC_Config)
             CheckIPCState();
         if (useIPC)
             UpdateLED();
