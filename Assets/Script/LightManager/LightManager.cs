@@ -28,7 +28,7 @@ public class LightManager : MonoBehaviour
         for (int i = 0; i < Lights.Count; i++)
             Materials.Add(Lights[i].GetComponent<Renderer>().material);
         
-        if (useIPC)
+        if (useIPC_Config)
         {
             InitializeIPC("Local\\WACVR_SHARED_BUFFER", 2164);
             RGBColor2D = new Texture2D(480, 1, TextureFormat.RGBA32, false);
@@ -38,6 +38,7 @@ public class LightManager : MonoBehaviour
     }
     private void Update() 
     {
+        GetTextureFromBytes(GetBytesFromMemory());
         if (useIPC_Config)
             CheckIPCState();
         if (useIPC)
@@ -61,7 +62,6 @@ public class LightManager : MonoBehaviour
     }
     private void UpdateLED()
     {
-        GetTextureFromBytes(GetBytesFromMemory());
         int index = 0;
         for (int i = 0; i < 30; i++)
         {
