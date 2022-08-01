@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: xpeng
   productName: WACVR
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -137,6 +137,8 @@ PlayerSettings:
   bundleVersion: 0.1.1
   preloadedAssets:
   - {fileID: 11400000, guid: 74eeb7429f216ca45a7093c586513e98, type: 2}
+  - {fileID: -6348321304186183749, guid: 6460523340b221f4ea5611d2c011a26c, type: 2}
+  - {fileID: -6265376527240436808, guid: 5e2dc0db42cc5b3459a781fecb0b76f9, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
