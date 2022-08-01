@@ -13,6 +13,7 @@ public class CameraSmooth : MonoBehaviour {
 	}
 	void Update ()
 	{
+		if (target == null) return;
 		transform.position = Vector3.Lerp(transform.position, target.position + PositionOffset, smoothSpeed);
 		transform.rotation = Quaternion.Lerp(transform.rotation, target.rotation, smoothSpeed);
 	}
