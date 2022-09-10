@@ -137,6 +137,7 @@ void mercury_io_touch_set_leds(struct led_data data)
 {
     if (FileMapping)
     {
+        data.rgba[3] = 0xFF; //IPC enable flag
         memcpy(FileMapping->RGBAData, data.rgba, 480 * 4);
     }
     //for (size_t i = 0; i < 32; i++)
