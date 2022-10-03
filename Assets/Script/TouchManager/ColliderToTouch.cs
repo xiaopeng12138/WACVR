@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
 
-public class ColliderToSerial : MonoBehaviour
+public class ColliderToTouch : MonoBehaviour
 {
     public LightManager LightManager;
     private int _insideColliderCount = 0;
@@ -18,7 +18,7 @@ public class ColliderToSerial : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         _insideColliderCount += 1;
-        Serial.SetTouch(Area, true);
+        TouchManager.SetTouch(Area, true);
         touchDidChange?.Invoke();
         LightManager.UpdateLightFade(Area, true);
     }
@@ -29,7 +29,7 @@ public class ColliderToSerial : MonoBehaviour
         _insideColliderCount = Mathf.Max(0, _insideColliderCount);
         if (_insideColliderCount == 0)
         {
-            Serial.SetTouch(Area, false);
+            TouchManager.SetTouch(Area, false);
             touchDidChange?.Invoke();
             LightManager.UpdateLightFade(Area, false);
         }

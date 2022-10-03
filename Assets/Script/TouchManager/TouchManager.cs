@@ -5,7 +5,7 @@ using System.Threading;
 using System.IO.Ports;
 using System.Linq;
 using UnityEngine;
-public class Serial : MonoBehaviour
+public class TouchManager : MonoBehaviour
 {
 
     const byte CMD_GET_SYNC_BOARD_VER = 0xa0;
@@ -55,7 +55,7 @@ public class Serial : MonoBehaviour
         _touchThread = new Thread(TouchThreadLoop);
         InvokeRepeating("PingTouchThread", 0, 1);
         //Send touch updates whenever actual state changes to achieve desired update frequency without overloading
-        ColliderToSerial.touchDidChange += PingTouchThread;
+        ColliderToTouch.touchDidChange += PingTouchThread;
     }
 
     private void PingTouchThread()
@@ -85,8 +85,8 @@ public class Serial : MonoBehaviour
             ReadHead(ComL, 0);
         if (ComR.IsOpen)
             ReadHead(ComR, 1);
-        //  if (Input.GetKeyDown(KeyCode.M)) //this is a touch test code
-        //      StartCoroutine(TouchTest(true));
+         if (Input.GetKeyDown(KeyCode.M)) //this is a touch test code
+              StartCoroutine(TouchTest(true));
         if (Input.GetKeyDown(KeyCode.M) && StartUp)
             SendTouchState();
     }
@@ -230,19 +230,23 @@ public class Serial : MonoBehaviour
     }
     public static void SetTouch(int Area, bool State) //set touch data 0-239
     {
-        //Area +=1;
-        if (Area < 121)
+        Area -= 1;
+        if (Area < 120)
         {
-            Area += (Area-1) / 5 * 3 + 7; 
+            TouchPackAll[Area + 120] = State;
+    
+            Area += Area / 5 * 3 + 7; 
             ByteHelper.SetBit(TouchPackR, Area, State);
         }
         else if (Area >= 120)
         {
+            TouchPackAll[Area - 120] = State;
+
             Area -= 120;
-            Area += (Area-1) / 5 * 3 + 7; 
+            Area += Area / 5 * 3 + 7; 
             ByteHelper.SetBit(TouchPackL, Area, State);
         }
-        TouchPackAll[Area] = State;
+        IPCManager.SetTouchData(TouchPackAll);
     }
 }
 

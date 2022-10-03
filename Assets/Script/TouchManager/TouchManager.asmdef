@@ -2,7 +2,8 @@
     "name": "Serial",
     "rootNamespace": "",
     "references": [
-        "GUID:476196b3fd6829e45b839eb138f356ed"
+        "GUID:476196b3fd6829e45b839eb138f356ed",
+        "GUID:4b68ab8531bd5864db8bb4af74c61824"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

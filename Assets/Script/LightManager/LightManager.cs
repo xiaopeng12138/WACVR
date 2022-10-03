@@ -8,12 +8,11 @@ public class LightManager : MonoBehaviour
 {
     public List<GameObject> Lights = new List<GameObject>();
     List<Material> Materials = new List<Material>();
-    public static bool isIPCIdle = false;
-    public static bool IsUseIPC = true;
+    [SerializeField]
+    public bool isIPCIdle = true;
+    [SerializeField]
+    public bool useIPCLighting = true;
     static Texture2D RGBColor2D;
-
-    public static MemoryMappedFile sharedBuffer;
-    public static MemoryMappedViewAccessor sharedBufferAccessor;
 
     private IEnumerator[] coroutines = new IEnumerator[240];
     public float FadeDuration = 0.5f;
@@ -27,9 +26,8 @@ public class LightManager : MonoBehaviour
         for (int i = 0; i < Lights.Count; i++)
             Materials.Add(Lights[i].GetComponent<Renderer>().material);
         
-        if (IsUseIPC)
+        if (useIPCLighting)
         {
-            InitializeIPC("Local\\WACVR_SHARED_BUFFER", 2164);
             RGBColor2D = new Texture2D(480, 1, TextureFormat.RGBA32, false);
             //RGBColor2D.filterMode = FilterMode.Point; //for debugging
             //GetComponent<Renderer>().material.mainTexture = RGBColor2D; //for debugging
@@ -37,18 +35,23 @@ public class LightManager : MonoBehaviour
     }
     private void Update() 
     {
-        if (sharedBuffer != null)
-            GetTextureFromBytes(GetBytesFromMemory());
-        else
+        if (!useIPCLighting)
             return;
-        if (IsUseIPC)
+        if (IPCManager.sharedBuffer != null)
+        {
+            GetTextureFromBytes(IPCManager.GetLightData());
             CheckIPCState();
-        if (!isIPCIdle)
-            UpdateLED();
+            if (!isIPCIdle)
+                UpdateLED();
+        }
+        else
+        {
+            isIPCIdle = true;
+        }
     }
     void UpdateConfig()
     {
-        IsUseIPC = ConfigManager.config.useIPCLighting;
+        useIPCLighting = ConfigManager.config.useIPCLighting;
     }
     private void CheckIPCState()
     {
@@ -56,15 +59,6 @@ public class LightManager : MonoBehaviour
             isIPCIdle = false;
         else
             isIPCIdle = true;
-    }
-    private void InitializeIPC(string sharedMemoryName, int sharedMemorySize)
-    {
-        MemoryMappedFileSecurity CustomSecurity = new MemoryMappedFileSecurity();
-        SecurityIdentifier sid = new SecurityIdentifier(WellKnownSidType.WorldSid, null);
-        var acct = sid.Translate(typeof(NTAccount)) as NTAccount;
-        CustomSecurity.AddAccessRule(new System.Security.AccessControl.AccessRule<MemoryMappedFileRights>(acct.ToString(), MemoryMappedFileRights.FullControl, System.Security.AccessControl.AccessControlType.Allow));
-        sharedBuffer = MemoryMappedFile.CreateOrOpen(sharedMemoryName, sharedMemorySize, MemoryMappedFileAccess.ReadWrite, MemoryMappedFileOptions.None, CustomSecurity, System.IO.HandleInheritability.Inheritable);
-        sharedBufferAccessor = sharedBuffer.CreateViewAccessor();
     }
     private void UpdateLED()
     {
@@ -86,15 +80,9 @@ public class LightManager : MonoBehaviour
         RGBColor2D.LoadRawTextureData(bytes);
         RGBColor2D.Apply();
     }
-    byte[] GetBytesFromMemory()
-    {
-        byte[] bytes = new byte[1920];
-        sharedBufferAccessor.ReadArray<byte>(244, bytes, 0, 1920);
-        return bytes;
-    }
     public void UpdateLightFade(int Area, bool State)
     {
-        if(!isIPCIdle)
+        if(!isIPCIdle || useIPCLighting)
             return;
 
         Area -= 1;
