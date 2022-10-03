@@ -8,8 +8,8 @@ public class LightManager : MonoBehaviour
 {
     public List<GameObject> Lights = new List<GameObject>();
     List<Material> Materials = new List<Material>();
-    public static bool useIPC = false;
-    public static bool useIPC_Config = true;
+    public static bool isIPCIdle = false;
+    public static bool IsUseIPC = true;
     static Texture2D RGBColor2D;
 
     public static MemoryMappedFile sharedBuffer;
@@ -20,15 +20,14 @@ public class LightManager : MonoBehaviour
 
     private void Start() 
     {
-        if (JsonConfiguration.HasKey("useIPC")) 
-            useIPC_Config = JsonConfiguration.GetBoolean("useIPC");
-        else 
-            JsonConfiguration.SetBoolean("useIPC", useIPC_Config);
+        ConfigManager.EnsureInitialization();
+        ConfigManager.onConfigChanged += UpdateConfig;
+        UpdateConfig();
 
         for (int i = 0; i < Lights.Count; i++)
             Materials.Add(Lights[i].GetComponent<Renderer>().material);
         
-        if (useIPC_Config)
+        if (IsUseIPC)
         {
             InitializeIPC("Local\\WACVR_SHARED_BUFFER", 2164);
             RGBColor2D = new Texture2D(480, 1, TextureFormat.RGBA32, false);
@@ -38,18 +37,25 @@ public class LightManager : MonoBehaviour
     }
     private void Update() 
     {
-        GetTextureFromBytes(GetBytesFromMemory());
-        if (useIPC_Config)
+        if (sharedBuffer != null)
+            GetTextureFromBytes(GetBytesFromMemory());
+        else
+            return;
+        if (IsUseIPC)
             CheckIPCState();
-        if (useIPC)
+        if (!isIPCIdle)
             UpdateLED();
+    }
+    void UpdateConfig()
+    {
+        IsUseIPC = ConfigManager.config.useIPCLighting;
     }
     private void CheckIPCState()
     {
-        if (RGBColor2D.GetPixel(0 , 0).a == 0)
-            useIPC = false;
+        if (RGBColor2D.GetPixel(0 , 0).a == 1)
+            isIPCIdle = false;
         else
-            useIPC = true;
+            isIPCIdle = true;
     }
     private void InitializeIPC(string sharedMemoryName, int sharedMemorySize)
     {
@@ -88,7 +94,7 @@ public class LightManager : MonoBehaviour
     }
     public void UpdateLightFade(int Area, bool State)
     {
-        if(useIPC)
+        if(!isIPCIdle)
             return;
 
         Area -= 1;

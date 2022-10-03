@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: cf8684b3c4f47b94aa7cb23ce498caf3
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 21300
   internalIDToNameTable: []
   externalObjects:
   - first:
@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Body
     second: {fileID: 2100000, guid: 354bdb1d1775aad4aafe9046d0c26898, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CoinButton
+    second: {fileID: 2100000, guid: 8f539b3ba4477eb4eaff566bbef0383f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -34,6 +39,21 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Screen
     second: {fileID: 2100000, guid: 2a1aff4b38e92f741af38588f9492556, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ServiceButton
+    second: {fileID: 2100000, guid: 8c70734ef67286949a696849ff2002b6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TestButton
+    second: {fileID: 2100000, guid: 36f336408ae6a7548820c207eed2a70a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aimmeButton
+    second: {fileID: 2100000, guid: b80697b204d6f6d4991ac2e3186b459c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -129,6 +149,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

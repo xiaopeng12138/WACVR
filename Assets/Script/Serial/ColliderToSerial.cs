@@ -7,22 +7,20 @@ using System.Collections;
 
 public class ColliderToSerial : MonoBehaviour
 {
-    public GameObject LightManager;
-    private LightManager lightManager;
+    public LightManager LightManager;
     private int _insideColliderCount = 0;
     public static event Action touchDidChange;
     private int Area;
     private void Start() 
     {
         Area = Convert.ToInt32(gameObject.name);
-        lightManager = LightManager.GetComponent<LightManager>();
     }
     private void OnTriggerEnter(Collider other)
     {
         _insideColliderCount += 1;
         Serial.SetTouch(Area, true);
         touchDidChange?.Invoke();
-        lightManager.UpdateLightFade(Area, true);
+        LightManager.UpdateLightFade(Area, true);
     }
 
     private void OnTriggerExit(Collider other)
@@ -33,7 +31,7 @@ public class ColliderToSerial : MonoBehaviour
         {
             Serial.SetTouch(Area, false);
             touchDidChange?.Invoke();
-            lightManager.UpdateLightFade(Area, false);
+            LightManager.UpdateLightFade(Area, false);
         }
     }
 }

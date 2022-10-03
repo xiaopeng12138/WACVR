@@ -1,7 +1,10 @@
 {
     "name": "Controller",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:80de51a1f88203a4cb129a5922de311f",
+        "GUID:fe685ec1767f73d42b749ea8045bfe43"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
