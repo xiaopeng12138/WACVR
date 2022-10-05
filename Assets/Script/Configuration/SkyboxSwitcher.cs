@@ -21,6 +21,8 @@ public class SkyboxSwitcher : MonoBehaviour
     [SerializeField]
     private int currentSkyboxIndex = 0;
 
+    private TMP_Dropdown Dropdown;
+
     void Start()
     {        
         skyboxes.Insert(0, RenderSettings.skybox); // add ubiquitous default skybox (should be current)
@@ -28,20 +30,24 @@ public class SkyboxSwitcher : MonoBehaviour
         // check StreamingAssets folder for additional skybox textures
         skyboxPath = Path.Combine(Application.streamingAssetsPath, "SkyboxTextures");
         StartCoroutine(AddSkyboxes());
+
+        Dropdown = GetComponent<TMP_Dropdown>();
         ConfigManager.onConfigChanged += ApplyConfig;
         ConfigManager.EnsureInitialization();
         ApplyConfig();
     }
     void ApplyConfig()
     {
-        if (ConfigManager.config.Skybox == 0) 
-            useSkybox = false;
+        if (ConfigManager.config.Skybox == 0)
+        {
+            Room.SetActive(true);
+        }
         else 
-            useSkybox = true;
-        Room.SetActive(!useSkybox);
-
-        currentSkyboxIndex = ConfigManager.config.Skybox-1;
-        SetSkybox();
+        {
+            Room.SetActive(false);
+            currentSkyboxIndex = ConfigManager.config.Skybox-1;
+            SetSkybox();
+        }
     }
 
     IEnumerator AddSkyboxes()
@@ -73,6 +79,8 @@ public class SkyboxSwitcher : MonoBehaviour
                 {
                     skyboxMat.SetTexture("_MainTex", texture);
                     skyboxes.Add(skyboxMat);
+
+                    Dropdown.options.Add(new TMP_Dropdown.OptionData(file.Name));
                 }
             }
         }
