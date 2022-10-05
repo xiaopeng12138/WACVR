@@ -14,6 +14,9 @@ public class ConfigManager : MonoBehaviour
     private static bool hasInitialized = false;
     Config oldConfig;
     public static event Action onConfigChanged;
+    private static float saverTimer = 0;
+    private static bool isSavingConfig = false;
+    private float saverDelay = 1.5f;
     void Awake()
     {
         onConfigChanged += EnsureInitialization;
@@ -26,10 +29,6 @@ public class ConfigManager : MonoBehaviour
         UpdateConfigPanel();
         AddListenerToWidget();
         onConfigChanged?.Invoke();
-    }
-    void Update()
-    {
-
     }
     public static void EnsureInitialization() 
     {
@@ -60,14 +59,28 @@ public class ConfigManager : MonoBehaviour
     }
     public static void SaveFile() 
     {
-        if (ConfigBehavior.instance != null)
-            ConfigBehavior.SaveFile();
+        isSavingConfig = true;
+        saverTimer = 0;
+        Debug.Log("Saving config file");
     }
-    public static IEnumerator SaveFileWait() 
+    public void saveFileWait() 
     {
-        yield return new WaitForSeconds(1.5f); 
         File.WriteAllText(GetFileName(), JsonConvert.SerializeObject(config, Formatting.Indented));
         Debug.Log("Config file saved");
+    }
+
+    void Update()
+    {
+        if (isSavingConfig)
+        {
+            saverTimer += Time.deltaTime;
+            if (saverTimer >= saverDelay)
+            {
+                isSavingConfig = false;
+                saverTimer = 0;
+                saveFileWait();
+            }
+        }
     }
 
     private TMP_Dropdown CaptureModeDropdown;

@@ -20,7 +20,7 @@ public class ColliderToTouch : MonoBehaviour
         _insideColliderCount += 1;
         TouchManager.SetTouch(Area, true);
         touchDidChange?.Invoke();
-        LightManager.UpdateLightFade(Area, true);
+        LightManager.UpdateFadeLight(Area, true);
     }
 
     private void OnTriggerExit(Collider other)
@@ -31,7 +31,7 @@ public class ColliderToTouch : MonoBehaviour
         {
             TouchManager.SetTouch(Area, false);
             touchDidChange?.Invoke();
-            LightManager.UpdateLightFade(Area, false);
+            LightManager.UpdateFadeLight(Area, false);
         }
     }
 }

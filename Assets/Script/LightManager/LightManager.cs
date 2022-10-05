@@ -9,9 +9,9 @@ public class LightManager : MonoBehaviour
     public List<GameObject> Lights = new List<GameObject>();
     List<Material> Materials = new List<Material>();
     [SerializeField]
-    public bool isIPCIdle = true;
+    private bool isIPCIdle = true;
     [SerializeField]
-    public bool useIPCLighting = true;
+    private bool useIPCLighting = true;
     static Texture2D RGBColor2D;
 
     private IEnumerator[] coroutines = new IEnumerator[240];
@@ -36,7 +36,11 @@ public class LightManager : MonoBehaviour
     private void Update() 
     {
         if (!useIPCLighting)
+        {
+            isIPCIdle = true;
             return;
+        }
+            
         if (IPCManager.sharedBuffer != null)
         {
             GetTextureFromBytes(IPCManager.GetLightData());
@@ -80,9 +84,9 @@ public class LightManager : MonoBehaviour
         RGBColor2D.LoadRawTextureData(bytes);
         RGBColor2D.Apply();
     }
-    public void UpdateLightFade(int Area, bool State)
+    public void UpdateFadeLight(int Area, bool State)
     {
-        if(!isIPCIdle || useIPCLighting)
+        if(!isIPCIdle | useIPCLighting)
             return;
 
         Area -= 1;

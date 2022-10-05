@@ -7,7 +7,6 @@ using System.Linq;
 using UnityEngine;
 public class TouchManager : MonoBehaviour
 {
-
     const byte CMD_GET_SYNC_BOARD_VER = 0xa0;
     const byte CMD_NEXT_READ = 0x72;
     const byte CMD_GET_UNIT_BOARD_VER = 0xa8;
@@ -36,10 +35,11 @@ public class TouchManager : MonoBehaviour
     byte[] SettingData_201 = new byte[3] {201, 0, 73};
     static byte[] TouchPackL = new byte[36];
     static byte[] TouchPackR = new byte[36];
-    public static bool[] TouchPackAll = new bool[240];
+    static bool[] TouchPackAll = new bool[240];
     bool StartUp = false;
     void Start()
     {
+        ConfigManager.EnsureInitialization();
         try
         {
             ComL.Open();
@@ -49,7 +49,7 @@ public class TouchManager : MonoBehaviour
         {
             Console.WriteLine($"Failed to Open Serial Ports: {ex}");
         }
-        //Debug.Log("Touch Serial Initializing..");
+        Debug.Log("Touch Serial Initializing..");
         //Send touch update periodically to keep "read" alive
         _touchQueue = Queue.Synchronized(new Queue());
         _touchThread = new Thread(TouchThreadLoop);
@@ -85,8 +85,8 @@ public class TouchManager : MonoBehaviour
             ReadHead(ComL, 0);
         if (ComR.IsOpen)
             ReadHead(ComR, 1);
-         if (Input.GetKeyDown(KeyCode.M)) //this is a touch test code
-              StartCoroutine(TouchTest(true));
+        //if (Input.GetKeyDown(KeyCode.M)) //this is a touch test code
+            //StartCoroutine(TouchTest(true));
         if (Input.GetKeyDown(KeyCode.M) && StartUp)
             SendTouchState();
     }
@@ -101,6 +101,8 @@ public class TouchManager : MonoBehaviour
             //  Debug.Log("Sending Right");
             SendTouch(ComR, TouchPackR);
         }
+        if (ConfigManager.config.useIPCTouch)
+            IPCManager.SetTouchData(TouchPackAll); //send touch data to IPC
     }
 
     IEnumerator TouchTest(bool State) //this is a touch test code
@@ -223,30 +225,29 @@ public class TouchManager : MonoBehaviour
             Pack[34] = 0;
         return Pack;
     }
-    void SendTouch(SerialPort Serial, byte[] Pack) //Send touch data
+    void SendTouch(SerialPort Serial, byte[] Pack) //Send touch data to serial
     {
         if (StartUp)
             Serial.Write(GetTouchPack(Pack), 0, 36);
     }
-    public static void SetTouch(int Area, bool State) //set touch data 0-239
+    public static void SetTouch(int Area, bool State) //set touch data 1-240
     {
-        Area -= 1;
-        if (Area < 120)
+        Area -= 1; //0-239
+        if (Area < 120) //right side
         {
-            TouchPackAll[Area + 120] = State;
+            TouchPackAll[Area + 120] = State; //save R touch for IPC
     
             Area += Area / 5 * 3 + 7; 
             ByteHelper.SetBit(TouchPackR, Area, State);
         }
-        else if (Area >= 120)
+        else if (Area >= 120) //left side
         {
-            TouchPackAll[Area - 120] = State;
+            TouchPackAll[Area - 120] = State; //save L touch for IPC
 
             Area -= 120;
             Area += Area / 5 * 3 + 7; 
             ByteHelper.SetBit(TouchPackL, Area, State);
         }
-        IPCManager.SetTouchData(TouchPackAll);
     }
 }
 
