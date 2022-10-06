@@ -85,10 +85,11 @@ public class TouchManager : MonoBehaviour
             ReadHead(ComL, 0);
         if (ComR.IsOpen)
             ReadHead(ComR, 1);
-        //if (Input.GetKeyDown(KeyCode.M)) //this is a touch test code
+        //following are touch test code
+        //if (Input.GetKeyDown(KeyCode.M)) 
             //StartCoroutine(TouchTest(true));
-        if (Input.GetKeyDown(KeyCode.M) && StartUp)
-            SendTouchState();
+        //if (Input.GetKeyDown(KeyCode.M) && StartUp)
+            //SendTouchState();
     }
 
     private void SendTouchState()
