@@ -1512,7 +1512,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2a2fbd11bfacc9a4daa238a38ecc91c9, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2222,7 +2222,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2a2fbd11bfacc9a4daa238a38ecc91c9, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -31302,7 +31302,7 @@ PrefabInstance:
     - target: {fileID: 6563380807134184743, guid: 5da4516f609052242915c455fc208ca2,
         type: 3}
       propertyPath: m_Options.m_Options.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5da4516f609052242915c455fc208ca2, type: 3}
@@ -31792,7 +31792,7 @@ PrefabInstance:
     - target: {fileID: 6563380807134184743, guid: 5da4516f609052242915c455fc208ca2,
         type: 3}
       propertyPath: m_Options.m_Options.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5da4516f609052242915c455fc208ca2, type: 3}
@@ -33924,7 +33924,7 @@ PrefabInstance:
     - target: {fileID: 6563380807134184743, guid: 5da4516f609052242915c455fc208ca2,
         type: 3}
       propertyPath: m_Options.m_Options.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5da4516f609052242915c455fc208ca2, type: 3}
@@ -34235,7 +34235,7 @@ PrefabInstance:
     - target: {fileID: 6563380807134184743, guid: 5da4516f609052242915c455fc208ca2,
         type: 3}
       propertyPath: m_Options.m_Options.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5da4516f609052242915c455fc208ca2, type: 3}

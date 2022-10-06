@@ -8,7 +8,7 @@ using WindowsInput.Native;
 public class KeyDropdownManager : MonoBehaviour
 {
     TMP_Dropdown Dropdown;
-    void Start()
+    void Awake()
     {
         Dropdown = GetComponent<TMP_Dropdown>();
         PopulateList();

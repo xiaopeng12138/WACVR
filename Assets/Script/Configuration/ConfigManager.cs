@@ -179,10 +179,10 @@ public class ConfigManager : MonoBehaviour
         config.Skybox = SkyboxDropdown.value;
         config.TouchSampleRate = (Config.touchSampleRate)TouchSampleRateDropdown.value;
         config.HandStabilizationMode = (Config.handStabilization)HandStabilizationModeDropdown.value;
-        config.TestKey = (VirtualKeyCode)TestKeyDropdown.value;
-        config.ServiceKey = (VirtualKeyCode)ServiceKeyDropdown.value;
-        config.CoinKey = (VirtualKeyCode)CoinKeyDropdown.value;
-        config.CustomKey = (VirtualKeyCode)CustomKeyDropdown.value;
+        config.TestKey = (VirtualKeyCode)Enum.GetValues(typeof(VirtualKeyCode)).GetValue(TestKeyDropdown.value);
+        config.ServiceKey = (VirtualKeyCode)Enum.GetValues(typeof(VirtualKeyCode)).GetValue(ServiceKeyDropdown.value);
+        config.CoinKey = (VirtualKeyCode)Enum.GetValues(typeof(VirtualKeyCode)).GetValue(CoinKeyDropdown.value);
+        config.CustomKey = (VirtualKeyCode)Enum.GetValues(typeof(VirtualKeyCode)).GetValue(CustomKeyDropdown.value);
         onConfigChanged?.Invoke();
     }
 
@@ -207,7 +207,7 @@ public class ConfigManager : MonoBehaviour
         config.useIPCTouch = isIPCTouchToggle.isOn;
         onConfigChanged?.Invoke();
     }
-
+    [ContextMenu("UpdateConfigPanel")]
     void UpdateConfigPanel()
     {
         CaptureModeDropdown.value = (int)config.CaptureMode;
@@ -231,9 +231,9 @@ public class ConfigManager : MonoBehaviour
         //HandStabilSmoothSlider.value = HandStabilSmooth;
         isIPCLightingToggle.isOn = config.useIPCLighting;
         isIPCTouchToggle.isOn = config.useIPCTouch;
-        TestKeyDropdown.value = (int)config.TestKey;
-        ServiceKeyDropdown.value = (int)config.ServiceKey;
-        CoinKeyDropdown.value = (int)config.CoinKey;
-        CustomKeyDropdown.value = (int)config.CustomKey;
+        TestKeyDropdown.value = Array.IndexOf(Enum.GetValues(typeof(VirtualKeyCode)), config.TestKey);
+        ServiceKeyDropdown.value = Array.IndexOf(Enum.GetValues(typeof(VirtualKeyCode)), config.ServiceKey);
+        CoinKeyDropdown.value = Array.IndexOf(Enum.GetValues(typeof(VirtualKeyCode)), config.CoinKey);
+        CustomKeyDropdown.value = Array.IndexOf(Enum.GetValues(typeof(VirtualKeyCode)), config.CustomKey);
     }
 }
