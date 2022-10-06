@@ -27994,6 +27994,7 @@ GameObject:
   - component: {fileID: 1944661008}
   - component: {fileID: 1944661009}
   - component: {fileID: 1944661010}
+  - component: {fileID: 1944661011}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -28048,6 +28049,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upperLimit: 10
   lowerLimit: -10
+--- !u!114 &1944661011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944661007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 419ad76f2ffc722478bc67f61f9c32e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stage: {fileID: 1944661008}
+  _stageTransform: {fileID: 0}
+  _HMDCamera: {fileID: 2095231907}
+  _MRCameraPrefab: {fileID: 0}
+  _disableStandardAssets: 0
+  _spectatorLayerMask:
+    serializedVersion: 2
+    m_Bits: 191
+  _excludeBehaviours:
+  - AudioListener
+  - Collider
+  - SteamVR_Camera
+  - SteamVR_Fade
+  - SteamVR_ExternalCamera
+  _fixPostEffectsAlpha: 1
 --- !u!1 &1945120886 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6243022851232597353, guid: cf8684b3c4f47b94aa7cb23ce498caf3,
