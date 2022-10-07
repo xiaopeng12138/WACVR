@@ -86,7 +86,7 @@ public class LightManager : MonoBehaviour
     }
     public void UpdateFadeLight(int Area, bool State)
     {
-        if(!isIPCIdle | useIPCLighting)
+        if(!isIPCIdle)
             return;
 
         Area -= 1;

@@ -203,6 +203,7 @@ public class ConfigManager : MonoBehaviour
     
     void onBoolChanged(bool value)
     {
+        config.CaptureDesktop = CaptureDesktopToggle.isOn;
         config.useIPCLighting = isIPCLightingToggle.isOn;
         config.useIPCTouch = isIPCTouchToggle.isOn;
         onConfigChanged?.Invoke();

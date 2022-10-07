@@ -28,7 +28,5 @@ public class CaptureSettingManager : MonoBehaviour
         }
         else
             windowTexture.type = WindowTextureType.Window;
-
-        windowTexture.desktopIndex = ConfigManager.config.CaptureDesktopNumber;
     }
 }

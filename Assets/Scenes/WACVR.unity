@@ -8580,7 +8580,7 @@ MonoBehaviour:
   capturePriority: 0
   captureRequestTiming: 0
   captureFrameRate: 90
-  drawCursor: 1
+  drawCursor: 0
   updateTitle: 1
   searchAnotherWindowWhenInvalid: 0
   scaleControlType: 3
@@ -28728,24 +28728,24 @@ MonoBehaviour:
   m_AudioClipForOnHoverExited: {fileID: 0}
   m_PlayAudioClipOnHoverCanceled: 0
   m_AudioClipForOnHoverCanceled: {fileID: 0}
-  m_PlayHapticsOnSelectEntered: 0
-  m_HapticSelectEnterIntensity: 0
-  m_HapticSelectEnterDuration: 0
-  m_PlayHapticsOnSelectExited: 0
-  m_HapticSelectExitIntensity: 0
-  m_HapticSelectExitDuration: 0
-  m_PlayHapticsOnSelectCanceled: 0
-  m_HapticSelectCancelIntensity: 0
-  m_HapticSelectCancelDuration: 0
-  m_PlayHapticsOnHoverEntered: 0
-  m_HapticHoverEnterIntensity: 0
-  m_HapticHoverEnterDuration: 0
-  m_PlayHapticsOnHoverExited: 0
-  m_HapticHoverExitIntensity: 0
-  m_HapticHoverExitDuration: 0
-  m_PlayHapticsOnHoverCanceled: 0
-  m_HapticHoverCancelIntensity: 0
-  m_HapticHoverCancelDuration: 0
+  m_PlayHapticsOnSelectEntered: 1
+  m_HapticSelectEnterIntensity: 0.4
+  m_HapticSelectEnterDuration: 0.05
+  m_PlayHapticsOnSelectExited: 1
+  m_HapticSelectExitIntensity: 0.4
+  m_HapticSelectExitDuration: 0.02
+  m_PlayHapticsOnSelectCanceled: 1
+  m_HapticSelectCancelIntensity: 0.6
+  m_HapticSelectCancelDuration: 0.05
+  m_PlayHapticsOnHoverEntered: 1
+  m_HapticHoverEnterIntensity: 0.25
+  m_HapticHoverEnterDuration: 0.01
+  m_PlayHapticsOnHoverExited: 1
+  m_HapticHoverExitIntensity: 0.25
+  m_HapticHoverExitDuration: 0.01
+  m_PlayHapticsOnHoverCanceled: 1
+  m_HapticHoverCancelIntensity: 0.5
+  m_HapticHoverCancelDuration: 0.01
   m_LineType: 0
   m_BlendVisualLinePoints: 1
   m_MaxRaycastDistance: 3
@@ -30884,24 +30884,24 @@ MonoBehaviour:
   m_AudioClipForOnHoverExited: {fileID: 0}
   m_PlayAudioClipOnHoverCanceled: 0
   m_AudioClipForOnHoverCanceled: {fileID: 0}
-  m_PlayHapticsOnSelectEntered: 0
-  m_HapticSelectEnterIntensity: 0
-  m_HapticSelectEnterDuration: 0
-  m_PlayHapticsOnSelectExited: 0
-  m_HapticSelectExitIntensity: 0
-  m_HapticSelectExitDuration: 0
-  m_PlayHapticsOnSelectCanceled: 0
-  m_HapticSelectCancelIntensity: 0
-  m_HapticSelectCancelDuration: 0
-  m_PlayHapticsOnHoverEntered: 0
-  m_HapticHoverEnterIntensity: 0
-  m_HapticHoverEnterDuration: 0
-  m_PlayHapticsOnHoverExited: 0
-  m_HapticHoverExitIntensity: 0
-  m_HapticHoverExitDuration: 0
-  m_PlayHapticsOnHoverCanceled: 0
-  m_HapticHoverCancelIntensity: 0
-  m_HapticHoverCancelDuration: 0
+  m_PlayHapticsOnSelectEntered: 1
+  m_HapticSelectEnterIntensity: 0.4
+  m_HapticSelectEnterDuration: 0.05
+  m_PlayHapticsOnSelectExited: 1
+  m_HapticSelectExitIntensity: 0.4
+  m_HapticSelectExitDuration: 0.02
+  m_PlayHapticsOnSelectCanceled: 1
+  m_HapticSelectCancelIntensity: 0.6
+  m_HapticSelectCancelDuration: 0.05
+  m_PlayHapticsOnHoverEntered: 1
+  m_HapticHoverEnterIntensity: 0.25
+  m_HapticHoverEnterDuration: 0.01
+  m_PlayHapticsOnHoverExited: 1
+  m_HapticHoverExitIntensity: 0.25
+  m_HapticHoverExitDuration: 0.01
+  m_PlayHapticsOnHoverCanceled: 1
+  m_HapticHoverCancelIntensity: 0.5
+  m_HapticHoverCancelDuration: 0.01
   m_LineType: 0
   m_BlendVisualLinePoints: 1
   m_MaxRaycastDistance: 3
@@ -32855,6 +32855,7 @@ GameObject:
   - component: {fileID: 1748802425554287225}
   - component: {fileID: 1748802425554287222}
   - component: {fileID: 7308342869353410805}
+  - component: {fileID: 7308342869353410806}
   m_Layer: 5
   m_Name: ConfigCanvas
   m_TagString: Untagged
@@ -35079,6 +35080,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0559825455822d48a37fc54c6dfd318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7308342869353410806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748802425554287228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 785dd3d2a9b58f24d9e6ecf071fb1304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LightManager: {fileID: 1251312950}
 --- !u!1001 &8069494991214085012
 PrefabInstance:
   m_ObjectHideFlags: 0

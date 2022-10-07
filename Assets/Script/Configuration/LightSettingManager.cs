@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LightSettingManager : MonoBehaviour
 {
-    public List<GameObject> Lights;
+    public GameObject LightManager;
     void Start()
     {
         ConfigManager.onConfigChanged += ApplyConfig;
@@ -13,9 +13,6 @@ public class LightSettingManager : MonoBehaviour
     }
     void ApplyConfig()
     {
-        foreach (var light in Lights)
-        {
-            light.SetActive(ConfigManager.config.useLight);
-        }
+            LightManager.SetActive(ConfigManager.config.useLight);
     }
 }
