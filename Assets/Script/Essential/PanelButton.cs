@@ -23,12 +23,14 @@ public class PanelButton : MonoBehaviour
     private int _insideColliderCount = 0;
 
     private Renderer cr;
+    private Color orgColor;
     //public GameObject camera; // just generating warnings lmao
     public AudioSource audioSrc;
 
     void Start()
     {
         cr = GetComponent<Renderer>();
+        orgColor = cr.material.color;
 
         if (isToggle)
         {
@@ -90,6 +92,6 @@ public class PanelButton : MonoBehaviour
         keybd_event(System.Convert.ToByte(key), (byte)MapVirtualKey((uint)key, 0), 2, UIntPtr.Zero);
         keybd_event(System.Convert.ToByte(key2), (byte)MapVirtualKey((uint)key2, 0), 2, UIntPtr.Zero);
         if (!isToggle)
-            cr.material.color = Color.gray;
+            cr.material.color = orgColor;
     }
 }
