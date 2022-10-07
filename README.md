@@ -5,9 +5,10 @@ Open Source VR Arcade Simulator
 **About this project**
 ---
 
-- Support every game version
+- Supports every game version
 - The model is almost 1:1 to cabinet/framework
-- Support native touch input via serial (com0com required)
+- Supports native touch input via serial (com0com required)
+- Supports lights/LEDs (via hook)
 - Customizable haptic feedback
 - 3rd person camera and smooth camera
 - 4 customizable buttons
@@ -33,7 +34,9 @@ Open Source VR Arcade Simulator
 - Please support your local arcade if you can!
 
 **How to use**
-Get the game somehow and make sure it will run properly. (DO NOT ASK ANYTHING THAT IS DIRECTLY RELATED TO THE GAME ITSELF)
+---
+
+- Get the game somehow and make sure it will run properly. (DO NOT ASK ANYTHING THAT IS DIRECTLY RELATED TO THE GAME ITSELF)
 - Download [the latest version of WACVR](https://github.com/xiaopeng12138/WACVR/actions)
 - You have 2 ways to connect the touch to the game:
 
@@ -48,13 +51,14 @@ Get the game somehow and make sure it will run properly. (DO NOT ASK ANYTHING TH
   - Download and install [com0com](https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/powersdr-iq/setup_com0com_W7_x64_signed.exe).
   - Configure com0com to bind COM3 and COM5, COM4 and COM6.
   - You must enable the enable buffer option in com0com on both ports of all pairs. Otherwise, your WACVR will crash after the logo.
-  - add "[touch] enable=0" to .ini file
+  - Add "[touch] enable=0" to .ini file
   - Start WACVR first then start the game.
   - If your touch is not working, try to enable somehow Test mod then exit Test mode.
 
 - The lighting requires ``mercuryio.dll``. You must setup it up to get the light effect from the game. If you don't have the light effect, pls check if you are using the latest tools and if your LED hook works.
 
-## Configuration
+**Configuration**
+---
 
 A ``config.json`` is automatically created in the WACVR's root dir on startup
 
