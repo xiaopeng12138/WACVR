@@ -23,6 +23,7 @@ Open Source VR Arcade Simulator
 ---
 
 - [uWindowCapture](https://github.com/hecomi/uWindowCapture)
+- [MaiDXR](https://github.com/xiaopeng12138/MaiDXR)
 
 **Declaimer**
 ---
@@ -31,12 +32,10 @@ Open Source VR Arcade Simulator
 - Although this is under the GPL-3.0 license, do not use any content of this repo in commercial/profitable scenarios without permission!
 - Please support your local arcade if you can!
 
-**How to use**
----
-
-- Get game somehow and make sure it will run properly. (DO NOT ASK ANYTHING THAT IS DIRECTLY RELATED TO THE GAME ITSELF)
+**How to use*
+Get the game somehow and make sure it will run properly. (DO NOT ASK ANYTHING THAT IS DIRECTLY RELATED TO THE GAME ITSELF)
 - Download [the latest version of WACVR](https://github.com/xiaopeng12138/WACVR/actions)
-- You have 2 way to connect the touch to game:
+- You have 2 ways to connect the touch to the game:
 
 - **mercuryio:**
   - Download [mercuryio.dll](https://xpengs.com/s/wacvr/mercuryio.dll)
@@ -59,10 +58,12 @@ Open Source VR Arcade Simulator
 
 A ``config.json`` is automatically created in the WACVR's root dir on startup
 
-- You can change the ``config`` via the in-game config panel
+- You can change the ``config`` via the in-game config panel. Just please take a step back. The controller pointer will automatically be disabled when the controller is too close to the cabinet.
 - Some extra option is only available in ``config.json``. For example:
     - ``"CaptureDesktopNumber:"``
     - ``"SpectatorSmooth:"``
+- Some configs in ``config.json`` are only the index of the dropdown.
+- You can use the pointer to point the third-person camera and grab it to the position where you want to be.
 
 **Building guide**
 ---
