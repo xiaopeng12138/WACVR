@@ -102,8 +102,6 @@ public class TouchManager : MonoBehaviour
             //  Debug.Log("Sending Right");
             SendTouch(ComR, TouchPackR);
         }
-        if (ConfigManager.config.useIPCTouch)
-            IPCManager.SetTouchData(TouchPackAll); //send touch data to IPC
     }
 
     IEnumerator TouchTest(bool State) //this is a touch test code
@@ -249,6 +247,8 @@ public class TouchManager : MonoBehaviour
             Area += Area / 5 * 3 + 7; 
             ByteHelper.SetBit(TouchPackL, Area, State);
         }
+        if (ConfigManager.config.useIPCTouch)
+            IPCManager.SetTouchData(TouchPackAll); //send touch data to IPC
     }
 }
 

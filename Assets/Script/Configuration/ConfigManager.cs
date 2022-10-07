@@ -61,7 +61,7 @@ public class ConfigManager : MonoBehaviour
     {
         isSavingConfig = true;
         saverTimer = 0;
-        Debug.Log("Saving config file");
+        //Debug.Log("Saving config file");
     }
     public void saveFileWait() 
     {

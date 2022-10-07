@@ -45,7 +45,7 @@ public class Config
         FPS144 = 7
     }
     public float SpectatorFOV = 40;
-    public float SpectatorSmooth = 0.125f;
+    public float SpectatorSmooth = 0.05f;
     public float[] TPCamPosition = new float[3] { -0.6f, 1.8f, -1.2f };
     public float[] TPCamRotation = new float[3] { 23, 35, 0 };
     public float HandSize = 8f;

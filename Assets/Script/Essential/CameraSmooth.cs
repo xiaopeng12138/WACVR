@@ -3,8 +3,7 @@ using UnityEngine;
 public class CameraSmooth : MonoBehaviour {
 
 	public Transform target;
-	public float smoothSpeed = 0.125f;
-	public Vector3 PositionOffset;
+	public float smoothSpeed = 0.05f;
 	public int FPS = 60;
 	private void Start()
 	{
@@ -14,7 +13,7 @@ public class CameraSmooth : MonoBehaviour {
 	void Update ()
 	{
 		if (target == null) return;
-		transform.position = Vector3.Lerp(transform.position, target.position + PositionOffset, smoothSpeed);
+		transform.position = Vector3.Lerp(transform.position, target.position, smoothSpeed);
 		transform.rotation = Quaternion.Lerp(transform.rotation, target.rotation, smoothSpeed);
 	}
 }

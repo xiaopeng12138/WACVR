@@ -8,7 +8,19 @@ using TMPro;
 public class ValueManager : MonoBehaviour
 {
     TMP_Text tmp;
-    public float Value;
+    public float Value
+    {
+        get
+        {
+            return _value;
+        }
+        set
+        {
+            _value = value;
+            onValueChanged?.Invoke();
+        }
+    }
+    private float _value;
     float tempValue;
     public bool isPointerDown = false;
     public UnityEvent onValueChanged = new UnityEvent();
@@ -25,12 +37,11 @@ public class ValueManager : MonoBehaviour
             ChangeValueContinue(tempValue);
         }
     }
-    public void ChangeValueContinue(float _value)
+    public void ChangeValueContinue(float __value)
     {
-        tempValue = _value;
-        Value += Time.deltaTime * _value;
+        tempValue = __value;
+        Value += Time.deltaTime * __value;
         isPointerDown = true;
-        onValueChanged?.Invoke();
     }
     public void PointerState(bool state)
     {
@@ -39,10 +50,9 @@ public class ValueManager : MonoBehaviour
     public void ResetValue()
     {
         Value = 0;
-        onValueChanged?.Invoke();
     }
     public void UpdateText()
     {
-        tmp.text = String.Format("{0:F2}", Value);
+        tmp.text = String.Format("{0:F2}", _value);
     }
 }
