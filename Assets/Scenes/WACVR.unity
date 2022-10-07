@@ -33246,6 +33246,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6563380807134184743, guid: 5da4516f609052242915c455fc208ca2,
         type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6563380807134184743, guid: 5da4516f609052242915c455fc208ca2,
+        type: 3}
       propertyPath: m_Options.m_Options.Array.size
       value: 4
       objectReference: {fileID: 0}
