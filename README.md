@@ -32,7 +32,7 @@ Open Source VR Arcade Simulator
 - Although this is under the GPL-3.0 license, do not use any content of this repo in commercial/profitable scenarios without permission!
 - Please support your local arcade if you can!
 
-**How to use*
+**How to use**
 Get the game somehow and make sure it will run properly. (DO NOT ASK ANYTHING THAT IS DIRECTLY RELATED TO THE GAME ITSELF)
 - Download [the latest version of WACVR](https://github.com/xiaopeng12138/WACVR/actions)
 - You have 2 ways to connect the touch to the game:
