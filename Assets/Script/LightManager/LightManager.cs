@@ -8,29 +8,26 @@ public class LightManager : MonoBehaviour
 {
     public List<GameObject> Lights = new List<GameObject>();
     List<Material> Materials = new List<Material>();
-    public static bool useIPC = false;
-    public static bool useIPC_Config = true;
+    [SerializeField]
+    private bool isIPCIdle = true;
+    [SerializeField]
+    private bool useIPCLighting = true;
     static Texture2D RGBColor2D;
-
-    public static MemoryMappedFile sharedBuffer;
-    public static MemoryMappedViewAccessor sharedBufferAccessor;
 
     private IEnumerator[] coroutines = new IEnumerator[240];
     public float FadeDuration = 0.5f;
 
     private void Start() 
     {
-        if (JsonConfiguration.HasKey("useIPC")) 
-            useIPC_Config = JsonConfiguration.GetBoolean("useIPC");
-        else 
-            JsonConfiguration.SetBoolean("useIPC", useIPC_Config);
+        ConfigManager.EnsureInitialization();
+        ConfigManager.onConfigChanged += UpdateConfig;
+        UpdateConfig();
 
         for (int i = 0; i < Lights.Count; i++)
             Materials.Add(Lights[i].GetComponent<Renderer>().material);
         
-        if (useIPC_Config)
+        if (useIPCLighting)
         {
-            InitializeIPC("Local\\WACVR_SHARED_BUFFER", 2164);
             RGBColor2D = new Texture2D(480, 1, TextureFormat.RGBA32, false);
             //RGBColor2D.filterMode = FilterMode.Point; //for debugging
             //GetComponent<Renderer>().material.mainTexture = RGBColor2D; //for debugging
@@ -38,27 +35,34 @@ public class LightManager : MonoBehaviour
     }
     private void Update() 
     {
-        GetTextureFromBytes(GetBytesFromMemory());
-        if (useIPC_Config)
+        if (!useIPCLighting)
+        {
+            isIPCIdle = true;
+            return;
+        }
+            
+        if (IPCManager.sharedBuffer != null)
+        {
+            GetTextureFromBytes(IPCManager.GetLightData());
             CheckIPCState();
-        if (useIPC)
-            UpdateLED();
+            if (!isIPCIdle)
+                UpdateLED();
+        }
+        else
+        {
+            isIPCIdle = true;
+        }
+    }
+    void UpdateConfig()
+    {
+        useIPCLighting = ConfigManager.config.useIPCLighting;
     }
     private void CheckIPCState()
     {
-        if (RGBColor2D.GetPixel(0 , 0).a == 0)
-            useIPC = false;
+        if (RGBColor2D.GetPixel(0 , 0).a == 1)
+            isIPCIdle = false;
         else
-            useIPC = true;
-    }
-    private void InitializeIPC(string sharedMemoryName, int sharedMemorySize)
-    {
-        MemoryMappedFileSecurity CustomSecurity = new MemoryMappedFileSecurity();
-        SecurityIdentifier sid = new SecurityIdentifier(WellKnownSidType.WorldSid, null);
-        var acct = sid.Translate(typeof(NTAccount)) as NTAccount;
-        CustomSecurity.AddAccessRule(new System.Security.AccessControl.AccessRule<MemoryMappedFileRights>(acct.ToString(), MemoryMappedFileRights.FullControl, System.Security.AccessControl.AccessControlType.Allow));
-        sharedBuffer = MemoryMappedFile.CreateOrOpen(sharedMemoryName, sharedMemorySize, MemoryMappedFileAccess.ReadWrite, MemoryMappedFileOptions.None, CustomSecurity, System.IO.HandleInheritability.Inheritable);
-        sharedBufferAccessor = sharedBuffer.CreateViewAccessor();
+            isIPCIdle = true;
     }
     private void UpdateLED()
     {
@@ -80,15 +84,9 @@ public class LightManager : MonoBehaviour
         RGBColor2D.LoadRawTextureData(bytes);
         RGBColor2D.Apply();
     }
-    byte[] GetBytesFromMemory()
+    public void UpdateFadeLight(int Area, bool State)
     {
-        byte[] bytes = new byte[1920];
-        sharedBufferAccessor.ReadArray<byte>(244, bytes, 0, 1920);
-        return bytes;
-    }
-    public void UpdateLightFade(int Area, bool State)
-    {
-        if(useIPC)
+        if(!isIPCIdle)
             return;
 
         Area -= 1;

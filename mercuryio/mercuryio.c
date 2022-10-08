@@ -137,7 +137,7 @@ void mercury_io_touch_set_leds(struct led_data data)
 {
     if (FileMapping)
     {
-        data.rgba[3] = 0xFF; //IPC enable flag
+        data.rgba[3] = 0xFF; //IPC idle flag
         memcpy(FileMapping->RGBAData, data.rgba, 480 * 4);
     }
     //for (size_t i = 0; i < 32; i++)
@@ -158,7 +158,7 @@ static unsigned int __stdcall mercury_io_touch_thread_proc(void *ctx)
         }
 
         callback(cellPressed);
-        Sleep(1);
+        //Sleep(1);
     }
 
     return 0;

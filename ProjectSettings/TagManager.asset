@@ -8,11 +8,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - FPSHide
+  - FPBlock
   - Water
   - UI
-  - 
-  - 
+  - TPBlock
+  - UIText
   - 
   - 
   - 
