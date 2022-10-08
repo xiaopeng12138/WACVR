@@ -1,6 +1,12 @@
-# WACVR
 
-Open Source VR Arcade Simulator
+
+# WACVR
+<img src="https://github.com/xiaopeng12138/WACVR/blob/main/PreviewImages/WACVR-LOGO.png?raw=true" width="250" />
+a open source vr arcade simulator
+
+**Preview**
+---
+<img src="https://github.com/xiaopeng12138/WACVR/blob/main/PreviewImages/Preview.png?raw=true" width="250" />
 
 **About this project**
 ---
