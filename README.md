@@ -1,6 +1,12 @@
-# WACVR
 
-Open Source VR Arcade Simulator
+
+# WACVR
+<img src="https://github.com/xiaopeng12138/WACVR/blob/main/PreviewImages/WACVR-LOGO.png?raw=true" width="250" />
+a open source vr arcade simulator
+
+**Preview**
+---
+<img src="https://github.com/xiaopeng12138/WACVR/blob/main/PreviewImages/Preview.png?raw=true" width="250" />
 
 **About this project**
 ---
@@ -37,7 +43,7 @@ Open Source VR Arcade Simulator
 ---
 
 - Get the game somehow and make sure it will run properly. (DO NOT ASK ANYTHING THAT IS DIRECTLY RELATED TO THE GAME ITSELF)
-- Download [the latest version of WACVR](https://github.com/xiaopeng12138/WACVR/actions)
+- Download [the nightly version of WACVR](https://nightly.link/xiaopeng12138/WACVR/workflows/build/main/artifact.zip)
 - You have 2 ways to connect the touch to the game:
 
 - **mercuryio:**
