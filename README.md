@@ -28,9 +28,9 @@
 - LIV avatars/mixed reality
 
 ## Supported platforms
-- All SteamVR devices (Index，HTC，Oculus, etc.)
+- All SteamVR devices (Index, HTC, Oculus, etc.)
 - All Oculus devices (Oculus Desktop App)
-- Tested on: Quest 2 through Oculus link (Native and via SteamVR), ALVR and Virtual Desktop (via SteamVR).
+> Tested on: Quest 2 through Oculus Link (Native and via SteamVR), ALVR and Virtual Desktop (via SteamVR).
 
 ## Repositories used
 - [uWindowCapture](https://github.com/hecomi/uWindowCapture)
