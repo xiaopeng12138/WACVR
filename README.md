@@ -79,7 +79,7 @@ A ``config.json`` file is automatically created in WACVR's root directory on sta
 
 ## Known issues
 - Display white screen issue
-    **Solution:** Set game priority in the task manager to real-time may solve this issue. But the best way is just by capturing the entire screen.
+	- **Solution:** Set game priority in the task manager to real-time may solve this issue. But the best way is just by capturing the entire screen.
 
 Huge thanks to everyone that helped with this project!
-If you want to add any function pls commit PR, I will accept it as soon as possible!
+If you want to add any features, please commit a pull request. I will accept it as soon as possible!
