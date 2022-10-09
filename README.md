@@ -47,7 +47,7 @@
 - You have 2 ways to connect touch to the game:
 
 ### mercuryio
-  - Download [mercuryio.dll](https://xpengs.com/s/wacvr/mercuryio.dll).
+  - Download [mercuryio.dll](https://wacvr.cf/mercuryio.dll).
   - Put ``mercuryio.dll`` into ``bin`` folder.
   - Add ``[mercuryio] path=mercuryio.dll`` to .ini file.
   - Start the game and WACVR.
