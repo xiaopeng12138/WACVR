@@ -33,6 +33,7 @@
 > Tested on: Quest 2 through Oculus Link (Native and via SteamVR), ALVR and Virtual Desktop (via SteamVR).
 
 ## Repositories used
+- [Brokenithm-iOS](https://github.com/esterTion/Brokenithm-iOS)
 - [uWindowCapture](https://github.com/hecomi/uWindowCapture)
 - [MaiDXR](https://github.com/xiaopeng12138/MaiDXR)
 
