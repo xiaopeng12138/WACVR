@@ -87,4 +87,5 @@ public class Config
     public VirtualKeyCode ServiceKey = VirtualKeyCode.DELETE;
     public VirtualKeyCode CoinKey = VirtualKeyCode.HOME;
     public VirtualKeyCode CustomKey = VirtualKeyCode.NONAME;
+    public string batFileLocation = "";
 }
