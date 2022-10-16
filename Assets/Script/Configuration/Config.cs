@@ -77,7 +77,7 @@ public class Config
         Distance = 2,
         Smooth = 3,
     }
-    public float HandStabilVelocity = 0.1f;
+    public float HandStabilVelocity = 0.3f;
     public float HandStabilDistance = 0.1f;
     public float HandStabilSmooth = 0.1f;
     public bool useLight = true;

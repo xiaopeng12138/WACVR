@@ -14,8 +14,8 @@ public class PlayerSettingManager : MonoBehaviour
     private double lowerLimit = -10; // meters 
     void Start()
     {
-        LHandTransform = transform.Find("Camera Offset").Find("LeftHand Controller").Find("LHand");
-        RHandTransform = transform.Find("Camera Offset").Find("RightHand Controller").Find("RHand");
+        LHandTransform = transform.Find("Camera Offset").Find("LeftHand Controller").Find("LHand Virtual");
+        RHandTransform = transform.Find("Camera Offset").Find("RightHand Controller").Find("RHand Virtual");
         ConfigManager.onConfigChanged += ApplyConfig;
         ConfigManager.EnsureInitialization();
         ApplyConfig();
