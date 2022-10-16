@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightSettingManager : MonoBehaviour
+public class VisibilityManager : MonoBehaviour
 {
-    public GameObject LightManager;
+    public string ConfigKeyName;
     void Start()
     {
         ConfigManager.onConfigChanged += ApplyConfig;
@@ -13,6 +13,7 @@ public class LightSettingManager : MonoBehaviour
     }
     void ApplyConfig()
     {
-        LightManager.SetActive(ConfigManager.config.useLight);
+        bool state = (bool)ConfigManager.config.GetType().GetField(ConfigKeyName).GetValue(ConfigManager.config);
+        gameObject.SetActive(state);
     }
 }
