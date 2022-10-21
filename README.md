@@ -39,11 +39,11 @@
 
 ## Disclaimers
 - This project is not-for-profit and some resources came from the Internet!
-- Although this is under the GPL-3.0 license, do not use any content of this repo in commercial/profitable scenarios without permission!
+- Although this repository is under the GPL-3.0 license, do not use any content of this repo in commercial/profitable scenarios without permission!
 - Please support your local arcade if you can!
 
 ## How to use
-- Get the game somehow and make sure it runs properly. (DO NOT ASK ANYTHING THAT IS DIRECTLY RELATED TO THE GAME ITSELF)
+- Get the game somehow and make sure it runs properly and uses latest xxxxtools. (DO NOT ASK ANYTHING THAT IS DIRECTLY RELATED TO THE GAME ITSELF)
 - Download [the nightly version of WACVR](https://nightly.link/xiaopeng12138/WACVR/workflows/build/main/artifact.zip).
 - You have 2 ways to connect touch to the game:
 
@@ -62,7 +62,7 @@
   - Start WACVR first then start the game.
   - If your touch is not working, try to somehow go to Test mode then exit Test mode.
 
-- The lighting requires ``mercuryio.dll``. You must set it up to get the lights from the game. If you don't have the lights, please check if you are using the latest tools and if your LED hook works.
+- The lighting requires ``mercuryio.dll``. You must set it up to get the lights from the game. If you don't have the lights, please check if you are using the latest xxxxtools and if your LED hook works.
 
 ## Configuration
 A ``config.json`` file is automatically created in WACVR's root directory on startup.
