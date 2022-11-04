@@ -120,9 +120,9 @@ Material:
     - _Fresnel: 1.24
     - _Fresnel_1: 5
     - _Fresnel_Power: 1
-    - _Fresnel_Radius: 0.81
+    - _Fresnel_Radius: 0.75
     - _Fresnel_Size: -5
-    - _Fresnel_Strength: 1.1
+    - _Fresnel_Strength: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
