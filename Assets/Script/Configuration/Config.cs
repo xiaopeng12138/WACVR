@@ -14,7 +14,7 @@ public class Config
     public float SpectatorSmooth = 0.05f;
     public float[] TPCamPosition = new float[3] { -0.6f, 1.8f, -1.2f };
     public float[] TPCamRotation = new float[3] { 23, 35, 0 };
-    public float HandSize = 8f;
+    public float HandSize = 0.08f;
     public float HandX = 0;
     public float HandY = 0;
     public float HandZ = 0;
