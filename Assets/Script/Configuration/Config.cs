@@ -23,7 +23,7 @@ public class Config
     public float HapticDuration = 0.1f;
     public float HapticAmplitude = 0.75f;
     public int TouchSampleRate  = 3;
-    public int HandStabilization = 0;
+    public int HandTrackingMode = 0;
     public float Threshold = 0.3f;
     public float HandStabilVelocity = 0.3f;
     public float HandStabilDistance = 0.1f;

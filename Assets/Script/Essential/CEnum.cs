@@ -38,9 +38,10 @@ public class CEnum
      public enum handStabilization
     {
         None = 0,
-        Velocity = 1,
-        Distance = 2,
-        Smooth = 3,
+        Physics = 1,
+        Velocity = 2,
+        Distance = 3,
+        Smooth = 4,
     }
     public enum listType
     {

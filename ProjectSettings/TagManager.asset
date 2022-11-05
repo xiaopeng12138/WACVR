@@ -15,8 +15,8 @@ TagManager:
   - UIText
   - LIVBlock
   - LEDs
-  - 
-  - 
+  - LHandPhysics
+  - RHandPhysics
   - 
   - 
   - 
