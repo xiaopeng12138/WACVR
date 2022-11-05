@@ -5973,6 +5973,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7602146142065909682, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 400
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd46221f8de0268428f1a148427fec0d, type: 3}
 --- !u!224 &690703009 stripped
@@ -6946,6 +6951,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7602146142065909682, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd46221f8de0268428f1a148427fec0d, type: 3}
@@ -8800,6 +8810,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7602146142065909682, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd46221f8de0268428f1a148427fec0d, type: 3}
@@ -10930,12 +10945,93 @@ PrefabInstance:
     - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
         type: 3}
       propertyPath: m_Interactable
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
         type: 3}
       propertyPath: m_Options.m_Options.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.data[1].m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.data[2].m_Text
+      value: 2x
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.data[3].m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.data[4].m_Text
+      value: 4x
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.data[5].m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.data[6].m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.data[7].m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.data[8].m_Text
+      value: 8x
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.data[9].m_Text
+      value: 8x
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: d0e2fc18fe036412f8223b3b3d9ad574,
+        type: 2}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_msaaSampleCount
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset, Unity.RenderPipelines.Universal.Runtime
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4631776027059794196, guid: dd46221f8de0268428f1a148427fec0d,
         type: 3}
@@ -11881,6 +11977,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7602146142065909682, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd46221f8de0268428f1a148427fec0d, type: 3}
@@ -33342,6 +33443,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Capture Mode
+      objectReference: {fileID: 0}
+    - target: {fileID: 2152940796011086207, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_text
+      value: Windows Graphic Capture
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_Value
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687683374621869137, guid: dd46221f8de0268428f1a148427fec0d,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.data[3].m_Text
+      value: Windows Graphic
       objectReference: {fileID: 0}
     - target: {fileID: 4631776027059794196, guid: dd46221f8de0268428f1a148427fec0d,
         type: 3}
