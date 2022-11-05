@@ -22,7 +22,7 @@ public class Config
     public int Skybox = 0;
     public float HapticDuration = 0.1f;
     public float HapticAmplitude = 0.75f;
-    public int TouchSampleRate  = 2;
+    public int TouchSampleRate  = 3;
     public int HandStabilization = 0;
     public float Threshold = 0.3f;
     public float HandStabilVelocity = 0.3f;
