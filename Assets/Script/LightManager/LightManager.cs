@@ -46,7 +46,6 @@ public class LightManager : MonoBehaviour
         if (IPCManager.sharedBuffer != null)
         {
             GetTextureFromBytes(IPCManager.GetLightData());
-            CheckIPCState();
             if (!isIPCIdle)
                 UpdateLED();
         }
@@ -55,13 +54,14 @@ public class LightManager : MonoBehaviour
             isIPCIdle = true;
         }
     }
-    private void CheckIPCState()
+    private void CheckIPCState(byte[] data)
     {
-        if (RGBColor2D.GetPixel(0 , 0).a == 1)
-            isIPCIdle = false;
-        else
+        if (data[3] == 0)
             isIPCIdle = true;
+        else
+            isIPCIdle = false;
     }
+
     private void UpdateLED()
     {
         int index = 0;
@@ -79,8 +79,12 @@ public class LightManager : MonoBehaviour
     }
     void GetTextureFromBytes(byte[] bytes)
     {
-        RGBColor2D.LoadRawTextureData(bytes);
-        RGBColor2D.Apply();
+        if (bytes != null && bytes.Length == 1920)
+        {
+            CheckIPCState(bytes);
+            RGBColor2D.LoadRawTextureData(bytes);
+            RGBColor2D.Apply();
+        }
     }
     public void UpdateFadeLight(int Area, bool State)
     {

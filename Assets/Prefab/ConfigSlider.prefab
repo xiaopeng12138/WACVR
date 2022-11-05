@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 1363411995734526485}
   - component: {fileID: 5149884829390063607}
   - component: {fileID: 6714706628717741128}
+  - component: {fileID: 2154534911242146581}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -315,6 +316,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &2154534911242146581
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4561609128562839145}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5248623083823133808
 GameObject:
   m_ObjectHideFlags: 0

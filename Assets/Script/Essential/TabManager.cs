@@ -1,23 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TabManager : MonoBehaviour
 {
-    public GameObject Tab1Object;
-    public GameObject Tab2Object;
+    public Button DefautTabButton;
+    public List<GameObject> Tabs = new List<GameObject>();
+    
+    [ExecuteAlways]
     void Start()
     {
-        OnFirstTabClick();
+        DefautTabButton.onClick?.Invoke();
     }
-    public void OnFirstTabClick()
+    
+    public void OnTabClicked(GameObject tab)
     {
-        Tab1Object.SetActive(true);
-        Tab2Object.SetActive(false);
-    }
-    public void OnSecondTabClick()
-    {
-        Tab1Object.SetActive(false);
-        Tab2Object.SetActive(true);
+        foreach (GameObject t in Tabs)
+            t.SetActive(false);
+        tab.SetActive(true);
     }
 }

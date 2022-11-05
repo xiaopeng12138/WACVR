@@ -12,11 +12,11 @@ public class DropdownPopulateList : MonoBehaviour
     [ExecuteAlways]
     void Awake()
     {
-        Dropdown = GetComponent<TMP_Dropdown>();
         PopulateList();
     }
     void PopulateList()
     {
+        Dropdown = GetComponent<TMP_Dropdown>();
         Dropdown.ClearOptions();
         List<string> keyNames = new List<string>();
         switch (ListType)

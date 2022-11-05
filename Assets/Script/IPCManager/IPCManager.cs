@@ -47,6 +47,8 @@ public class IPCManager : MonoBehaviour
         EnsureInitialization();
         byte[] bytes = new byte[1920];
         IPCManager.sharedBufferAccessor.ReadArray<byte>(244, bytes, 0, 1920);
+        if (bytes[3] == 0)
+            return null;
         return bytes;
     }
 

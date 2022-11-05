@@ -8,7 +8,7 @@ using TMPro;
 public class ValueManager : MonoBehaviour
 {
     TMP_Text tmp;
-    public float Value
+    public float value
     {
         get
         {
@@ -40,7 +40,7 @@ public class ValueManager : MonoBehaviour
     public void ChangeValueContinue(float __value)
     {
         tempValue = __value;
-        Value += Time.deltaTime * __value;
+        value += Time.deltaTime * __value;
         isPointerDown = true;
     }
     public void PointerState(bool state)
@@ -49,7 +49,7 @@ public class ValueManager : MonoBehaviour
     }
     public void ResetValue()
     {
-        Value = 0;
+        value = 0;
     }
     public void UpdateText()
     {

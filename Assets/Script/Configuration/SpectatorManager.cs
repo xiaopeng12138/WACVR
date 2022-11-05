@@ -17,11 +17,13 @@ public class SpectatorManager : MonoBehaviour
         var modeWidget = ConfigManager.GetConfigPanelWidget("SpectatorMode");
         var fovWidget = ConfigManager.GetConfigPanelWidget("SpectatorFOV");
         var fpsWidget = ConfigManager.GetConfigPanelWidget("SpectatorFPS");
+        var smoothWidget = ConfigManager.GetConfigPanelWidget("SpectatorSmooth");
 
 
         var modeDropdown = modeWidget.GetComponent<TMP_Dropdown>();
         var fovSlider = fovWidget.GetComponent<Slider>();
         var fpsDropdown = fpsWidget.GetComponent<TMP_Dropdown>();
+        var smoothSlider = smoothWidget.GetComponent<Slider>();
 
         modeDropdown.onValueChanged.AddListener((int value) => {
             if (SpectatorCam == null || cameraSmooth == null || SpectatorFPTarget == null || SpectatorTPTarget == null) 
@@ -60,9 +62,14 @@ public class SpectatorManager : MonoBehaviour
             Application.targetFrameRate = int.Parse(fpsString.Remove(0, 3));
         });
 
+        smoothSlider.onValueChanged.AddListener((float value) => {
+            cameraSmooth.smoothSpeed = value;
+        });
+
         modeDropdown.onValueChanged?.Invoke(modeDropdown.value);
         fovSlider.onValueChanged?.Invoke(fovSlider.value);
         fpsDropdown.onValueChanged?.Invoke(fpsDropdown.value);
+        smoothSlider.onValueChanged?.Invoke(smoothSlider.value);
     
         ApplyTPCamTransform();
     }

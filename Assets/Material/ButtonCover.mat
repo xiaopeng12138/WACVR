@@ -105,8 +105,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _Alpha_Contrast: 2.46
-    - _Alpha_Multiplier: 2.49
+    - _Alpha_Contrast: 2.5
+    - _Alpha_Multiplier: 3
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -120,7 +120,7 @@ Material:
     - _Fresnel: 1.24
     - _Fresnel_1: 5
     - _Fresnel_Power: 1
-    - _Fresnel_Radius: 0.75
+    - _Fresnel_Radius: 0.7
     - _Fresnel_Size: -5
     - _Fresnel_Strength: 1
     - _GlossMapScale: 0

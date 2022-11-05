@@ -35,6 +35,7 @@ public class Config
     public int CoinKeyBind = 31;
     public int CustomKeyBind = 170;
     public bool FlatShadedRing = false;
+    public bool DynamicProbe = true;
     public bool PostProcess = true;
     public int AntiAliasing = 0;
     public string batFileLocation = "";

@@ -46,7 +46,7 @@ public class PlayerSettingManager : MonoBehaviour
             RHandTransform.localPosition = new Vector3(RHandTransform.localPosition.x, RHandTransform.localPosition.y, value);
         });
         heightManager.onValueChanged.AddListener(delegate {
-            height = heightManager.Value;
+            height = heightManager.value;
         });
         sizeSlider.onValueChanged.Invoke(sizeSlider.value);
         xSlider.onValueChanged.Invoke(xSlider.value);

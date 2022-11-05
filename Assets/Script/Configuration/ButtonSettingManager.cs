@@ -20,10 +20,10 @@ public class ButtonSettingManager : MonoBehaviour
 
     public enum ButtonType
     {
-        Test = 0,
-        Service = 1,
-        Coin = 2,
-        Custom = 3,
+        TestKeyBind = 0,
+        ServiceKeyBind = 1,
+        CoinKeyBind = 2,
+        CustomKeyBind = 3,
     }
 
 }

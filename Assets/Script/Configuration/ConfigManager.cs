@@ -24,11 +24,11 @@ public class ConfigManager : MonoBehaviour
     {
         onConfigChanged += EnsureInitialization;
         onConfigChanged += SaveFile;
-        ConfigPanelComponents = GetConfigPanelComponents();
-        EnsureInitialization();
+        
     }
     void Start()
     {
+        EnsureInitialization();
         AddListenerToWidget(ConfigPanelComponents);
         onConfigChanged?.Invoke();
     }
@@ -37,6 +37,7 @@ public class ConfigManager : MonoBehaviour
         if (hasInitialized) 
             return;
         LoadFile();
+        ConfigPanelComponents = GetConfigPanelComponentsStatic();
         UpdateConfigPanelFromConfig(ref ConfigPanelComponents);
         hasInitialized = true;
     }
@@ -88,6 +89,7 @@ public class ConfigManager : MonoBehaviour
 
     public static GameObject GetConfigPanelWidget(string configKeyName)
     {
+        EnsureInitialization();
         foreach (var item in ConfigPanelComponents)
         {
             if (item.ConfigKeyName == configKeyName)
@@ -106,6 +108,13 @@ public class ConfigManager : MonoBehaviour
             var _configPanelComponentsInTab = tab.GetComponentsInChildren<ConfigPanelComponent>();
             _configPanelComponents.AddRange(_configPanelComponentsInTab);
         }
+        return _configPanelComponents;
+    }
+
+    private static List<ConfigPanelComponent> GetConfigPanelComponentsStatic()
+    {
+        var _configPanelComponents = new List<ConfigPanelComponent>();
+        _configPanelComponents = GameObject.FindObjectOfType<ConfigManager>().GetConfigPanelComponents();
         return _configPanelComponents;
     }
 
@@ -151,7 +160,7 @@ public class ConfigManager : MonoBehaviour
                 valueManager.onValueChanged.AddListener(delegate
                 {
                     var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
-                    field.SetValue(config, valueManager.Value);
+                    field.SetValue(config, valueManager.value);
                     onConfigChanged?.Invoke();
                 });
             }
@@ -160,38 +169,32 @@ public class ConfigManager : MonoBehaviour
 
     private static void UpdateConfigPanelFromConfig(ref List<ConfigPanelComponent> _configPanelComponents)
     {
-        
         foreach (var configPanelComponent in _configPanelComponents)
         {
-            Debug.Log(configPanelComponent.ConfigKeyName);
             var componentObject = configPanelComponent.Widget;
             if (componentObject.GetComponent<TMP_Dropdown>() != null)
             {
                 var dropdown = componentObject.GetComponent<TMP_Dropdown>();
                 var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
                 dropdown.value = (int)field.GetValue(config);
-                dropdown.onValueChanged?.Invoke(dropdown.value);
             }
             else if (componentObject.GetComponent<Toggle>() != null)
             {
                 var toggle = componentObject.GetComponent<Toggle>();
                 var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
                 toggle.isOn = (bool)field.GetValue(config);
-                toggle.onValueChanged?.Invoke(toggle.isOn);
             }
             else if (componentObject.GetComponent<Slider>() != null)
             {
                 var slider = componentObject.GetComponent<Slider>();
                 var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
                 slider.value = (float)field.GetValue(config);
-                slider.onValueChanged?.Invoke(slider.value);
             }
             else if (componentObject.GetComponent<ValueManager>() != null)
             {
                 var valueManager = componentObject.GetComponent<ValueManager>();
                 var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
-                valueManager.Value = (float)field.GetValue(config);
-                valueManager.onValueChanged?.Invoke();
+                valueManager.value = (float)field.GetValue(config);
             }
         }
     }
