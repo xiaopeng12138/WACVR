@@ -8,13 +8,15 @@ public class TouchSettingManager : MonoBehaviour
 {
     void Start()
     {
-        ConfigManager.onConfigChanged += ApplyConfig;
-        ConfigManager.EnsureInitialization();
-        ApplyConfig();
-    }
-    public void ApplyConfig()
-    {
-        string fpsString = Enum.GetName(typeof(Config.captureFPS), ConfigManager.config.CaptureFPS);
-        Time.fixedDeltaTime = 1 / int.Parse(fpsString.Remove(0, 3));
+        var sampleWidget = ConfigManager.GetConfigPanelWidget("TouchSampleRate");
+
+        var sampleDropdown = sampleWidget.GetComponent<TMP_Dropdown>();
+
+        sampleDropdown.onValueChanged.AddListener((int value) => {
+            string fpsString = Enum.GetName(typeof(CEnum.FPS), value);
+            Time.fixedDeltaTime = 1 / int.Parse(fpsString.Remove(0, 3));
+        });
+        
+        sampleDropdown.onValueChanged?.Invoke(sampleDropdown.value);
     }
 }

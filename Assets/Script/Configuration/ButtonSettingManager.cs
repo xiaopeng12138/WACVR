@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using WindowsInput.Native;
 using System;
+using TMPro;
+using WindowsInput.Native;
 
 public class ButtonSettingManager : MonoBehaviour
 {
@@ -11,27 +10,12 @@ public class ButtonSettingManager : MonoBehaviour
     void Start()
     {
         panelButton = GetComponent<PanelButton>();
-        ConfigManager.onConfigChanged += ApplyConfig;
-        ConfigManager.EnsureInitialization();
-        ApplyConfig();
-    }
-    void ApplyConfig()
-    {
-        switch (buttonType)
-        {
-            case ButtonType.Test:
-                panelButton.key = ConfigManager.config.TestKey;
-                break;
-            case ButtonType.Service:
-                panelButton.key = ConfigManager.config.ServiceKey;
-                break;
-            case ButtonType.Coin:
-                panelButton.key = ConfigManager.config.CoinKey;
-                break;
-            case ButtonType.Custom:
-                panelButton.key = ConfigManager.config.CustomKey;
-                break;
-        }
+        var widget = ConfigManager.GetConfigPanelWidget(Enum.GetName(typeof(ButtonType), buttonType));
+        var dropdown = widget.GetComponent<TMP_Dropdown>();
+        dropdown.onValueChanged.AddListener((int value) => {
+            panelButton.key = (VirtualKeyCode)Enum.GetValues(typeof(VirtualKeyCode)).GetValue(value);
+        });
+        dropdown.onValueChanged?.Invoke(dropdown.value);
     }
 
     public enum ButtonType

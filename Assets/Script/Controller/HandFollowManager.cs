@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HandFollowManager : MonoBehaviour
 {
     public GameObject Target;
     public Transform Center;
-    public Config.handStabilization Mode;
+    public CEnum.handStabilization Mode;
     public float VelocityThreshold = 0.1f;
     private Rigidbody TargetRigidbody;
     private Vector3 previousPosition;
@@ -14,14 +14,24 @@ public class HandFollowManager : MonoBehaviour
     private void Start() 
     {
         TargetRigidbody = Target.GetComponent<Rigidbody>();
-        ConfigManager.onConfigChanged += ApplyConfig;
-        ConfigManager.EnsureInitialization();
-        ApplyConfig();
-    }
-    private void ApplyConfig()
-    {
-        VelocityThreshold = ConfigManager.config.HandStabilVelocity;
-        Mode = ConfigManager.config.HandStabilizationMode;
+
+        var modeWidget = ConfigManager.GetConfigPanelWidget("HandStabilization");
+        var threshWidget = ConfigManager.GetConfigPanelWidget("Threshold");
+
+        var modeDropdown = modeWidget.GetComponent<TMP_Dropdown>();
+        var threshSlider = threshWidget.GetComponent<Slider>();
+
+        modeDropdown.onValueChanged.AddListener((int value) => {
+            VelocityThreshold = ConfigManager.config.HandStabilVelocity;
+            Mode = (CEnum.handStabilization)value;
+        });
+
+        threshSlider.onValueChanged.AddListener((float value) => {
+            VelocityThreshold = value;
+        });
+
+        modeDropdown.onValueChanged?.Invoke(modeDropdown.value);
+        threshSlider.onValueChanged?.Invoke(threshSlider.value);
     }
     
     private void VelocityTracking()
@@ -42,10 +52,10 @@ public class HandFollowManager : MonoBehaviour
     {
         switch (Mode)
         {
-            case Config.handStabilization.Velocity:
+            case CEnum.handStabilization.Velocity:
                 VelocityTracking();
                 break;
-            case Config.handStabilization.None:
+            case CEnum.handStabilization.None:
                 transform.position = Target.transform.position;
                 break;
         }

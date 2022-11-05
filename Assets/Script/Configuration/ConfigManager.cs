@@ -6,28 +6,30 @@ using TMPro;
 using UnityEngine.UI;
 using System.IO;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 public class ConfigManager : MonoBehaviour
 {
     public static Config config;
     private static bool hasInitialized = false;
-    Config oldConfig;
     public static event Action onConfigChanged;
     private static float saverTimer = 0;
     private static bool isSavingConfig = false;
     private float saverDelay = 1.5f;
+
+    public List<GameObject> Tabs;
+    [SerializeField]
+    public static List<ConfigPanelComponent> ConfigPanelComponents;
     void Awake()
     {
         onConfigChanged += EnsureInitialization;
         onConfigChanged += SaveFile;
+        ConfigPanelComponents = GetConfigPanelComponents();
+        EnsureInitialization();
     }
     void Start()
     {
-        EnsureInitialization();
-        FindConfigPanelWidget();
-        UpdateConfigPanel();
-        AddListenerToWidget();
+        AddListenerToWidget(ConfigPanelComponents);
         onConfigChanged?.Invoke();
     }
     public static void EnsureInitialization() 
@@ -35,6 +37,7 @@ public class ConfigManager : MonoBehaviour
         if (hasInitialized) 
             return;
         LoadFile();
+        UpdateConfigPanelFromConfig(ref ConfigPanelComponents);
         hasInitialized = true;
     }
     private static void LoadFile() 
@@ -83,158 +86,113 @@ public class ConfigManager : MonoBehaviour
         }
     }
 
-    private TMP_Dropdown CaptureModeDropdown;
-    private TMP_Dropdown CaptureFPSDropdown;
-    private Toggle CaptureDesktopToggle;
-    private TMP_Dropdown SpectatorModeDropdown;
-    private TMP_Dropdown SpectatorFPSDropdown;
-    private Slider SpectatorFOVSlider;
-    private Slider HandSizeSlider;
-    private Slider HandXSlider;
-    private Slider HandYSlider;
-    private Slider HandZSlider;
-    private TMP_Dropdown SkyboxDropdown;
-    private ValueManager PlayerHeightManager;
-    private Slider HapticDurationSlider;
-    private Slider HapticAmplitudeSlider;
-    private TMP_Dropdown TouchSampleRateDropdown;
-    private TMP_Dropdown HandStabilizationModeDropdown;
-    private Slider HandStabilVelocitySlider;
-    private Slider HandStabilDistanceSlider;
-    private Slider HandStabilSmoothSlider;
-    private Toggle isIPCLightingToggle;
-    private Toggle isIPCTouchToggle;
-    private TMP_Dropdown TestKeyDropdown;
-    private TMP_Dropdown ServiceKeyDropdown;
-    private TMP_Dropdown CoinKeyDropdown;
-    private TMP_Dropdown CustomKeyDropdown;
-
-    void FindConfigPanelWidget()
+    public static GameObject GetConfigPanelWidget(string configKeyName)
     {
-        CaptureModeDropdown = transform.Find("Tab1").Find("CaptureMode").Find("Dropdown").GetComponent<TMP_Dropdown>();
-        CaptureFPSDropdown = transform.Find("Tab1").Find("CaptureFPS").Find("Dropdown").GetComponent<TMP_Dropdown>();
-        CaptureDesktopToggle = transform.Find("Tab1").Find("CaptureDesktop").Find("Toggle").GetComponent<Toggle>();
-        SpectatorModeDropdown = transform.Find("Tab1").Find("SpectatorMode").Find("Dropdown").GetComponent<TMP_Dropdown>();
-        SpectatorFPSDropdown = transform.Find("Tab1").Find("SpectatorFPS").Find("Dropdown").GetComponent<TMP_Dropdown>();
-        SpectatorFOVSlider = transform.Find("Tab1").Find("SpectatorFOV").Find("Slider").GetComponent<Slider>();
-        HandSizeSlider = transform.Find("Tab1").Find("HandSize").Find("Slider").GetComponent<Slider>();
-        HandXSlider = transform.Find("Tab1").Find("HandX").Find("Slider").GetComponent<Slider>();
-        HandYSlider = transform.Find("Tab1").Find("HandY").Find("Slider").GetComponent<Slider>();
-        HandZSlider = transform.Find("Tab1").Find("HandZ").Find("Slider").GetComponent<Slider>();
-        SkyboxDropdown = transform.Find("Tab1").Find("Skybox").Find("Dropdown").GetComponent<TMP_Dropdown>();
-        PlayerHeightManager = transform.Find("Tab1").Find("PlayerHeight").Find("Value").GetComponent<ValueManager>();
-        HapticDurationSlider = transform.Find("Tab2").Find("HapticDuration").Find("Slider").GetComponent<Slider>();
-        HapticAmplitudeSlider = transform.Find("Tab2").Find("HapticAmplitude").Find("Slider").GetComponent<Slider>();
-        TouchSampleRateDropdown = transform.Find("Tab2").Find("TouchSampleRate").Find("Dropdown").GetComponent<TMP_Dropdown>();
-        HandStabilizationModeDropdown = transform.Find("Tab2").Find("HandStabilization").Find("Dropdown").GetComponent<TMP_Dropdown>();
-        //HandStabilVelocitySlider = transform.Find("Tab2").Find("HandStabilVelocity").Find("Slider").GetComponent<Slider>();
-        //HandStabilDistanceSlider = transform.Find("Tab2").Find("HandStabilDistance").Find("Slider").GetComponent<Slider>();
-        //HandStabilSmoothSlider = transform.Find("Tab2").Find("HandStabilSmooth").Find("Slider").GetComponent<Slider>();
-        isIPCLightingToggle = transform.Find("Tab2").Find("UseIPCLighting").Find("Toggle").GetComponent<Toggle>();
-        isIPCTouchToggle = transform.Find("Tab2").Find("UseIPCTouch").Find("Toggle").GetComponent<Toggle>();
-        TestKeyDropdown = transform.Find("Tab2").Find("TestKeyBind").Find("Dropdown").GetComponent<TMP_Dropdown>();
-        ServiceKeyDropdown = transform.Find("Tab2").Find("ServiceKeyBind").Find("Dropdown").GetComponent<TMP_Dropdown>();
-        CoinKeyDropdown = transform.Find("Tab2").Find("CoinKeyBind").Find("Dropdown").GetComponent<TMP_Dropdown>();
-        CustomKeyDropdown = transform.Find("Tab2").Find("CustomKeyBind").Find("Dropdown").GetComponent<TMP_Dropdown>();
-    }
-    void AddListenerToWidget()
-    {
-        CaptureModeDropdown.onValueChanged.AddListener(onIntChanged);
-        CaptureFPSDropdown.onValueChanged.AddListener(onIntChanged);
-        CaptureDesktopToggle.onValueChanged.AddListener(onBoolChanged);
-        SpectatorModeDropdown.onValueChanged.AddListener(onIntChanged);
-        SpectatorFPSDropdown.onValueChanged.AddListener(onIntChanged);
-        SpectatorFOVSlider.onValueChanged.AddListener(onFloatChanged);
-        HandSizeSlider.onValueChanged.AddListener(onFloatChanged);
-        HandXSlider.onValueChanged.AddListener(onFloatChanged);
-        HandYSlider.onValueChanged.AddListener(onFloatChanged);
-        HandZSlider.onValueChanged.AddListener(onFloatChanged);
-        SkyboxDropdown.onValueChanged.AddListener(onIntChanged);
-        PlayerHeightManager.onValueChanged.AddListener(onValueChanged);
-        HapticDurationSlider.onValueChanged.AddListener(onFloatChanged);
-        HapticAmplitudeSlider.onValueChanged.AddListener(onFloatChanged);
-        TouchSampleRateDropdown.onValueChanged.AddListener(onIntChanged);
-        HandStabilizationModeDropdown.onValueChanged.AddListener(onIntChanged);
-        //HandStabilVelocitySlider.onValueChanged.AddListener(onFloatChanged);
-        //HandStabilDistanceSlider.onValueChanged.AddListener(onFloatChanged);
-        //HandStabilSmoothSlider.onValueChanged.AddListener(onFloatChanged);
-        isIPCLightingToggle.onValueChanged.AddListener(onBoolChanged);
-        isIPCTouchToggle.onValueChanged.AddListener(onBoolChanged);
-        TestKeyDropdown.onValueChanged.AddListener(onIntChanged);
-        ServiceKeyDropdown.onValueChanged.AddListener(onIntChanged);
-        CoinKeyDropdown.onValueChanged.AddListener(onIntChanged);
-        CustomKeyDropdown.onValueChanged.AddListener(onIntChanged);
-    }
-    void onValueChanged()
-    {
-        config.PlayerHeight = PlayerHeightManager.Value;
-        onConfigChanged?.Invoke();
-    }
-    void onIntChanged(int value)
-    {
-        config.CaptureMode = (Config.captureMode)CaptureModeDropdown.value;
-        config.CaptureFPS = (Config.captureFPS)CaptureFPSDropdown.value;
-        config.SpectatorMode = (Config.spectatorMode)SpectatorModeDropdown.value;
-        config.SpectatorFPS = (Config.spectatorFPS)SpectatorFPSDropdown.value;
-        config.Skybox = SkyboxDropdown.value;
-        config.TouchSampleRate = (Config.touchSampleRate)TouchSampleRateDropdown.value;
-        config.HandStabilizationMode = (Config.handStabilization)HandStabilizationModeDropdown.value;
-        config.TestKey = (VirtualKeyCode)Enum.GetValues(typeof(VirtualKeyCode)).GetValue(TestKeyDropdown.value);
-        config.ServiceKey = (VirtualKeyCode)Enum.GetValues(typeof(VirtualKeyCode)).GetValue(ServiceKeyDropdown.value);
-        config.CoinKey = (VirtualKeyCode)Enum.GetValues(typeof(VirtualKeyCode)).GetValue(CoinKeyDropdown.value);
-        config.CustomKey = (VirtualKeyCode)Enum.GetValues(typeof(VirtualKeyCode)).GetValue(CustomKeyDropdown.value);
-        onConfigChanged?.Invoke();
+        foreach (var item in ConfigPanelComponents)
+        {
+            if (item.ConfigKeyName == configKeyName)
+            {
+                return item.Widget;
+            }
+        }
+        return null;
     }
 
-    void onFloatChanged(float value)
+    private List<ConfigPanelComponent> GetConfigPanelComponents()
     {
-        config.SpectatorFOV = SpectatorFOVSlider.value;
-        config.HandSize = HandSizeSlider.value;
-        config.HandPosition[0] = HandXSlider.value;
-        config.HandPosition[1] = HandYSlider.value;
-        config.HandPosition[2] = HandZSlider.value;
-        config.HapticDuration = HapticDurationSlider.value;
-        config.HapticAmplitude = HapticAmplitudeSlider.value;
-        //config.HandStabilVelocity = HandStabilVelocitySlider.value;
-        //config.HandStabilDistance = HandStabilDistanceSlider.value;
-        //config.HandStabilSmooth = HandStabilSmoothSlider.value;
-        onConfigChanged?.Invoke();
+        var _configPanelComponents = new List<ConfigPanelComponent>();
+        foreach (var tab in Tabs)
+        {
+            var _configPanelComponentsInTab = tab.GetComponentsInChildren<ConfigPanelComponent>();
+            _configPanelComponents.AddRange(_configPanelComponentsInTab);
+        }
+        return _configPanelComponents;
     }
-    
-    void onBoolChanged(bool value)
+
+    private void AddListenerToWidget(List<ConfigPanelComponent> _configPanelComponents)
     {
-        config.CaptureDesktop = CaptureDesktopToggle.isOn;
-        config.useIPCLighting = isIPCLightingToggle.isOn;
-        config.useIPCTouch = isIPCTouchToggle.isOn;
-        onConfigChanged?.Invoke();
+        foreach (var configPanelComponent in _configPanelComponents)
+        {
+            var widget = configPanelComponent.Widget;
+            if (widget.GetComponent<TMP_Dropdown>() != null)
+            {
+                var dropdown = widget.GetComponent<TMP_Dropdown>();
+                // add listener to dropdown to update config by key name
+                dropdown.onValueChanged.AddListener(delegate
+                {
+                    var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
+                    field.SetValue(config, dropdown.value);
+                    onConfigChanged?.Invoke();
+                });
+            }
+            else if (widget.GetComponent<Toggle>() != null)
+            {
+                var toggle = widget.GetComponent<Toggle>();
+                toggle.onValueChanged.AddListener(delegate
+                {
+                    var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
+                    field.SetValue(config, toggle.isOn);
+                    onConfigChanged?.Invoke();
+                });
+            }
+            else if (widget.GetComponent<Slider>() != null)
+            {
+                var slider = widget.GetComponent<Slider>();
+                slider.onValueChanged.AddListener(delegate
+                {
+                    var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
+                    field.SetValue(config, slider.value);
+                    onConfigChanged?.Invoke();
+                });
+            }
+            else if (widget.GetComponent<ValueManager>() != null)
+            {
+                var valueManager = widget.GetComponent<ValueManager>();
+                valueManager.onValueChanged.AddListener(delegate
+                {
+                    var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
+                    field.SetValue(config, valueManager.Value);
+                    onConfigChanged?.Invoke();
+                });
+            }
+        }
     }
-    [ContextMenu("UpdateConfigPanel")]
-    void UpdateConfigPanel()
+
+    private static void UpdateConfigPanelFromConfig(ref List<ConfigPanelComponent> _configPanelComponents)
     {
-        CaptureModeDropdown.value = (int)config.CaptureMode;
-        CaptureFPSDropdown.value = (int)config.CaptureFPS;
-        CaptureDesktopToggle.isOn = config.CaptureDesktop;
-        SpectatorModeDropdown.value = (int)config.SpectatorMode;
-        SpectatorFPSDropdown.value = (int)config.SpectatorFPS;
-        SpectatorFOVSlider.value = config.SpectatorFOV;
-        HandSizeSlider.value = config.HandSize;
-        HandXSlider.value = config.HandPosition[0];
-        HandYSlider.value = config.HandPosition[1];
-        HandZSlider.value = config.HandPosition[2];
-        SkyboxDropdown.value = config.Skybox;
-        PlayerHeightManager.Value = config.PlayerHeight;
-        HapticDurationSlider.value = config.HapticDuration;
-        HapticAmplitudeSlider.value = config.HapticAmplitude;
-        TouchSampleRateDropdown.value = (int)config.TouchSampleRate;
-        HandStabilizationModeDropdown.value = (int)config.HandStabilizationMode;
-        //HandStabilVelocitySlider.value = HandStabilVelocity;
-        //HandStabilDistanceSlider.value = HandStabilDistance;
-        //HandStabilSmoothSlider.value = HandStabilSmooth;
-        isIPCLightingToggle.isOn = config.useIPCLighting;
-        isIPCTouchToggle.isOn = config.useIPCTouch;
-        TestKeyDropdown.value = Array.IndexOf(Enum.GetValues(typeof(VirtualKeyCode)), config.TestKey);
-        ServiceKeyDropdown.value = Array.IndexOf(Enum.GetValues(typeof(VirtualKeyCode)), config.ServiceKey);
-        CoinKeyDropdown.value = Array.IndexOf(Enum.GetValues(typeof(VirtualKeyCode)), config.CoinKey);
-        CustomKeyDropdown.value = Array.IndexOf(Enum.GetValues(typeof(VirtualKeyCode)), config.CustomKey);
+        
+        foreach (var configPanelComponent in _configPanelComponents)
+        {
+            Debug.Log(configPanelComponent.ConfigKeyName);
+            var componentObject = configPanelComponent.Widget;
+            if (componentObject.GetComponent<TMP_Dropdown>() != null)
+            {
+                var dropdown = componentObject.GetComponent<TMP_Dropdown>();
+                var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
+                dropdown.value = (int)field.GetValue(config);
+                dropdown.onValueChanged?.Invoke(dropdown.value);
+            }
+            else if (componentObject.GetComponent<Toggle>() != null)
+            {
+                var toggle = componentObject.GetComponent<Toggle>();
+                var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
+                toggle.isOn = (bool)field.GetValue(config);
+                toggle.onValueChanged?.Invoke(toggle.isOn);
+            }
+            else if (componentObject.GetComponent<Slider>() != null)
+            {
+                var slider = componentObject.GetComponent<Slider>();
+                var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
+                slider.value = (float)field.GetValue(config);
+                slider.onValueChanged?.Invoke(slider.value);
+            }
+            else if (componentObject.GetComponent<ValueManager>() != null)
+            {
+                var valueManager = componentObject.GetComponent<ValueManager>();
+                var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
+                valueManager.Value = (float)field.GetValue(config);
+                valueManager.onValueChanged?.Invoke();
+            }
+        }
     }
 }

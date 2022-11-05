@@ -5,6 +5,7 @@ using System.Threading;
 using System.IO.Ports;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 public class TouchManager : MonoBehaviour
 {
     const byte CMD_GET_SYNC_BOARD_VER = 0xa0;
@@ -37,9 +38,16 @@ public class TouchManager : MonoBehaviour
     static byte[] TouchPackR = new byte[36];
     static bool[] TouchPackAll = new bool[240];
     bool StartUp = false;
+    static bool useIPCTouch = true;
     void Start()
     {
-        ConfigManager.EnsureInitialization();
+        var widget = ConfigManager.GetConfigPanelWidget("UseIPCTouch");
+        var toggle = widget.GetComponent<Toggle>();
+        toggle.onValueChanged.AddListener((value) => {
+            useIPCTouch = value;
+        });
+        toggle.onValueChanged.Invoke(useIPCTouch);
+
         try
         {
             ComL.Open();
@@ -247,7 +255,7 @@ public class TouchManager : MonoBehaviour
             Area += Area / 5 * 3 + 7; 
             ByteHelper.SetBit(TouchPackL, Area, State);
         }
-        if (ConfigManager.config.useIPCTouch)
+        if (useIPCTouch)
             IPCManager.SetTouchData(TouchPackAll); //send touch data to IPC
     }
 }

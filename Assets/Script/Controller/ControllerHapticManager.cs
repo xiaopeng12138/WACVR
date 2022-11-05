@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.XR;
 public class ControllerHapticManager : MonoBehaviour
@@ -10,9 +9,14 @@ public class ControllerHapticManager : MonoBehaviour
     public float amplitude = 1f;
     void Start()
     {
-        ConfigManager.onConfigChanged += ApplyConfig;
-        ConfigManager.EnsureInitialization();
-        ApplyConfig();
+        var durationWidget = ConfigManager.GetConfigPanelWidget("HapticDuration");
+        var amplitudeWidget = ConfigManager.GetConfigPanelWidget("HapticAmplitude");
+        var durationSlider = durationWidget.GetComponent<Slider>();
+        var amplitudeSlider = amplitudeWidget.GetComponent<Slider>();
+        durationSlider.onValueChanged.AddListener( (float value) => { duration = value;});
+        amplitudeSlider.onValueChanged.AddListener( (float value) => { amplitude = value;});
+        durationSlider.onValueChanged?.Invoke(duration);
+        amplitudeSlider.onValueChanged?.Invoke(amplitude);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -23,10 +27,5 @@ public class ControllerHapticManager : MonoBehaviour
     {
         device = InputDevices.GetDeviceAtXRNode(Hand);
         device.StopHaptics();
-    }
-    void ApplyConfig()
-    {
-        duration = ConfigManager.config.HapticDuration;
-        amplitude = ConfigManager.config.HapticAmplitude;
     }
 }

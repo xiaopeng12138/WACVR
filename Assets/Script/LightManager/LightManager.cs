@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO.MemoryMappedFiles;
-using System.Security.Principal;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class LightManager : MonoBehaviour
@@ -19,9 +18,12 @@ public class LightManager : MonoBehaviour
 
     private void Start() 
     {
-        ConfigManager.EnsureInitialization();
-        ConfigManager.onConfigChanged += UpdateConfig;
-        UpdateConfig();
+        var widget = ConfigManager.GetConfigPanelWidget("UseIPCLighting");
+        var toggle = widget.GetComponent<Toggle>();
+        toggle.onValueChanged.AddListener((value) => {
+            useIPCLighting = value;
+        });
+        toggle.onValueChanged.Invoke(useIPCLighting);
 
         for (int i = 0; i < Lights.Count; i++)
             Materials.Add(Lights[i].GetComponent<Renderer>().material);
@@ -52,10 +54,6 @@ public class LightManager : MonoBehaviour
         {
             isIPCIdle = true;
         }
-    }
-    void UpdateConfig()
-    {
-        useIPCLighting = ConfigManager.config.useIPCLighting;
     }
     private void CheckIPCState()
     {

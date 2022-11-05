@@ -27,7 +27,7 @@ public class ValueManager : MonoBehaviour
     void Start()
     {
         tmp = GetComponent<TMP_Text>();
-        ConfigManager.EnsureInitialization();
+        //ConfigManager.EnsureInitialization();
         onValueChanged.AddListener(UpdateText);
     }
     void Update()

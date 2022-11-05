@@ -10,23 +10,44 @@ public class CaptureSettingManager : MonoBehaviour
     private void Start()
     {
         windowTexture = GetComponent<UwcWindowTexture>();
-        ConfigManager.onConfigChanged += ApplyConfig;
-        ConfigManager.EnsureInitialization();
-        ApplyConfig();
-    }
-    private void ApplyConfig() 
-    {
-        windowTexture.captureMode = (CaptureMode)ConfigManager.config.CaptureMode - 1;
+        var modeWidget = ConfigManager.GetConfigPanelWidget("CaptureMode");
+        var fpsWidget = ConfigManager.GetConfigPanelWidget("CaptureFPS");
+        var desktopWidget = ConfigManager.GetConfigPanelWidget("CaptureDesktop");
+        var desktopIndexWidget = ConfigManager.GetConfigPanelWidget("DesktopIndex");
 
-        var fps = Enum.GetName(typeof(Config.captureFPS), ConfigManager.config.CaptureFPS);
-        windowTexture.captureFrameRate = int.Parse(fps.Remove(0, 3));
+        var modeDropdown = modeWidget.GetComponent<TMP_Dropdown>();
+        var fpsDropdown = fpsWidget.GetComponent<TMP_Dropdown>();
+        var desktopToggle = desktopWidget.GetComponent<Toggle>();
+        var desktopIndexDropdown = desktopIndexWidget.GetComponent<TMP_Dropdown>();
 
-        if (ConfigManager.config.CaptureDesktop)
-        {
-            windowTexture.type = WindowTextureType.Desktop;
-            windowTexture.desktopIndex = ConfigManager.config.CaptureDesktopNumber;
-        }
-        else
-            windowTexture.type = WindowTextureType.Window;
+        modeDropdown.onValueChanged.AddListener((int value) => {
+            windowTexture.captureMode = (CaptureMode)Enum.GetValues(typeof(CaptureMode)).GetValue(value) - 1;
+        });
+
+        fpsDropdown.onValueChanged.AddListener((int value) => {
+            var fps = Enum.GetName(typeof(CEnum.FPS), value);
+            windowTexture.captureFrameRate = int.Parse(fps.Remove(0, 3));
+        });
+
+        desktopToggle.onValueChanged.AddListener((bool value) => {
+            if (value)
+            {
+                windowTexture.type = WindowTextureType.Desktop;
+                desktopIndexDropdown.interactable = true;
+            }
+            else
+            {
+                windowTexture.type = WindowTextureType.Desktop;
+                desktopIndexDropdown.interactable = false;
+            }
+        });
+
+        desktopIndexDropdown.onValueChanged.AddListener((int value) => {
+            windowTexture.desktopIndex = value;
+        });
+        modeDropdown.onValueChanged?.Invoke(modeDropdown.value);
+        fpsDropdown.onValueChanged?.Invoke(fpsDropdown.value);
+        desktopToggle.onValueChanged?.Invoke(desktopToggle.isOn);
+        desktopIndexDropdown.onValueChanged?.Invoke(desktopIndexDropdown.value);
     }
 }

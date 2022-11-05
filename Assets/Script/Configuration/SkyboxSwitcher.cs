@@ -13,7 +13,6 @@ public class SkyboxSwitcher : MonoBehaviour
     public List<FileInfo> imageFiles = new List<FileInfo>();
     public List<Texture2D> textures = new List<Texture2D>();
     public List<System.IntPtr> ptrs = new List<System.IntPtr>();
-    public static bool useSkybox = false;
     public GameObject Room;
 
     [SerializeField]
@@ -32,22 +31,18 @@ public class SkyboxSwitcher : MonoBehaviour
         StartCoroutine(AddSkyboxes());
 
         Dropdown = GetComponent<TMP_Dropdown>();
-        ConfigManager.onConfigChanged += ApplyConfig;
-        ConfigManager.EnsureInitialization();
-        ApplyConfig();
-    }
-    void ApplyConfig()
-    {
-        if (ConfigManager.config.Skybox == 0)
-        {
-            Room.SetActive(true);
-        }
-        else 
-        {
-            Room.SetActive(false);
-            currentSkyboxIndex = ConfigManager.config.Skybox-1;
-            SetSkybox();
-        }
+        Dropdown.onValueChanged.AddListener((int value) => {
+            if (value == 0)
+            {
+                Room.SetActive(true);
+            }
+            else 
+            {
+                Room.SetActive(false);
+                currentSkyboxIndex = Dropdown.value-1;
+                SetSkybox();
+            }
+        });
     }
 
     IEnumerator AddSkyboxes()

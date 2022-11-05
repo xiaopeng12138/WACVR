@@ -16,24 +16,43 @@ public class PlayerSettingManager : MonoBehaviour
     {
         LHandTransform = transform.Find("Camera Offset").Find("LeftHand Controller").Find("LHand Virtual");
         RHandTransform = transform.Find("Camera Offset").Find("RightHand Controller").Find("RHand Virtual");
-        ConfigManager.onConfigChanged += ApplyConfig;
-        ConfigManager.EnsureInitialization();
-        ApplyConfig();
-    }
-    void ApplyConfig()
-    {
-        LHandTransform.localPosition = new Vector3(ConfigManager.config.HandPosition[0]/100, 
-                                                    ConfigManager.config.HandPosition[1]/100,
-                                                    ConfigManager.config.HandPosition[2]/100);
-        RHandTransform.localPosition = new Vector3(-ConfigManager.config.HandPosition[0]/100,
-                                                    ConfigManager.config.HandPosition[1]/100, 
-                                                    ConfigManager.config.HandPosition[2]/100);
 
-        var value = ConfigManager.config.HandSize;
-        LHandTransform.localScale = new Vector3(value/100, value/100, value/100);
-        RHandTransform.localScale = new Vector3(value/100, value/100, value/100);
-        
-        height = ConfigManager.config.PlayerHeight;
+        var sizeWidget = ConfigManager.GetConfigPanelWidget("HandSize");
+        var xWidget = ConfigManager.GetConfigPanelWidget("HandX");
+        var yWidget = ConfigManager.GetConfigPanelWidget("HandY");
+        var zWidget = ConfigManager.GetConfigPanelWidget("HandZ");
+        var heightWidget = ConfigManager.GetConfigPanelWidget("PlayerHeight");
+
+        var sizeSlider = sizeWidget.GetComponent<Slider>();
+        var xSlider = xWidget.GetComponent<Slider>();
+        var ySlider = yWidget.GetComponent<Slider>();
+        var zSlider = zWidget.GetComponent<Slider>();
+        var heightManager = heightWidget.GetComponent<ValueManager>();
+
+        sizeSlider.onValueChanged.AddListener((float value) => {
+            LHandTransform.localScale = new Vector3(value, value, value);
+            RHandTransform.localScale = new Vector3(value, value, value);
+        });
+        xSlider.onValueChanged.AddListener((float value) => {
+            LHandTransform.localPosition = new Vector3(value, LHandTransform.localPosition.y, LHandTransform.localPosition.z);
+            RHandTransform.localPosition = new Vector3(-value, RHandTransform.localPosition.y, RHandTransform.localPosition.z);
+        });
+        ySlider.onValueChanged.AddListener((float value) => {
+            LHandTransform.localPosition = new Vector3(LHandTransform.localPosition.x, value, LHandTransform.localPosition.z);
+            RHandTransform.localPosition = new Vector3(RHandTransform.localPosition.x, value, RHandTransform.localPosition.z);
+        });
+        zSlider.onValueChanged.AddListener((float value) => {
+            LHandTransform.localPosition = new Vector3(LHandTransform.localPosition.x, LHandTransform.localPosition.y, value);
+            RHandTransform.localPosition = new Vector3(RHandTransform.localPosition.x, RHandTransform.localPosition.y, value);
+        });
+        heightManager.onValueChanged.AddListener(delegate {
+            height = heightManager.Value;
+        });
+        sizeSlider.onValueChanged.Invoke(sizeSlider.value);
+        xSlider.onValueChanged.Invoke(xSlider.value);
+        ySlider.onValueChanged.Invoke(ySlider.value);
+        zSlider.onValueChanged.Invoke(zSlider.value);
+        heightManager.onValueChanged.Invoke();
     }
     void Update() 
     {
