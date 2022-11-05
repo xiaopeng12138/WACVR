@@ -39,10 +39,11 @@ public class SkyboxSwitcher : MonoBehaviour
             else 
             {
                 Room.SetActive(false);
-                currentSkyboxIndex = Dropdown.value-1;
+                currentSkyboxIndex = Dropdown.value;
                 SetSkybox();
             }
         });
+        Dropdown.onValueChanged?.Invoke(Dropdown.value);
     }
 
     IEnumerator AddSkyboxes()

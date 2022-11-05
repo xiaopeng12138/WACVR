@@ -102,7 +102,7 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EmissionStrength: 1.25
+    - _EmissionStrength: 1.35
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0
@@ -127,7 +127,7 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _UVSec: 0
-    - _Vignett: 0.5
+    - _Vignett: 0.8
     - _VignettHardness: -0.15
     - _WorkflowMode: 1
     - _ZWrite: 1
