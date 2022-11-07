@@ -25,7 +25,7 @@ public class HandFollowManager : MonoBehaviour
         var threshSlider = threshWidget.GetComponent<Slider>();
 
         modeDropdown.onValueChanged.AddListener((int value) => {
-            VelocityThreshold = ConfigManager.config.HandStabilVelocity;
+            VelocityThreshold = ConfigManager.config.Threshold;
             Mode = (CEnum.handStabilization)value;
             switch (Mode)
             {

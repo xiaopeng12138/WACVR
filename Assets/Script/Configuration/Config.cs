@@ -23,13 +23,12 @@ public class Config
     public float HapticDuration = 0.1f;
     public float HapticAmplitude = 0.75f;
     public int TouchSampleRate  = 3;
-    public int HandTrackingMode = 0;
+    public int HandTrackingMode = 1;
     public float Threshold = 0.3f;
-    public float HandStabilVelocity = 0.3f;
-    public float HandStabilDistance = 0.1f;
-    public float HandStabilSmooth = 0.1f;
+    public bool TouchPanelAirWall = false;
     public bool UseIPCLighting = true;
     public bool UseIPCTouch = true;
+    public float LightStrength = 1.35f;
     public int TestKeyBind = 40;
     public int ServiceKeyBind = 41;
     public int CoinKeyBind = 31;

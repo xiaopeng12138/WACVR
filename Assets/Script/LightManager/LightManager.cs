@@ -18,16 +18,27 @@ public class LightManager : MonoBehaviour
 
     private void Start() 
     {
-        var widget = ConfigManager.GetConfigPanelWidget("UseIPCLighting");
-        var toggle = widget.GetComponent<Toggle>();
-        toggle.onValueChanged.AddListener((value) => {
-            useIPCLighting = value;
-        });
-        toggle.onValueChanged.Invoke(useIPCLighting);
-
         for (int i = 0; i < Lights.Count; i++)
             Materials.Add(Lights[i].GetComponent<Renderer>().material);
         
+        var lightWidget = ConfigManager.GetConfigPanelWidget("UseIPCLighting");
+        var strengthWidgent = ConfigManager.GetConfigPanelWidget("LightStrength");
+
+        var lightToggle = lightWidget.GetComponent<Toggle>();
+        var strengthSlider = strengthWidgent.GetComponent<Slider>();
+
+        lightToggle.onValueChanged.AddListener((bool value) => {
+            useIPCLighting = value;
+        });
+
+        strengthSlider.onValueChanged.AddListener((float value) => {
+            for (int i = 0; i < Materials.Count; i++)
+                Materials[i].SetFloat("_EmissionStrength", value);
+        });
+
+        lightToggle.onValueChanged.Invoke(useIPCLighting);
+        strengthSlider.onValueChanged.Invoke(strengthSlider.value);
+
         if (useIPCLighting)
         {
             RGBColor2D = new Texture2D(480, 1, TextureFormat.RGBA32, false);

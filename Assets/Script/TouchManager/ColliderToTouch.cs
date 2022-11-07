@@ -15,7 +15,7 @@ public class ColliderToTouch : MonoBehaviour
     {
         Area = Convert.ToInt32(gameObject.name);
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider collider)
     {
         _insideColliderCount += 1;
         TouchManager.SetTouch(Area, true);
@@ -23,7 +23,7 @@ public class ColliderToTouch : MonoBehaviour
         LightManager.UpdateFadeLight(Area, true);
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider collider)
     {
         _insideColliderCount -= 1;
         _insideColliderCount = Mathf.Max(0, _insideColliderCount);

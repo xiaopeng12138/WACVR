@@ -127,30 +127,30 @@ public class ConfigManager : MonoBehaviour
             {
                 var dropdown = widget.GetComponent<TMP_Dropdown>();
                 // add listener to dropdown to update config by key name
-                dropdown.onValueChanged.AddListener(delegate
+                dropdown.onValueChanged.AddListener((int value) =>
                 {
                     var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
-                    field.SetValue(config, dropdown.value);
+                    field.SetValue(config, value);
                     onConfigChanged?.Invoke();
                 });
             }
             else if (widget.GetComponent<Toggle>() != null)
             {
                 var toggle = widget.GetComponent<Toggle>();
-                toggle.onValueChanged.AddListener(delegate
+                toggle.onValueChanged.AddListener((bool value) =>
                 {
                     var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
-                    field.SetValue(config, toggle.isOn);
+                    field.SetValue(config, value);
                     onConfigChanged?.Invoke();
                 });
             }
             else if (widget.GetComponent<Slider>() != null)
             {
                 var slider = widget.GetComponent<Slider>();
-                slider.onValueChanged.AddListener(delegate
+                slider.onValueChanged.AddListener((float value) =>
                 {
                     var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
-                    field.SetValue(config, slider.value);
+                    field.SetValue(config, value);
                     onConfigChanged?.Invoke();
                 });
             }
