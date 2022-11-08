@@ -21,29 +21,34 @@ public class CaptureSettingManager : MonoBehaviour
         var desktopIndexDropdown = desktopIndexWidget.GetComponent<TMP_Dropdown>();
 
         modeDropdown.onValueChanged.AddListener((int value) => {
-            windowTexture.captureMode = (CaptureMode)Enum.GetValues(typeof(CaptureMode)).GetValue(value) - 1;
+            windowTexture.captureMode = (CaptureMode)value - 1;
+            Debug.Log("CaptureFPS: " + windowTexture.captureMode);
         });
 
         fpsDropdown.onValueChanged.AddListener((int value) => {
             var fps = Enum.GetName(typeof(CEnum.FPS), value);
             windowTexture.captureFrameRate = int.Parse(fps.Remove(0, 3));
+            Debug.Log("CaptureFPS: " + windowTexture.captureFrameRate);
         });
 
         desktopToggle.onValueChanged.AddListener((bool value) => {
             if (value)
             {
+
                 windowTexture.type = WindowTextureType.Desktop;
                 desktopIndexDropdown.interactable = true;
             }
             else
             {
-                windowTexture.type = WindowTextureType.Desktop;
+                windowTexture.type = WindowTextureType.Window;
                 desktopIndexDropdown.interactable = false;
             }
+            Debug.Log("CaptureTarget: " + windowTexture.type);
         });
 
         desktopIndexDropdown.onValueChanged.AddListener((int value) => {
             windowTexture.desktopIndex = value;
+            Debug.Log("DesktopIndex: " + windowTexture.desktopIndex);
         });
         modeDropdown.onValueChanged?.Invoke(modeDropdown.value);
         fpsDropdown.onValueChanged?.Invoke(fpsDropdown.value);
