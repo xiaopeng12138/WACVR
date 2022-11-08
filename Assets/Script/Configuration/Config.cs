@@ -25,7 +25,7 @@ public class Config
     public int TouchSampleRate  = 3;
     public int HandTrackingMode = 1;
     public float Threshold = 0.3f;
-    public bool TouchPanelAirWall = false;
+    public bool TouchAirWall = false;
     public bool UseIPCLighting = true;
     public bool UseIPCTouch = true;
     public float LightStrength = 1.35f;

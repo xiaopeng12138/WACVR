@@ -70,6 +70,13 @@ public class HandFollowManager : MonoBehaviour
         Vector3 rotationDeltaInDegrees = angle * axis;
         currentRigidbody.angularVelocity = rotationDeltaInDegrees * Mathf.Deg2Rad / Time.fixedDeltaTime;
     }
+
+    private void DistanceSnap()
+    {
+        transform.position = Target.transform.position;
+        transform.rotation = Target.transform.rotation;
+    }
+    
     private void Update() 
     {
         gameObject.transform.localScale = Target.transform.localScale;

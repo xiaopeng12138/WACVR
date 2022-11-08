@@ -52,6 +52,37 @@ public class IPCManager : MonoBehaviour
         return bytes;
     }
 
+    private void OnDestroy() {
+        Debug.Log("Disposing IPC");
+        //CallAfterDelay.Create(0.1f, () => {
+            //StartCoroutine(DisposeWait());
+       //});
+       Dispose();
+    }
+
+    private static IEnumerator DisposeWait()
+    {
+        IPCManager.sharedBufferAccessor.Write(244 + 3, 0); // Clear the flag
+        yield return new WaitForSeconds(0.1f); // Wait if the IPC is still in use
+        IPCManager.sharedBufferAccessor.Read<byte>(244 + 3, out byte flag); // Get the flag again
+        if (flag == 0)
+        {
+            Dispose();
+        }
+    }
+
+    private static void Dispose()
+    {
+        if (sharedBuffer != null)
+        {
+            IPCManager.sharedBuffer.Dispose();
+            IPCManager.sharedBuffer = null;
+            IPCManager.sharedBufferAccessor = null;
+            IPCManager.isInitialized = false;
+        }
+        Debug.Log("IPC Disposed");
+    }
+
     public static void SetTouchData(bool[] bytes)
     {
         EnsureInitialization();

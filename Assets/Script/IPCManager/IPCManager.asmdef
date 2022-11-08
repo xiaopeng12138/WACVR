@@ -1,3 +1,16 @@
 {
-	"name": "IPCManager"
+    "name": "IPCManager",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e9ef0e10f8c2b264e9705f57f028b9e8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

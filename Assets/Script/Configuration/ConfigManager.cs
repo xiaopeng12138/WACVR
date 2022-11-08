@@ -171,6 +171,7 @@ public class ConfigManager : MonoBehaviour
     {
         foreach (var configPanelComponent in _configPanelComponents)
         {
+            Debug.Log(configPanelComponent.ConfigKeyName);
             var componentObject = configPanelComponent.Widget;
             if (componentObject.GetComponent<TMP_Dropdown>() != null)
             {
