@@ -4,7 +4,6 @@ using TMPro;
 
 public class ConfigPanelComponent : MonoBehaviour
 {
-    [SerializeField]
     public string ConfigKeyName
     {
         get
@@ -13,7 +12,6 @@ public class ConfigPanelComponent : MonoBehaviour
         }
     }
     private string configKeyName;
-    [SerializeField]
     public GameObject Widget
     {
         get

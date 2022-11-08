@@ -67,6 +67,7 @@ public class LightManager : MonoBehaviour
     }
     private void CheckIPCState(byte[] data)
     {
+        Debug.Log(data[3]);
         if (data[3] == 0)
             isIPCIdle = true;
         else
@@ -93,7 +94,9 @@ public class LightManager : MonoBehaviour
         if (bytes != null && bytes.Length == 1920)
         {
             CheckIPCState(bytes);
-            RGBColor2D.LoadRawTextureData(bytes);
+            var newbytes = new byte[1920];
+            newbytes = bytes;
+            RGBColor2D.LoadRawTextureData(newbytes);
             RGBColor2D.Apply();
         }
     }
