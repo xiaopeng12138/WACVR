@@ -68,8 +68,6 @@
 A ``config.json`` file is automatically created in WACVR's root directory on startup.
 
 - You can change this file via the in-game config panel. Please take a step back: the controller pointer will automatically be disabled when the controller is too close to the cabinet.
-- Some extra options are only available in ``config.json``. For example:
-    - ``"SpectatorSmooth:"``
 - Some options in ``config.json`` are only the index of the dropdown in the panel.
 - You can use the pointer to point the 3rd-person camera and move it to the position you want it to be.
 
