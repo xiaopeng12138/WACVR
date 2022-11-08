@@ -45,11 +45,12 @@
 ## How to use
 - Get the game somehow and make sure it runs properly and uses latest xxxxtools. (DO NOT ASK ANYTHING THAT IS DIRECTLY RELATED TO THE GAME ITSELF)
 - Download [the nightly version of WACVR](https://nightly.link/xiaopeng12138/WACVR/workflows/build/main/artifact.zip).
-- You have 2 ways to connect touch to the game:
+- You have 2 ways to connect touch to the game. Please only choose one of them.:
 
 ### mercuryio
   - Download [mercuryio.dll](https://wacvr.cf/mercuryio.dll).
   - Put ``mercuryio.dll`` into ``bin`` folder.
+  - Add ``[touch] enable=1`` to .ini file
   - Add ``[mercuryio] path=mercuryio.dll`` to .ini file.
   - Start the game and WACVR.
 
