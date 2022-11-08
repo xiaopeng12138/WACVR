@@ -127,7 +127,7 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _UVSec: 0
-    - _Vignett: 0.8
+    - _Vignett: 0.65
     - _VignettHardness: 0
     - _WorkflowMode: 1
     - _ZWrite: 1

@@ -106,8 +106,8 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _Alpha_Brightness: 0.5
-    - _Alpha_Contrast: 0.9
-    - _Alpha_Multiplier: 7.5
+    - _Alpha_Contrast: 0.55
+    - _Alpha_Multiplier: 2.68
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
