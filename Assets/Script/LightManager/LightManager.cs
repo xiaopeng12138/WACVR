@@ -67,7 +67,6 @@ public class LightManager : MonoBehaviour
     }
     private void CheckIPCState(byte[] data)
     {
-        Debug.Log(data[3]);
         if (data[3] == 0)
             isIPCIdle = true;
         else

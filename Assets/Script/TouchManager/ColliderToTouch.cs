@@ -9,7 +9,6 @@ public class ColliderToTouch : MonoBehaviour
 {
     public LightManager LightManager;
     private int _insideColliderCount = 0;
-    public static event Action touchDidChange;
     private int Area;
     private void Start() 
     {
@@ -19,7 +18,6 @@ public class ColliderToTouch : MonoBehaviour
     {
         _insideColliderCount += 1;
         TouchManager.SetTouch(Area, true);
-        touchDidChange?.Invoke();
         LightManager.UpdateFadeLight(Area, true);
     }
 
@@ -30,7 +28,6 @@ public class ColliderToTouch : MonoBehaviour
         if (_insideColliderCount == 0)
         {
             TouchManager.SetTouch(Area, false);
-            touchDidChange?.Invoke();
             LightManager.UpdateFadeLight(Area, false);
         }
     }

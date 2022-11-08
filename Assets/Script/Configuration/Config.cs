@@ -28,7 +28,7 @@ public class Config
     public bool TouchAirWall = false;
     public bool UseIPCLighting = true;
     public bool UseIPCTouch = true;
-    public float LightStrength = 1.35f;
+    public float LightStrength = 1.25f;
     public int TestKeyBind = 40;
     public int ServiceKeyBind = 41;
     public int CoinKeyBind = 31;

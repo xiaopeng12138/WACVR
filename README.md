@@ -34,8 +34,9 @@
 
 ## Repositories used
 - [Brokenithm-iOS](https://github.com/esterTion/Brokenithm-iOS)
-- [uWindowCapture](https://github.com/hecomi/uWindowCapture)
+- [IL2cppStartProcess](https://github.com/josh4364/IL2cppStartProcess)
 - [MaiDXR](https://github.com/xiaopeng12138/MaiDXR)
+- [uWindowCapture](https://github.com/hecomi/uWindowCapture)
 
 ## Disclaimers
 - This project is not-for-profit and some resources came from the Internet!
@@ -68,6 +69,7 @@
 A ``config.json`` file is automatically created in WACVR's root directory on startup.
 
 - You can change this file via the in-game config panel. Please take a step back: the controller pointer will automatically be disabled when the controller is too close to the cabinet.
+- You can change ``batFileLocation`` in ``config.json`` to the location of your start.bat file. The start.bat will automatically run when you start WACVR. 
 - Some options in ``config.json`` are only the index of the dropdown in the panel.
 - You can use the pointer to point the 3rd-person camera and move it to the position you want it to be.
 

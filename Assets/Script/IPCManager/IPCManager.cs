@@ -9,6 +9,7 @@ public class IPCManager : MonoBehaviour
     public static MemoryMappedFile sharedBuffer;
     public static MemoryMappedViewAccessor sharedBufferAccessor;
     public static bool isInitialized = false;
+    public static bool[] TouchData = new bool[240];
 
     private void Awake() 
     {
@@ -83,18 +84,21 @@ public class IPCManager : MonoBehaviour
         Debug.Log("IPC Disposed");
     }
 
-    public static void SetTouchData(bool[] bytes)
+    private static void SetTouchData(bool[] datas)
     {
         EnsureInitialization();
-        IPCManager.sharedBufferAccessor.WriteArray<bool>(4, bytes, 0, 240);
+        IPCManager.sharedBufferAccessor.WriteArray<bool>(4, datas, 0, 240);
     }
 
-    public static void SetTouch(int index, bool value)
+    public static void SetTouch(int Area, bool State)
     {
-        EnsureInitialization();
-        if (value)
-            IPCManager.sharedBufferAccessor.Write(4 + index, 1);
-        else
-            IPCManager.sharedBufferAccessor.Write(4 + index, 0);
+        Area -= 1; //0-239
+
+        if (Area < 120) //right side
+            TouchData[Area + 120] = State;
+        else if (Area >= 120) //left side
+            TouchData[Area - 120] = State;
+
+        SetTouchData(TouchData);
     }
 }
