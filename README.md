@@ -44,18 +44,31 @@
 - Please support your local arcade if you can!
 
 ## How to use
-- Get the game somehow and make sure it runs properly and uses latest xxxxtools. (DO NOT ASK ANYTHING THAT IS DIRECTLY RELATED TO THE GAME ITSELF)
-- Download [the nightly version of WACVR](https://nightly.link/xiaopeng12138/WACVR/workflows/build/main/artifact.zip).
-- You have 2 ways to connect touch to the game. Please only choose one of them.:
+- Get the game somehow and make sure it's clean. (DO NOT ASK ANYTHING THAT IS DIRECTLY RELATED TO THE GAME ITSELF)
+- You have 2 ways to setup the game, Automated (recommended) or Manual.
 
-### mercuryio
+### Automated (recommended)
+Automated setup configures the game and downloads WACVR, xxxxtools, and other files for you.  
+Thank you to Glub Glub for releasing this!
+- Download [Glub Glub setup environment](https://github.com/ArcadeGlubGlub/GameSetup/raw/master/WACCAReverse-GlubGlub.7z) and extract it to a folder.
+- Then, follow the `README.txt` file inside to add your game.
+- Once it is done, run `Launch` to start both WACVR and the game.
+
+---
+
+### Manual
+- Make sure the game properly and uses latest xxxxtools.
+- Download [the nightly version of WACVR](https://nightly.link/xiaopeng12138/WACVR/workflows/build/main/artifact.zip).
+- You have 2 ways to connect touch to the game. Please only choose one of them:
+
+#### mercuryio
   - Download [mercuryio.dll](https://wacvr.cf/mercuryio.dll).
   - Put ``mercuryio.dll`` into ``bin`` folder.
   - Add ``[touch] enable=1`` to .ini file
   - Add ``[mercuryio] path=mercuryio.dll`` to .ini file.
   - Start the game and WACVR.
 
-### Serial (not recommended)
+#### Serial (not recommended)
   - Download and install [com0com](https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/powersdr-iq/setup_com0com_W7_x64_signed.exe).
   - Configure com0com to bind COM3 and COM5, COM4 and COM6.
   - Enable the ``enable buffer overrun`` option in com0com on both ports of all pairs. Otherwise, your WACVR will crash after the logo.
