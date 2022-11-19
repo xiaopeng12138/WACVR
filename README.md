@@ -52,7 +52,8 @@ Automated setup configures the game and downloads WACVR, xxxxtools, and other fi
 Thank you to Glub Glub for releasing this!
 - Download [Glub Glub setup environment](https://github.com/ArcadeGlubGlub/GameSetup/raw/master/WACCAReverse-GlubGlub.7z) and extract it to a folder.
 - Then, follow the `README.txt` file inside to add and setup your game.
-- Once it is done, run `Launch` to start both WACVR and the game.
+- Add a server in `Game\app\bin\xxxxtools.ini` to connect to.
+- Once done, run `Launch` shortcut to start both WACVR and the game.
 
 ---
 
