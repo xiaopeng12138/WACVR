@@ -95,6 +95,6 @@ public class SpectatorManager : MonoBehaviour
         ConfigManager.config.TPCamRotation[0] = SpectatorTPTarget.rotation.eulerAngles.x;
         ConfigManager.config.TPCamRotation[1] = SpectatorTPTarget.rotation.eulerAngles.y;
         ConfigManager.config.TPCamRotation[2] = SpectatorTPTarget.rotation.eulerAngles.z;
-        ConfigManager.SaveFile();
+        ConfigManager.SaveFileWait();
     }
 }

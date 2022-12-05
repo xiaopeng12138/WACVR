@@ -23,7 +23,7 @@ public class ConfigManager : MonoBehaviour
     void Awake()
     {
         onConfigChanged += EnsureInitialization;
-        onConfigChanged += SaveFile;
+        onConfigChanged += SaveFileWait;
         
     }
     void Start()
@@ -53,7 +53,7 @@ public class ConfigManager : MonoBehaviour
         {
             Debug.Log("Config file does not exist");
             config = new Config();
-            SaveFile();
+            SaveFileWait();
             Debug.Log("Config file created");
         }
     }
@@ -61,13 +61,13 @@ public class ConfigManager : MonoBehaviour
     {
         return Application.dataPath + "/../config.json";
     }
-    public static void SaveFile() 
+    public static void SaveFileWait() 
     {
         isSavingConfig = true;
         saverTimer = 0;
         //Debug.Log("Saving config file");
     }
-    public void saveFileWait() 
+    public void saveFile() 
     {
         File.WriteAllText(GetFileName(), JsonConvert.SerializeObject(config, Formatting.Indented));
         Debug.Log("Config file saved");
@@ -82,9 +82,14 @@ public class ConfigManager : MonoBehaviour
             {
                 isSavingConfig = false;
                 saverTimer = 0;
-                saveFileWait();
+                saveFile();
             }
         }
+    }
+
+    void OnDestroy()
+    {
+        saveFile();
     }
 
     public static GameObject GetConfigPanelWidget(string configKeyName)
@@ -123,10 +128,12 @@ public class ConfigManager : MonoBehaviour
         foreach (var configPanelComponent in _configPanelComponents)
         {
             var widget = configPanelComponent.Widget;
-            if (widget.GetComponent<TMP_Dropdown>() != null)
+            var dropdown = widget.GetComponent<TMP_Dropdown>();
+            var toggle = widget.GetComponent<Toggle>();
+            var slider = widget.GetComponent<Slider>();
+            var valueManager = widget.GetComponent<ValueManager>();
+            if (dropdown != null) // add listener to dropdown to update config by key name
             {
-                var dropdown = widget.GetComponent<TMP_Dropdown>();
-                // add listener to dropdown to update config by key name
                 dropdown.onValueChanged.AddListener((int value) =>
                 {
                     var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
@@ -134,9 +141,8 @@ public class ConfigManager : MonoBehaviour
                     onConfigChanged?.Invoke();
                 });
             }
-            else if (widget.GetComponent<Toggle>() != null)
+            else if (toggle != null)
             {
-                var toggle = widget.GetComponent<Toggle>();
                 toggle.onValueChanged.AddListener((bool value) =>
                 {
                     var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
@@ -144,9 +150,8 @@ public class ConfigManager : MonoBehaviour
                     onConfigChanged?.Invoke();
                 });
             }
-            else if (widget.GetComponent<Slider>() != null)
+            else if (slider != null)
             {
-                var slider = widget.GetComponent<Slider>();
                 slider.onValueChanged.AddListener((float value) =>
                 {
                     var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);
@@ -154,9 +159,8 @@ public class ConfigManager : MonoBehaviour
                     onConfigChanged?.Invoke();
                 });
             }
-            else if (widget.GetComponent<ValueManager>() != null)
+            else if (valueManager != null)
             {
-                var valueManager = widget.GetComponent<ValueManager>();
                 valueManager.onValueChanged.AddListener(delegate
                 {
                     var field = config.GetType().GetField(configPanelComponent.ConfigKeyName);

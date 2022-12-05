@@ -20,6 +20,7 @@ public class Config
     public float HandZ = 0;
     public float PlayerHeight = 0;
     public int Skybox = 0;
+    public int Enviroment = 0;
     public float HapticDuration = 0.1f;
     public float HapticAmplitude = 0.75f;
     public int TouchSampleRate  = 3;
