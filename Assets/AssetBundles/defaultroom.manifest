@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1307084116
+CRC: 981639292
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 636dd6476d15f862bf5bdf3377f13ad7
+    Hash: 1ec9c86ef6ddffc2b367e48d719ac5de
   TypeTreeHash:
     serializedVersion: 2
-    Hash: f21949c02115747e8ce077b6c850c7ab
+    Hash: bfd8e95edd014885b20c6ff1e66ce84b
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -37,6 +37,8 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1886bb2d2d9d85f4b9fc5dfeb8d68f50, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 213
@@ -48,6 +50,10 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers:
+- AssemblyName: Essential
+  ClassName: PrefabLightmapData/LightInfo
+- AssemblyName: Essential
+  ClassName: PrefabLightmapData/RendererInfo
 - AssemblyName: UnityEngine.CoreModule
   ClassName: UnityEngine.Events.PersistentCallGroup
 - AssemblyName: UnityEngine.UI

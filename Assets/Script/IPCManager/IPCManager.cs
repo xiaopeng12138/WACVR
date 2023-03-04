@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO.MemoryMappedFiles;
 using System.Security.Principal;
 using UnityEngine;
+using System.Runtime.InteropServices;
+using System;
 
 public class IPCManager : MonoBehaviour
 {
@@ -46,11 +48,22 @@ public class IPCManager : MonoBehaviour
     public static byte[] GetLightData()
     {
         EnsureInitialization();
-        byte[] bytes = new byte[1920];
-        IPCManager.sharedBufferAccessor.ReadArray<byte>(244, bytes, 0, 1920);
-        if (bytes[3] == 0)
-            return null;
-        return bytes;
+        //byte[] bytes = new byte[1920];
+        //IPCManager.sharedBufferAccessor.ReadArray<byte>(244, bytes, 0, 1920);
+        //if (bytes[3] == 0)
+            //return null;
+        return ReadBytes(244, 1920);
+    }
+
+    // Source: https://stackoverflow.com/questions/7956167/how-can-i-quickly-read-bytes-from-a-memory-mapped-file-in-net/7956222#7956222
+    private static unsafe byte[] ReadBytes(int offset, int num)
+    {
+        byte[] arr = new byte[num];
+        byte *ptr = (byte*)0;
+        sharedBufferAccessor.SafeMemoryMappedViewHandle.AcquirePointer(ref ptr);
+        Marshal.Copy(IntPtr.Add(new IntPtr(ptr), offset), arr, 0, num);
+        sharedBufferAccessor.SafeMemoryMappedViewHandle.ReleasePointer();
+        return arr;
     }
 
     private void OnDestroy() {

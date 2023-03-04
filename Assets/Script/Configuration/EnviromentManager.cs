@@ -4,7 +4,6 @@ using UnityEngine;
 using TMPro;
 using System.IO;
 
-[RequireComponent(typeof(TMP_Dropdown))]
 public class EnviromentManager : MonoBehaviour
 {
     private TMP_Dropdown Dropdown;
@@ -16,7 +15,8 @@ public class EnviromentManager : MonoBehaviour
     private List<FileInfo> enviromentFiles = new List<FileInfo>();
     void Start()
     {
-        Dropdown = GetComponent<TMP_Dropdown>();
+        var dropdownWidget = ConfigManager.GetConfigPanelWidget("Enviroment");
+        Dropdown = dropdownWidget.GetComponent<TMP_Dropdown>();
         AddEnviorments();
         Dropdown.onValueChanged.AddListener((int value) => {
             if (value == 0)

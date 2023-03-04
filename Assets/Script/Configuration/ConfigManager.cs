@@ -44,18 +44,16 @@ public class ConfigManager : MonoBehaviour
     private static void LoadFile() 
     {
         Debug.Log("Loading config file");
-        if (File.Exists(GetFileName()))
+        if (!File.Exists(GetFileName()) || JsonConvert.DeserializeObject<Config>(File.ReadAllText(GetFileName())) == null)
         {
-            Debug.Log("Config file exists");
-            config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(GetFileName()));
-        }
-        else 
-        {
-            Debug.Log("Config file does not exist");
+            Debug.Log("Config file does not exist or is corrupted");
             config = new Config();
-            SaveFileWait();
+            saveFile();
             Debug.Log("Config file created");
         }
+        Debug.Log("Found config file");
+        config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(GetFileName()));
+        Debug.Log("Config file loaded");
     }
     public static string GetFileName() 
     {
@@ -67,7 +65,7 @@ public class ConfigManager : MonoBehaviour
         saverTimer = 0;
         //Debug.Log("Saving config file");
     }
-    public void saveFile() 
+    public static void saveFile() 
     {
         File.WriteAllText(GetFileName(), JsonConvert.SerializeObject(config, Formatting.Indented));
         Debug.Log("Config file saved");
