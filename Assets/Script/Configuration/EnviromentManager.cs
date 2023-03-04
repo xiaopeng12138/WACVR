@@ -8,40 +8,37 @@ using System.IO;
 public class EnviromentManager : MonoBehaviour
 {
     private TMP_Dropdown Dropdown;
-    public bool useEnvironment = true;
+    private bool useEnvironment = true;
     public Transform EnvironmentParent;
     public GameObject CurrentEnvironment;
+    public GameObject Cabinet;
     
-    private string currentEnvironmentName;
     private List<FileInfo> enviromentFiles = new List<FileInfo>();
     void Start()
     {
         Dropdown = GetComponent<TMP_Dropdown>();
         AddEnviorments();
         Dropdown.onValueChanged.AddListener((int value) => {
-            currentEnvironmentName = Dropdown.options[value].text;
             if (value == 0)
                 useEnvironment = false;
             else
             {
                 useEnvironment = true;
-                SetEnvironment();
+                SetEnvironment(Dropdown.options[value].text);
             }    
             Debug.Log("Value: " + value);
         });
         Dropdown.onValueChanged?.Invoke(Dropdown.value);
     }
-
-    void Update()
+    [ContextMenu("InvokeDropdown")]
+    void invokeDropdown()
     {  
-        if (useEnvironment)
-        {
-            CurrentEnvironment.SetActive(true);
-        }
-        else 
-        {
-            CurrentEnvironment.SetActive(false);
-        }
+        Dropdown.onValueChanged?.Invoke(Dropdown.value);
+    }
+    void Update()
+    {
+        if (!useEnvironment)
+            Destroy(CurrentEnvironment);
     }
 
     void AddEnviorments()
@@ -55,13 +52,14 @@ public class EnviromentManager : MonoBehaviour
             Dropdown.options.Add(new TMP_Dropdown.OptionData(file.Name));
         }
     }
-    void SetEnvironment()
+    void SetEnvironment(string enviromentName)
     {
         if (CurrentEnvironment != null)
         {
             Destroy(CurrentEnvironment);
         }
-        GameObject env = AssetBundleManager.Instance.LoadAsset<GameObject>("Enviroments", currentEnvironmentName);
+        GameObject env = AssetBundleManager.Instance.LoadAsset<GameObject>("Enviroments", enviromentName);
         CurrentEnvironment = Instantiate(env, EnvironmentParent);
+
     }
 }
