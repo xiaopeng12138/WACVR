@@ -42,7 +42,6 @@ MonoBehaviour:
   - {fileID: 6760998554925213443}
   - {fileID: 3607529374417723074}
   - {fileID: 2518257850819104886}
-  - {fileID: 3105951399032240424}
   - {fileID: -9221150314526244616}
   m_renderMode: 1
   m_depthSubmissionMode: 0
@@ -247,6 +246,28 @@ MonoBehaviour:
   company: Unity
   priority: 0
   required: 0
+--- !u!114 &5471978460094067691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c465bd23c9c4fb442ae89117552a5f3f, type: 3}
+  m_Name: HandTrackingFeature Standalone
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: 
+  version: 
+  featureIdInternal: 
+  openxrExtensionStrings: 
+  company: 
+  priority: 0
+  required: 0
+  metaPermissions: 1
+  metaHighFrequency: 1
 --- !u!114 &6760998554925213443
 MonoBehaviour:
   m_ObjectHideFlags: 0
