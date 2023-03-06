@@ -36,11 +36,11 @@ public class SkyboxSwitcher : MonoBehaviour
         Dropdown.onValueChanged.AddListener((int value) => { // add listener to dropdown
             if (value == 0) // if the first option is selected, disable the room
             {
-                Room.SetActive(true);
+                //Room.SetActive(true);
             }
             else // otherwise, enable the room and set the skybox
             {
-                Room.SetActive(false);
+                //Room.SetActive(false);
                 currentSkyboxIndex = Dropdown.value;
                 SetSkybox();
             }

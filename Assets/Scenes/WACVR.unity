@@ -10971,6 +10971,7 @@ GameObject:
   - component: {fileID: 1483037936}
   - component: {fileID: 1483037935}
   - component: {fileID: 1483037933}
+  - component: {fileID: 1483037940}
   m_Layer: 5
   m_Name: ConfigCanvas
   m_TagString: Untagged
@@ -11063,7 +11064,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 1326126835}
+  m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -11100,6 +11101,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 2.355}
   m_SizeDelta: {x: 1000, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1483037940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483037931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc2745f4c51ef9468462c96bf5c5d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Camera: {fileID: 1326126835}
 --- !u!1 &1494369262
 GameObject:
   m_ObjectHideFlags: 0
@@ -11788,6 +11802,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+      - m_Target: {fileID: 1483037940}
+        m_TargetAssemblyTypeName: CanvasCameraSwitcher, Essential
+        m_MethodName: EnableCanvasCamera
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &1552178587 stripped
 GameObject:
