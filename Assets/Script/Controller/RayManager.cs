@@ -23,7 +23,7 @@ public class RayManager : MonoBehaviour
     {
         var controllerDistance = CabinetTransform.position.z - gameObject.transform.position.z;
         controllerDistance = Mathf.Abs(controllerDistance);
-        Debug.Log(controllerDistance);
+        //Debug.Log(controllerDistance);
         if (controllerDistance < Distance || !RaySwitch)
         {
             interactor.enabled = false;
