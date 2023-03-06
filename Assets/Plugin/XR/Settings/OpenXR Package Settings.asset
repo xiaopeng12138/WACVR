@@ -42,6 +42,7 @@ MonoBehaviour:
   - {fileID: 6760998554925213443}
   - {fileID: 3607529374417723074}
   - {fileID: 2518257850819104886}
+  - {fileID: 5471978460094067691}
   - {fileID: -9221150314526244616}
   m_renderMode: 1
   m_depthSubmissionMode: 0
@@ -259,11 +260,11 @@ MonoBehaviour:
   m_Name: HandTrackingFeature Standalone
   m_EditorClassIdentifier: 
   m_enabled: 0
-  nameUi: 
-  version: 
-  featureIdInternal: 
-  openxrExtensionStrings: 
-  company: 
+  nameUi: Ultraleap Hand Tracking
+  version: 1.0.0
+  featureIdInternal: com.ultraleap.tracking.openxr.feature.handtracking
+  openxrExtensionStrings: XR_EXT_hand_tracking XR_ULTRALEAP_hand_tracking_forearm
+  company: Ultraleap
   priority: 0
   required: 0
   metaPermissions: 1
