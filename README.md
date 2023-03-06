@@ -36,6 +36,7 @@
 - [Brokenithm-iOS](https://github.com/esterTion/Brokenithm-iOS)
 - [IL2cppStartProcess](https://github.com/josh4364/IL2cppStartProcess)
 - [MaiDXR](https://github.com/xiaopeng12138/MaiDXR)
+- [PrefabLightmapping](https://github.com/Ayfel/PrefabLightmapping)
 - [uWindowCapture](https://github.com/hecomi/uWindowCapture)
 
 ## Disclaimers
@@ -59,11 +60,11 @@ Thank you to Glub Glub for releasing this!
 
 ### Manual
 - Make sure the game properly and uses latest xxxxtools.
-- Download [the nightly version of WACVR](https://nightly.link/xiaopeng12138/WACVR/workflows/build/main/artifact.zip).
+- Download [the latest release version](https://github.com/xiaopeng12138/MaiDXR/releases) or [the nightly version of WACVR](https://nightly.link/xiaopeng12138/WACVR/workflows/build/main/artifact.zip).
 - You have 2 ways to connect touch to the game. Please only choose one of them:
 
 #### mercuryio
-  - Download [mercuryio.dll](https://wacvr.cf/mercuryio.dll).
+  - You can find the ``mercuryio.dll`` inside the release file or you can download it [here](https://wacvr.cf/mercuryio.dll).
   - Put ``mercuryio.dll`` into ``bin`` folder.
   - Add ``[touch] enable=1`` to .ini file
   - Add ``[mercuryio] path=mercuryio.dll`` to .ini file.
