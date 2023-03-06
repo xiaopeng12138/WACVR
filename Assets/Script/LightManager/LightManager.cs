@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 
 public class LightManager : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class LightManager : MonoBehaviour
     private bool isIPCIdle = true;
     [SerializeField]
     private bool useIPCLighting = true;
-    static Texture2D RGBColor2D;
+    //static Texture2D RGBColor2D;
+    static byte[] RGBAColors;
+    static byte[][] Colors;
 
     private IEnumerator[] coroutines = new IEnumerator[240];
     public float FadeDuration = 0.5f;
@@ -41,7 +44,7 @@ public class LightManager : MonoBehaviour
 
         if (useIPCLighting)
         {
-            RGBColor2D = new Texture2D(480, 1, TextureFormat.RGBA32, false);
+            //RGBColor2D = new Texture2D(480, 1, TextureFormat.RGBA32, false);
             //RGBColor2D.filterMode = FilterMode.Point; //for debugging
             //GetComponent<Renderer>().material.mainTexture = RGBColor2D; //for debugging
         }
@@ -56,7 +59,10 @@ public class LightManager : MonoBehaviour
             
         if (IPCManager.sharedBuffer != null)
         {
-            GetTextureFromBytes(IPCManager.GetLightData());
+            //GetTextureFromBytes(IPCManager.GetLightData());
+            RGBAColors = IPCManager.GetLightData();
+            Colors = SplitByteArray(RGBAColors, 4);
+            CheckIPCState(RGBAColors);
             if (isIPCIdle)
                 return;
             UpdateLED();
@@ -87,10 +93,19 @@ public class LightManager : MonoBehaviour
         {
             for (int ii = 0; ii < 4; ii++)
             {
-                Materials[119 - i - ii * 30].SetColor("_EmissionColor", RGBColor2D.GetPixel(index * 2, 0));
-                Materials[119 - i - ii * 30].SetColor("_EmissionColor2", RGBColor2D.GetPixel(index * 2 + 1, 0));
-                Materials[210 + i - ii * 30].SetColor("_EmissionColor", RGBColor2D.GetPixel((index + 120) * 2, 0));
-                Materials[210 + i - ii * 30].SetColor("_EmissionColor2", RGBColor2D.GetPixel((index + 120) * 2 + 1, 0));
+                
+                Materials[119 - i - ii * 30].SetColor("_EmissionColor", 
+                    new Color32(Colors[index * 2][0], Colors[index * 2][1], Colors[index * 2][2], 255));
+                Materials[119 - i - ii * 30].SetColor("_EmissionColor2", 
+                    new Color32(Colors[index * 2 + 1][0], Colors[index * 2 + 1][1], Colors[index * 2 + 1][2], 255));
+                Materials[210 + i - ii * 30].SetColor("_EmissionColor", 
+                    new Color32(Colors[(index + 120) * 2][0], Colors[(index + 120) * 2][1], Colors[(index + 120) * 2][2], 255));
+                Materials[210 + i - ii * 30].SetColor("_EmissionColor2", 
+                    new Color32(Colors[(index + 120) * 2 + 1][0], Colors[(index + 120) * 2 + 1][1], Colors[(index + 120) * 2 + 1][2], 255));
+                // Materials[119 - i - ii * 30].SetColor("_EmissionColor", RGBColor2D.GetPixel(index * 2, 0));
+                // Materials[119 - i - ii * 30].SetColor("_EmissionColor2", RGBColor2D.GetPixel(index * 2 + 1, 0));
+                // Materials[210 + i - ii * 30].SetColor("_EmissionColor", RGBColor2D.GetPixel((index + 120) * 2, 0));
+                // Materials[210 + i - ii * 30].SetColor("_EmissionColor2", RGBColor2D.GetPixel((index + 120) * 2 + 1, 0));
                 index++;
             }
         }
@@ -104,8 +119,8 @@ public class LightManager : MonoBehaviour
             return;
         var newbytes = new byte[1920];
         newbytes = bytes;
-        RGBColor2D.LoadRawTextureData(newbytes);
-        RGBColor2D.Apply();
+        //RGBColor2D.LoadRawTextureData(newbytes);
+        //RGBColor2D.Apply();
         
     }
     public void UpdateFadeLight(int Area, bool State)
@@ -137,4 +152,20 @@ public class LightManager : MonoBehaviour
             yield return null;
         }
     }
+    public static byte[][] SplitByteArray(byte[] byteArray, int chunkSize)
+    {
+        int numChunks = (byteArray.Length + chunkSize - 1) / chunkSize;
+        byte[][] result = new byte[numChunks][];
+        for (int i = 0; i < numChunks; i++)
+        {
+            int offset = i * chunkSize;
+            int chunkLength = Math.Min(chunkSize, byteArray.Length - offset);
+            byte[] chunk = new byte[chunkLength];
+            Buffer.BlockCopy(byteArray, offset, chunk, 0, chunkLength);
+            result[i] = chunk;
+        }
+        return result;
+    }    
+
+
 }
