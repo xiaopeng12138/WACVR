@@ -60,7 +60,7 @@ Thank you to Glub Glub for releasing this!
 
 ### Manual
 - Make sure the game properly and uses latest xxxxtools.
-- Download [the latest release version](https://github.com/xiaopeng12138/MaiDXR/releases) or [the nightly version of WACVR](https://nightly.link/xiaopeng12138/WACVR/workflows/build/main/artifact.zip).
+- Download [the latest release version](https://github.com/xiaopeng12138/WACVR/releases) or [the nightly version of WACVR](https://nightly.link/xiaopeng12138/WACVR/workflows/build/main/artifact.zip).
 - You have 2 ways to connect touch to the game. Please only choose one of them:
 
 #### mercuryio
