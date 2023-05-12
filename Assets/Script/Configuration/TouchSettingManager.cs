@@ -14,7 +14,8 @@ public class TouchSettingManager : MonoBehaviour
 
         sampleDropdown.onValueChanged.AddListener((int value) => {
             string fpsString = Enum.GetName(typeof(CEnum.FPS), value);
-            Time.fixedDeltaTime = 1 / int.Parse(fpsString.Remove(0, 3));
+            Time.fixedDeltaTime = 1f / Convert.ToInt32(fpsString.Remove(0, 3));
+            Debug.Log("Time:" + fpsString);
         });
         
         sampleDropdown.onValueChanged?.Invoke(sampleDropdown.value);
