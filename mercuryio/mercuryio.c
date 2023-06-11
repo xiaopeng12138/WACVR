@@ -154,7 +154,7 @@ static unsigned int __stdcall mercury_io_touch_thread_proc(void *ctx)
             memcpy(cellPressed, FileMapping->TouchIoStatus, 240);
         }
         callback(cellPressed);
-        //Sleep(1);
+        Sleep(1);
     }
 
     FileMapping->RGBAData[3] = 0x00; //IPC idle flag
