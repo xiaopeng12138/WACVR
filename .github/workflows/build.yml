@@ -35,8 +35,9 @@ jobs:
 
       - name: Clean debug folders
         run: |
-          rmdir build\WACVR_BurstDebugInformation_DoNotShip /s /q
-          rmdir build\WACVR_BackUpThisFolder_ButDontShipItWithYourGame /s /q
+          Remove-Item -Recurse -Force build/WACVR_BurstDebugInformation_DoNotShip
+          Remove-Item -Recurse -Force build/WACVR_BackUpThisFolder_ButDontShipItWithYourGame
+        shell: powershell
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3.0.0
