@@ -40,8 +40,8 @@ jobs:
 
       - name: Clean debug folders
         run: |
-          Remove-Item -Recurse -Force $env:GITHUB_WORKSPACE\build\WACVR_BurstDebugInformation_DoNotShip
-          Remove-Item -Recurse -Force $env:GITHUB_WORKSPACE\build\WACVR_BackUpThisFolder_ButDontShipItWithYourGame
+          Remove-Item -Recurse -Force C:\github\workspace\build\WACVR_BurstDebugInformation_DoNotShip
+          Remove-Item -Recurse -Force C:\github\workspace\build\WACVR_BackUpThisFolder_ButDontShipItWithYourGame
         shell: powershell
 
       - name: Upload artifact
