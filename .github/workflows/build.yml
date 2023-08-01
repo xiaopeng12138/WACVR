@@ -22,7 +22,12 @@ jobs:
           key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
             Library-
-
+  
+      - name: Cache Docker image
+        uses: ScribeMD/docker-cache@0.3.4
+        with:
+          key: docker-${{ runner.os }}-${{ hashFiles('ProjectSettings/ProjectVersion.txt') }}
+  
       - uses: game-ci/unity-builder@v2
         name: Build project
         env:
