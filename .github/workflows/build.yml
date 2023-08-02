@@ -38,11 +38,15 @@ jobs:
           targetPlatform: StandaloneWindows64
           buildName: WACVR
 
-      - name: Clean debug folders
-        run: |
-          Remove-Item -Recurse -Force C:\github\workspace\build\StandaloneWindows64\WACVR_BurstDebugInformation_DoNotShip
-          Remove-Item -Recurse -Force C:\github\workspace\build\StandaloneWindows64\WACVR_BackUpThisFolder_ButDontShipItWithYourGame
-        shell: powershell
+      - name: Clean debug folder
+        uses: JesseTG/rm@v1.0.3
+        with:
+          path: build\StandaloneWindows64\WACVR_BurstDebugInformation_DoNotShip
+
+      - name: Clean backup folder
+        uses: JesseTG/rm@v1.0.3
+        with:
+          path: build\StandaloneWindows64\WACVR_BackUpThisFolder_ButDontShipItWithYourGame
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3.0.0
