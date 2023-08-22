@@ -93,8 +93,8 @@ public class SerialManager : MonoBehaviour
         if (ComR.IsOpen)
             ReadHead(ComR, 1);
         //following are touch test code
-        //if (Input.GetKeyDown(KeyCode.M)) 
-            //StartCoroutine(TouchTest(true));
+        if (Input.GetKeyDown(KeyCode.M)) 
+            StartCoroutine(TouchTest(true));
         //if (Input.GetKeyDown(KeyCode.M) && StartUp)
             //SendTouchState();
     }
@@ -117,9 +117,12 @@ public class SerialManager : MonoBehaviour
         {
             SetTouch(i, true);
             Debug.Log(i);
-            yield return new WaitForSeconds(0.05f);
+            PingTouchThread();
+            yield return new WaitForSeconds(0.03f);
             SetTouch(i, false);
-            yield return new WaitForSeconds(0.05f);
+            PingTouchThread();
+            yield return new WaitForSeconds(0.03f);
+            
         }
     }
 
@@ -145,34 +148,34 @@ public class SerialManager : MonoBehaviour
                 byte syncCheckSum = (byte)44;
                 syncbytes.Add(syncCheckSum);
                 Serial.Write(syncbytes.ToArray(), 0, syncbytes.Count);
-                //Debug.Log($"GET SYNC BOARD VER {side}");
+                Debug.Log($"GET SYNC BOARD VER {side}");
                 break;
             case CMD_NEXT_READ:
                 //Response: corresponding read bytes + checksum
                 StartUp = false;
-                //Debug.Log($"Side {side} NEXT READ {Convert.ToByte(data[2])}");
+                Debug.Log($"Side {side} NEXT READ {Convert.ToByte(data[2])}");
                 switch (Convert.ToByte(data[2]))
                 {
                     case 0x30:
                         var bytes = ByteHelper.ConvertStringToByteArray(read1);
                         bytes.Add(ByteHelper.CalCheckSum(bytes.ToArray(), bytes.Count));
-                        //Debug.Log("Read 1");
+                        Debug.Log("Read 1");
                         Serial.Write(bytes.ToArray(), 0, bytes.Count);
                         break;
                     case 0x31:
                         var bytes2 = ByteHelper.ConvertStringToByteArray(read2);
                         bytes2.Add(ByteHelper.CalCheckSum(bytes2.ToArray(), bytes2.Count));
-                        //Debug.Log("Read 2");
+                        Debug.Log("Read 2");
                         Serial.Write(bytes2.ToArray(), 0, bytes2.Count);
                         break;
                     case 0x33:
                         var bytes3 = ByteHelper.ConvertStringToByteArray(read3);
                         bytes3.Add(ByteHelper.CalCheckSum(bytes3.ToArray(), bytes3.Count));
-                        //Debug.Log("Read 3");
+                        Debug.Log("Read 3");
                         Serial.Write(bytes3.ToArray(), 0, bytes3.Count);
                         break;
                     default:
-                        //Debug.Log("Extra Read");
+                        Debug.Log("Extra Read");
                         break;
                 }
                 break;
@@ -189,34 +192,34 @@ public class SerialManager : MonoBehaviour
                         unitBytes.AddRange(ByteHelper.ConvertStringToByteArray(UNIT_BOARD_VER));
                 unitBytes.Add(unitCheckSum);
                 Serial.Write(unitBytes.ToArray(), 0, unitBytes.Count);
-                //Debug.Log($"GET UNIT BOARD VER {side}");
+                Debug.Log($"GET UNIT BOARD VER {side}");
                 break;
             case CMD_MYSTERY1:
                 StartUp = false;
                 Serial.Write(SettingData_162, 0, 3);
-                //Debug.Log($"MYSTERY 1 SIDE {side}");
+                Debug.Log($"MYSTERY 1 SIDE {side}");
                 break;
             case CMD_MYSTERY2:
                 StartUp = false;
                 Serial.Write(SettingData_148, 0, 3);
-                //Debug.Log($"MYSTERY 2 SIDE {side}");
+                Debug.Log($"MYSTERY 2 SIDE {side}");
                 break;
             case CMD_START_AUTO_SCAN:
                 Serial.Write(SettingData_201.ToArray(), 0, 3);
-                //Debug.Log($"START AUTO SCAN SIDE {side}");
+                Debug.Log($"START AUTO SCAN SIDE {side}");
                 StartUp = true;
                 if (!_touchThread.IsAlive)
                     _touchThread.Start();
                 break;
             case CMD_BEGIN_WRITE:
-          //      Debug.Log($"Begin Write For Side {side}");
+                Debug.Log($"Begin Write For Side {side}");
                 break;
             case CMD_NEXT_WRITE:
-          //      Debug.Log($"Continue Write For Side {side}");
+                Debug.Log($"Continue Write For Side {side}");
                 break;
             case 154:
                 StartUp = false;
-                //Debug.Log("BAD");
+                Debug.Log("BAD");
                 break;
         }
     }
@@ -241,13 +244,13 @@ public class SerialManager : MonoBehaviour
         Area -= 1; //0-239
         if (Area < 120) //right side
         {    
-            Area += Area / 5 * 3 + 7; 
+            Area += Area / 5 * 3 + 8; 
             ByteHelper.SetBit(TouchPackR, Area, State);
         }
         else if (Area >= 120) //left side
         {
             Area -= 120;
-            Area += Area / 5 * 3 + 7; 
+            Area += Area / 5 * 3 + 8; 
             ByteHelper.SetBit(TouchPackL, Area, State);
         }
     }

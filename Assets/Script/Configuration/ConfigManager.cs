@@ -24,11 +24,11 @@ public class ConfigManager : MonoBehaviour
     {
         onConfigChanged += EnsureInitialization;
         onConfigChanged += SaveFileWait;
-        
+        EnsureInitialization();
     }
     void Start()
     {
-        EnsureInitialization();
+        
         AddListenerToWidget(ConfigPanelComponents);
         onConfigChanged?.Invoke();
     }

@@ -16,8 +16,9 @@ public class TouchManager : MonoBehaviour
         var toggle = widget.GetComponent<Toggle>();
         toggle.onValueChanged.AddListener((value) => {
             useIPCTouch = value;
+            Debug.Log("UseIPCTouch: " + value);
         });
-        toggle.onValueChanged.Invoke(useIPCTouch);
+        toggle.onValueChanged.Invoke(toggle.isOn);
     }
 
     IEnumerator TouchTest(bool State) //this is a touch test code
@@ -33,6 +34,7 @@ public class TouchManager : MonoBehaviour
     }
     public static void SetTouch(int Area, bool State) //set touch data 1-240
     {
+        Debug.Log("SetTouch: " + Area + " " + State + " " + useIPCTouch);
         if (useIPCTouch)
             IPCManager.SetTouch(Area, State); //send touch data to IPC
         else
