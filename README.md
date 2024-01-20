@@ -64,7 +64,7 @@ Thank you to Glub Glub for releasing this!
 - You have 2 ways to connect touch to the game. Please only choose one of them:
 
 #### mercuryio
-  - You can find the ``mercuryio.dll`` inside the release file or you can download it [here](https://wacvr.cf/mercuryio.dll).
+  - You can find the ``mercuryio.dll`` inside the release file or you can download it [here](https://wacvr.xpengs.com/mercuryio.dll).
   - Put ``mercuryio.dll`` into ``bin`` folder.
   - Add ``[touch] enable=1`` to .ini file
   - Add ``[mercuryio] path=mercuryio.dll`` to .ini file.
